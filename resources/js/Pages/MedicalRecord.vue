@@ -83,7 +83,7 @@
                                                     </v-col>
                                                 </v-row>
                                                 <v-row>
-                                                    <v-col cols="12" md="4">
+                                                    <v-col cols="6" md="6">
                                                         <v-text-field
                                                             v-model="
                                                                 form.current_vitals
@@ -92,14 +92,14 @@
                                                         ></v-text-field>
                                                     </v-col>
 
-                                                    <v-col cols="12" md="4">
+                                                    <v-col cols="3" md="3">
                                                         <v-text-field
                                                             v-model="form.bmi"
                                                             label="BMI" disabled
                                                         ></v-text-field>
                                                     </v-col>
 
-                                                    <v-col cols="12" md="4">
+                                                    <v-col cols="3" md="3">
                                                         <v-text-field
                                                             v-model="form.temp"
                                                             label="Temperature" disabled
@@ -195,8 +195,7 @@
                                     </v-tabs-items>
                                 </v-card>
                             </v-col>
-                        </v-row>
-                    
+                        </v-row>                    
                 </div>
             </div>
         </div>

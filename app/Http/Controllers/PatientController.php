@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 
-class PatientController extends Controller
+class PatientController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        return $this->sendResponse($patients->toArray(), 'Patients saved successfully');
     }
 
     /**
@@ -35,7 +36,7 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -46,7 +47,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        //
+        dd($patient);
     }
 
     /**
@@ -57,7 +58,7 @@ class PatientController extends Controller
      */
     public function edit(Patient $patient)
     {
-        //
+        dd($patient);
     }
 
     /**
@@ -69,7 +70,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        //
+        dd($patient);
     }
 
     /**
@@ -80,6 +81,6 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+        dd($patient);
     }
 }

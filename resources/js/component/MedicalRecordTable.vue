@@ -17,7 +17,7 @@
                                 on,
                                 attrs
                             }"
-                        >                            
+                        >
                         </template>
                         <v-card>
                             <v-card-title>
@@ -81,7 +81,7 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-icon @click="viewItem(item)" large>mdi-eye</v-icon>                
+                <v-icon @click="viewItem(item)" large>mdi-eye</v-icon>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
@@ -96,9 +96,14 @@
 export default {
     name: "MedicalRecordTable",
     created() {
+        this.fetchPatient();
         this.initialize();
     },
     methods: {
+         async fetchPatient() {
+            await this.$store
+                .dispatch('patient/all');
+         },
         viewItem(item) {
             this.$emit("viewMedicalRecord", item.id);
         },
@@ -106,7 +111,7 @@ export default {
             this.patients = [
                 {
                     id: 1,
-                    mrn:1,
+                    mrn: 1,
                     lastname: "Jose",
                     firstname: "Coronel",
                     age: 31,
@@ -190,6 +195,9 @@ export default {
         }
     },
     computed: {
+        patientss() {
+            return this.$store.getters['patient/patients']
+        },
         formTitle() {
             return this.editedIndex === -1 ? "New Patient" : "Edit Patient";
         }

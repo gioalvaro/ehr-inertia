@@ -11,11 +11,11 @@
                     <v-toolbar-title>Physician Notes</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>                    
-                    <v-icon @click="createItem(item)" large>mdi-plus</v-icon>
+                    <v-icon class="transition duration-500 ease-in-out text-black hover:text-blue-500 transform hover:-translate-y-1 hover:scale-110" @click="createItem(item)" large>mdi-plus</v-icon>
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-icon @click="viewItem(item)" large>mdi-eye</v-icon>
+                <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
@@ -111,6 +111,7 @@ export default {
             return this.editedIndex === -1 ? "New Physician Note" : "Edit Physician Note";
         }
     },
+    
     data() {
         return {
             dialog: false,

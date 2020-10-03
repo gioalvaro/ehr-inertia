@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -41,3 +42,24 @@ Route::middleware(['auth:sanctum','verified'])->get('/user', function (Request $
 Route::middleware(['auth:sanctum','verified'])->get('/medical-record/{medicalRecord_id}', function (Request $request) {
     return Inertia\Inertia::render('MedicalRecord');
 })->name('medical-record');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    
+    //Patient 
+    Route::get('/patients', [PatientController::class, 'index'])->name("patients-index");
+    Route::get('/patients/{id}', [PatientController::class, 'show'])->name("patients-show");
+    Route::put('/patients/{id}', [PatientController::class, 'update'])->name("patients-update");
+    Route::post('/patients', [PatientController::class, 'store'])->name("patients-store");
+    Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->name("patients-destroy");
+
+    //Medication
+    
+
+    //Physician note
+
+    //Nursing Note
+
+    //Lab results
+    
+
+});

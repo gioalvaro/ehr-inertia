@@ -5,30 +5,38 @@
                 Electronical Health Record Simulator v.01
             </h2>
         </template>
-
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div>
-                        <v-app>                           
-                            <v-row>
-                                <v-col>
-                                    <transition
-                                        name="component-fade"
-                                        mode="out-in"
-                                    >
-                                        <component
-                                            v-bind:is="view"                                            
-                                            :id="medical_record"                                            
-                                            @viewMedicalRecord="cambiarComponente"
-                                        ></component>
-                                    </transition>                                    
-                                </v-col>
-                            </v-row>
-                        </v-app>
-                    </div>
-                </div>
-            </div>
+            <v-app>
+                    <v-main class="bg-gris">
+                        <!-- Provides the application the proper gutter -->
+                        <v-container fluid>
+                            <div
+                                class="bg-white overflow-hidden shadow-xl sm:rounded-lg"
+                            >
+                                <v-row>
+                                    <v-col>
+                                        <transition
+                                            name="component-fade"
+                                            mode="out-in"
+                                        >
+                                            <component
+                                                v-bind:is="view"
+                                                :id="medical_record"
+                                                @viewMedicalRecord="
+                                                    cambiarComponente
+                                                "
+                                            ></component>
+                                        </transition>
+                                    </v-col>
+                                </v-row>
+                            </div>
+                        </v-container>
+                    </v-main>
+
+                <v-footer app>
+                    Created by 
+                </v-footer>
+            </v-app>
         </div>
     </app-layout>
 </template>
@@ -45,7 +53,6 @@ export default {
         Welcome,
         MedicalRecordTable,
         MedicalRecord
-
     },
     data: () => ({
         view: "MedicalRecordTable"
@@ -54,21 +61,19 @@ export default {
         cambiarComponente(id) {
             if (this.view === "MedicalRecord") {
                 this.view = "MedicalRecordTable";
-                this.deshabilitado = false;                
-                this.titulo =
-                    "Medical Record";
+                this.deshabilitado = false;
+                this.titulo = "Medical Record";
             } else {
                 this.view = "MedicalRecord";
                 this.deshabilitado = true;
                 this.titulo = "Medical Record Table";
-                if (id !== 0) {                    
+                if (id !== 0) {
                     this.medical_record = id;
-                } else {                    
+                } else {
                     this.medical_record = 0;
                 }
             }
-        },
-        
+        }
     }
 };
 </script>

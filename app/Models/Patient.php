@@ -63,7 +63,7 @@ class Patient extends Model
         'temperature' => 'float',
         'temperature_type' => 'string',
         'bmi' => 'float',
-        'current_vitals' => 'datetime:d/m/Y',
+        'current_vitals' => 'string',
         'allergie' => 'string',
         'allergie_check' => 'boolean',
         'ga' => 'integer',

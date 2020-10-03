@@ -6,3 +6,7 @@
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,115,215,1) 47%, rgba(255,255,255,1) 100%);
 }
+
+.bg-gris{
+    background: #f4f5f7
+}
