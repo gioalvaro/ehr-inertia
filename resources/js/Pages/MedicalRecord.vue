@@ -211,6 +211,9 @@ import Medication from "./Medication";
 
 export default {
     name:"MedicalRecord",
+    created () {
+        this.patient = this.lookPatient();
+    },
     props: {
         id: {
             type: Number,
@@ -226,6 +229,7 @@ export default {
         Orders
     },
     data: () => ({
+        patient: {},
         tab: null,
         form: {
             id: 1,
@@ -234,7 +238,7 @@ export default {
             firstname: "Jose",
             age: 51,
             sex: "Male",
-            day_of_birth: new Date('1950-05-05'),
+            day_of_birth: new Date('1950-05-05').toISOString().substr(0, 10),
             current_vitals: "BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)",
             bmi: 29,
             temp: 100.8,
@@ -243,13 +247,29 @@ export default {
         },
     }),
     methods: {
-        updateMedicalRecord(){
-            
+        lookPatient(){
+            let index = this.patients.findIndex(
+                item => item.id === this.id
+            );
+            let patient = this.patients[index];
+            return patient;
         },
-        volver() {            
+        async updateMedicalRecord(){
+            await this.$store.dispatch('patient/update', this.patient);
+        },
+        volver() {  
+            this.updateMedicalRecord();          
             this.$emit("viewMedicalRecord");
         }
-    }
+    },
+    computed: {
+        // patient() {
+        //     return this.$store.getters['patient/patient'];
+        // },
+        patients() {
+            return this.$store.getters['patient/patients'];
+        },
+    },
 };
 </script>
 

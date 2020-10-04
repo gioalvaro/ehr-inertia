@@ -13,8 +13,7 @@ export default {
         FETCH_PATIENTS(state, patients) {
             return (state.patients = patients);
         },
-        FETCH_PATIENT(state, patient) {
-            state.patients.push(patient);
+        FETCH_PATIENT(state, patient) {           
             return (state.patient = patient);
         },
         DELETE_PATIENT(state, id) {

@@ -3600,12 +3600,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var _LabsResult__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LabsResult */ "./resources/js/Pages/LabsResult.vue");
-/* harmony import */ var _Orders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Orders */ "./resources/js/Pages/Orders.vue");
-/* harmony import */ var _PhysicianNote__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PhysicianNote */ "./resources/js/Pages/PhysicianNote.vue");
-/* harmony import */ var _NursingNote__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NursingNote */ "./resources/js/Pages/NursingNote.vue");
-/* harmony import */ var _Medication__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Medication */ "./resources/js/Pages/Medication.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _LabsResult__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LabsResult */ "./resources/js/Pages/LabsResult.vue");
+/* harmony import */ var _Orders__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Orders */ "./resources/js/Pages/Orders.vue");
+/* harmony import */ var _PhysicianNote__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PhysicianNote */ "./resources/js/Pages/PhysicianNote.vue");
+/* harmony import */ var _NursingNote__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./NursingNote */ "./resources/js/Pages/NursingNote.vue");
+/* harmony import */ var _Medication__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Medication */ "./resources/js/Pages/Medication.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3817,6 +3825,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MedicalRecord",
+  created: function created() {
+    this.patient = this.lookPatient();
+  },
   props: {
     id: {
       type: Number,
@@ -3824,15 +3835,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
-    LabsResult: _LabsResult__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PhysicianNote: _PhysicianNote__WEBPACK_IMPORTED_MODULE_3__["default"],
-    NursingNote: _NursingNote__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Medication: _Medication__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Orders: _Orders__WEBPACK_IMPORTED_MODULE_2__["default"]
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"],
+    LabsResult: _LabsResult__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PhysicianNote: _PhysicianNote__WEBPACK_IMPORTED_MODULE_4__["default"],
+    NursingNote: _NursingNote__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Medication: _Medication__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Orders: _Orders__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
+      patient: {},
       tab: null,
       form: {
         id: 1,
@@ -3841,7 +3853,7 @@ __webpack_require__.r(__webpack_exports__);
         firstname: "Jose",
         age: 51,
         sex: "Male",
-        day_of_birth: new Date('1950-05-05'),
+        day_of_birth: new Date('1950-05-05').toISOString().substr(0, 10),
         current_vitals: "BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)",
         bmi: 29,
         temp: 100.8,
@@ -3851,9 +3863,45 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateMedicalRecord: function updateMedicalRecord() {},
+    lookPatient: function lookPatient() {
+      var _this = this;
+
+      var index = this.patients.findIndex(function (item) {
+        return item.id === _this.id;
+      });
+      var patient = this.patients[index];
+      return patient;
+    },
+    updateMedicalRecord: function updateMedicalRecord() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.$store.dispatch('patient/update', _this2.patient);
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     volver: function volver() {
+      this.updateMedicalRecord();
       this.$emit("viewMedicalRecord");
+    }
+  },
+  computed: {
+    // patient() {
+    //     return this.$store.getters['patient/patient'];
+    // },
+    patients: function patients() {
+      return this.$store.getters['patient/patients'];
     }
   }
 });
@@ -6165,11 +6213,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         text: "Scheduled Time",
         value: "scheduled_time",
-        sortable: false
+        sortable: true
       }, {
         text: "Arrival Time",
         value: "arrival_time",
-        sortable: false
+        sortable: true
       }, {
         text: "Checkout",
         value: "checkout",
@@ -95460,6 +95508,734 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/modules/LaboratoryModule.js":
+/*!**************************************************!*\
+  !*** ./resources/js/modules/LaboratoryModule.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    laboratories: [],
+    laboratory: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.laboratories = [];
+      state.laboratory = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.laboratories = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.laboratories.push(item);
+      return state.laboratory = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.laboratories.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.laboratories.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.laboratories.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.laboratories.splice(index, 1);
+      state.laboratories.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/laboratories").then(function (res) {
+                  console.log("get laboratories ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get laboratories: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/laboratories/".concat(id)).then(function (res) {
+                  console.log("get laboratories ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get laboratories: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/laboratories", item).then(function (res) {
+                  if (res.data.success) console.log("post laboratories ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de laboratories: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/laboratories/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la laboratories: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/laboratories/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar laboratories" + err);
+                });
+                console.log("Sale de la actualizacion de laboratories");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    laboratories: function laboratories(state) {
+      return state.laboratories;
+    },
+    laboratory: function laboratory(state) {
+      return state.laboratory;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/MedicalRecordModule.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/modules/MedicalRecordModule.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    medical_records: [],
+    medical_record: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.medical_records = [];
+      state.medical_record = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.medical_records = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.medical_records.push(item);
+      return state.medical_record = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.medical_records.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.medical_records.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.medical_records.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.medical_records.splice(index, 1);
+      state.medical_records.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/medical_records").then(function (res) {
+                  console.log("get medical records ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get medical records: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/medical_records/".concat(id)).then(function (res) {
+                  console.log("get medical record ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get medical_records: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/medical_records", item).then(function (res) {
+                  if (res.data.success) console.log("get medical_record ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de medical record: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/medical_records/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la medical records: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/medical_records/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar medical records" + err);
+                });
+                console.log("Sale de la actualizacion de medical records");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    medical_records: function medical_records(state) {
+      return state.medical_records;
+    },
+    medical_record: function medical_record(state) {
+      return state.medical_record;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/MedicationModule.js":
+/*!**************************************************!*\
+  !*** ./resources/js/modules/MedicationModule.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    medications: [],
+    medication: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.medications = [];
+      state.medication = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.medications = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.medications.push(item);
+      return state.medication = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.medications.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.medications.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.medications.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.medications.splice(index, 1);
+      state.medications.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/medications").then(function (res) {
+                  console.log("get medications ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get medications: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/medications/".concat(id)).then(function (res) {
+                  console.log("get medications ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get medications: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/medications", item).then(function (res) {
+                  if (res.data.success) console.log("post medications ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de medications: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/medications/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la medications: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/medications/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar medications" + err);
+                });
+                console.log("Sale de la actualizacion de medications");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    medications: function medications(state) {
+      return state.medications;
+    },
+    medication: function medication(state) {
+      return state.medication;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/NursingNoteModule.js":
+/*!***************************************************!*\
+  !*** ./resources/js/modules/NursingNoteModule.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    nursing_notes: [],
+    nursing_note: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.nursing_notes = [];
+      state.nursing_note = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.nursing_notes = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.nursing_notes.push(item);
+      return state.nursing_note = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.nursing_notes.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.nursing_notes.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.nursing_notes.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.nursing_notes.splice(index, 1);
+      state.nursing_notes.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/nursing_notes").then(function (res) {
+                  console.log("get nursing_notes ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get nursing_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/nursing_notes/".concat(id)).then(function (res) {
+                  console.log("get nursing_notes ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get nursing_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/nursing_notes", item).then(function (res) {
+                  if (res.data.success) console.log("get nursing_notes ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de nursing_notes: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/nursing_notes/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la nursing_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/nursing_notes/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar nursing_notes" + err);
+                });
+                console.log("Sale de la actualizacion de nursing_notes");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    nursing_notes: function nursing_notes(state) {
+      return state.nursing_notes;
+    },
+    nursing_note: function nursing_note(state) {
+      return state.nursing_note;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/PatientModule.js":
 /*!***********************************************!*\
   !*** ./resources/js/modules/PatientModule.js ***!
@@ -95492,7 +96268,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return state.patients = patients;
     },
     FETCH_PATIENT: function FETCH_PATIENT(state, patient) {
-      state.patients.push(patient);
       return state.patient = patient;
     },
     DELETE_PATIENT: function DELETE_PATIENT(state, id) {
@@ -95569,7 +96344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log("inicio de post");
                 axios.post("/patients", patient).then(function (res) {
                   if (res.data.success) console.log("get patient ", res.data);
-                  commit("FETCH_PATIENT", res.data);
+                  commit("FETCH_PATIENT", patient);
                 })["catch"](function (error) {
                   return console.error("Error con la insertada de patient: ".concat(error));
                 });
@@ -95642,6 +96417,188 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/PhysicianNoteModule.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/modules/PhysicianNoteModule.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    physician_notes: [],
+    physician_note: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.physician_notes = [];
+      state.physician_note = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.physician_notes = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.physician_notes.push(item);
+      return state.physician_note = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.physician_notes.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.physician_notes.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.physician_notes.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.physician_notes.splice(index, 1);
+      state.physician_notes.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/physician_notes").then(function (res) {
+                  console.log("get physician_notes ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get physician_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/physician_notes/".concat(id)).then(function (res) {
+                  console.log("get physician_notes ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get physician_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/physician_notes", item).then(function (res) {
+                  if (res.data.success) console.log("get physician_notes ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de physician_notes: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/physician_notes/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la physician_notes: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/physician_notes/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar physician_notes" + err);
+                });
+                console.log("Sale de la actualizacion de physician_notes");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    physician_notes: function physician_notes(state) {
+      return state.physician_notes;
+    },
+    physician_note: function physician_note(state) {
+      return state.physician_note;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/store.js":
 /*!*******************************!*\
   !*** ./resources/js/store.js ***!
@@ -95655,13 +96612,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_PatientModule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/PatientModule */ "./resources/js/modules/PatientModule.js");
+/* harmony import */ var _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/LaboratoryModule */ "./resources/js/modules/LaboratoryModule.js");
+/* harmony import */ var _modules_NursingNoteModule__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/NursingNoteModule */ "./resources/js/modules/NursingNoteModule.js");
+/* harmony import */ var _modules_PhysicianNoteModule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/PhysicianNoteModule */ "./resources/js/modules/PhysicianNoteModule.js");
+/* harmony import */ var _modules_MedicationModule__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/MedicationModule */ "./resources/js/modules/MedicationModule.js");
+/* harmony import */ var _modules_MedicalRecordModule__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/MedicalRecordModule */ "./resources/js/modules/MedicalRecordModule.js");
+
+
+
+
+
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    patient: _modules_PatientModule__WEBPACK_IMPORTED_MODULE_2__["default"]
+    patient: _modules_PatientModule__WEBPACK_IMPORTED_MODULE_2__["default"],
+    medicalRecord: _modules_MedicalRecordModule__WEBPACK_IMPORTED_MODULE_7__["default"],
+    medication: _modules_MedicationModule__WEBPACK_IMPORTED_MODULE_6__["default"],
+    nursingNote: _modules_NursingNoteModule__WEBPACK_IMPORTED_MODULE_4__["default"],
+    physicianNote: _modules_PhysicianNoteModule__WEBPACK_IMPORTED_MODULE_5__["default"],
+    laboratory: _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
 

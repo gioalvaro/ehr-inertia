@@ -160,12 +160,12 @@ export default {
                 {
                     text: "Scheduled Time",
                     value: "scheduled_time",
-                    sortable: false
+                    sortable: true
                 },
                 {
                     text: "Arrival Time",
                     value: "arrival_time",
-                    sortable: false
+                    sortable: true
                 },
                 { text: "Checkout", value: "checkout", sortable: false },
                 { text: "Actions", value: "actions", sortable: false }
