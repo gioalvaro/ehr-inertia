@@ -2,8 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div>
-                    Number: {{id}}
+                <div>                    
                         <v-row>                            
                             <v-col cols="2">
                                 <img src="http://localhost:8000/storage/patient-photos/Patient_1.png" width="250"/>
@@ -244,7 +243,10 @@ export default {
         },
     }),
     methods: {
-        volver() {
+        updateMedicalRecord(){
+            
+        },
+        volver() {            
             this.$emit("viewMedicalRecord");
         }
     }

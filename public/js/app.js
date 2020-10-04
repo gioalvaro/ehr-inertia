@@ -3809,7 +3809,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -3852,6 +3851,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    updateMedicalRecord: function updateMedicalRecord() {},
     volver: function volver() {
       this.$emit("viewMedicalRecord");
     }
@@ -29839,11 +29839,6 @@ var render = function() {
           _c(
             "div",
             [
-              _vm._v(
-                "\n                Number: " +
-                  _vm._s(_vm.id) +
-                  "\n                    "
-              ),
               _c(
                 "v-row",
                 [

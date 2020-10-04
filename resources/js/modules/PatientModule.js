@@ -61,7 +61,7 @@ export default {
                 .then((res) => {
                     if (res.data.success)
                         console.log("get patient ", res.data);
-                        commit("FETCH_PATIENT", res.data);
+                        commit("FETCH_PATIENT", patient);
                 })
                 .catch(error =>
                     console.error(`Error con la insertada de patient: ${error}`)
