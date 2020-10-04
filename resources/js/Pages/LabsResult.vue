@@ -29,7 +29,7 @@
             <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
                 <v-card v-if="i === 1" flat>
                     <v-card-text>
-                        <lab-results-table />
+                        <laboratories />
                     </v-card-text>
                 </v-card>
                 <v-card v-if="i === 2" flat>
@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import LabResultsTable from "../component/LabResultsTable"
-import Imaging from "../component/Imaging"
-import Studies from "../component/Studies"
+import Laboratories from "../component/LabResults/Laboratories"
+import Imaging from "../component/LabResults/Imaging"
+import Studies from "../component/LabResults/Studies"
 
 export default {
     name: "LabsResult",
     components: {
-        LabResultsTable,
+        Laboratories,
         Imaging,
         Studies
     },

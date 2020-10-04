@@ -55,7 +55,8 @@ export default {
         MedicalRecord
     },
     data: () => ({
-        view: "MedicalRecordTable"
+        view: "MedicalRecordTable",
+        medical_record: 0
     }),
     methods: {
         cambiarComponente(id) {

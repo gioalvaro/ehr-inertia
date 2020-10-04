@@ -10,78 +10,18 @@
                 <v-toolbar flat>
                     <v-toolbar-title>Schedule</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog" max-width="500px">
-                        <template
-                            v-slot:activator="{
-                                on,
-                                attrs
-                            }"
-                        >
-                        </template>
-                        <v-card>
-                            <v-card-title>
-                                <span class="headline">{{ formTitle }}</span>
-                            </v-card-title>
-
-                            <v-card-text>
-                                <v-container>
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.lastname"
-                                                label="Last Name"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.firstname"
-                                                label="First Name"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.age"
-                                                label="Age"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.sex"
-                                                label="Sex"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="
-                                                    editedItem.scheduled_time
-                                                "
-                                                label="Scheduled Time"
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    color="blue darken-1"
-                                    text
-                                    @click="close"
-                                >
-                                    Cancel
-                                </v-btn>
-                                <v-btn color="blue darken-1" text @click="save">
-                                    Save
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                    <v-spacer></v-spacer>                    
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon @click="viewItem(item)" large>mdi-eye</v-icon>
+            </template>
+            <template v-slot:item.checkout="{ item }">
+                <v-checkbox
+              v-model="item.checkout"              
+              color="success"              
+              disabled
+            ></v-checkbox>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
