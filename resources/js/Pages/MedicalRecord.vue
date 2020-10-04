@@ -101,7 +101,7 @@
 
                                                     <v-col cols="3" md="3">
                                                         <v-text-field
-                                                            v-model="form.temp"
+                                                            v-model="form.temperature"
                                                             label="Temperature" disabled
                                                         ></v-text-field>
                                                     </v-col>

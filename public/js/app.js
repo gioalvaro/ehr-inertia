@@ -30116,15 +30116,15 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.temp,
+                                                  value: _vm.form.temperature,
                                                   callback: function($$v) {
                                                     _vm.$set(
                                                       _vm.form,
-                                                      "temp",
+                                                      "temperature",
                                                       $$v
                                                     )
                                                   },
-                                                  expression: "form.temp"
+                                                  expression: "form.temperature"
                                                 }
                                               })
                                             ],
