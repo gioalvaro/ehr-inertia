@@ -37,14 +37,14 @@ export default {
     name: "MedicalRecordTable",
     created() {
         this.fetchPatient();
-        this.initialize();
+        //this.initialize();
     },
     methods: {
          async fetchPatient() {
             await this.$store
                 .dispatch('patient/all');
          },
-        viewItem(item) {
+        viewItem(item) {            
             this.$emit("viewMedicalRecord", item.id);
         },
         initialize() {
@@ -135,7 +135,7 @@ export default {
         }
     },
     computed: {
-        patientss() {
+        patients() {
             return this.$store.getters['patient/patients']
         },
         formTitle() {
@@ -170,7 +170,6 @@ export default {
                 { text: "Checkout", value: "checkout", sortable: false },
                 { text: "Actions", value: "actions", sortable: false }
             ],
-            patients: [],
             editedIndex: -1,
             editedItem: {
                 lastname: "",

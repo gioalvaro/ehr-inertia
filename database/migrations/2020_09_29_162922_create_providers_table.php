@@ -18,6 +18,7 @@ class CreateProvidersTable extends Migration
             $table->string('title');
             $table->string('lastname');
             $table->string('firstname');
+            $table->foreignId('user_id')->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });

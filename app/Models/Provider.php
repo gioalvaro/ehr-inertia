@@ -21,7 +21,8 @@ class Provider extends Model
     public $fillable = [
         'firstname',
         'lastname',
-        'title'
+        'title',
+        'user_id'
     ];
 
     /**
@@ -77,5 +78,11 @@ class Provider extends Model
     {
         return $this->hasMany(\App\Models\NursingNote::class, 'provider_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
 
 }

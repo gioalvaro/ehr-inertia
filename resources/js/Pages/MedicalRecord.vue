@@ -4,8 +4,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div>                    
                         <v-row>                            
-                            <v-col cols="2">
-                                <img src="http://localhost:8000/storage/patient-photos/Patient_1.png" width="250"/>
+                            <v-col cols="2">                                
+                                <img :src="form.photo_url" width="250"/>
                             </v-col>
                             <v-col cols="10">
                                 <v-card>
@@ -20,7 +20,7 @@
                                         >
                                     </v-card-title>
                                     <v-card-text>
-                                        <v-form v-model="valid">
+                                        <v-form>
                                             <v-container>
                                                 <v-row>
                                                     <v-col cols="12" md="4">
@@ -77,7 +77,8 @@
                                                         <v-checkbox
                                                             v-model="form.allergies_check"
                                                             label="Allergies Check"
-                                                            value="Checked" disabled
+                                                            value="Checked"
+                                                            @change="updateAllergies"
                                                         ></v-checkbox>                                                        
                                                     </v-col>
                                                 </v-row>
@@ -212,7 +213,8 @@ import Medication from "./Medication";
 export default {
     name:"MedicalRecord",
     created () {
-        this.patient = this.lookPatient();
+        console.log(this.id)
+        this.form = this.lookPatient();
     },
     props: {
         id: {
@@ -230,6 +232,7 @@ export default {
     },
     data: () => ({
         patient: {},
+        baseURL: window.location.hostname,
         tab: null,
         form: {
             id: 1,
@@ -254,11 +257,13 @@ export default {
             let patient = this.patients[index];
             return patient;
         },
-        async updateMedicalRecord(){
-            await this.$store.dispatch('patient/update', this.patient);
+        async updateMedicalRecord(patient){
+            await this.$store.dispatch('patient/update', patient);
         },
-        volver() {  
-            this.updateMedicalRecord();          
+        async updateAllergies(){
+            await this.$store.dispatch('patient/update', form);
+        },
+        volver() {
             this.$emit("viewMedicalRecord");
         }
     },

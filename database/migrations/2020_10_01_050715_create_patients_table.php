@@ -25,11 +25,11 @@ class CreatePatientsTable extends Migration
             $table->dateTime('arrival_time');
             $table->date('day_of_birth');
             $table->boolean('checkout')->nullable();
-            $table->float('bmi',2,2);
+            $table->float('bmi');
             $table->longText('current_vitals');
             $table->boolean('allergies_check')->nullable();
             $table->string('allergies')->nullable();
-            $table->float('temperature',3,2)->nullable();
+            $table->float('temperature')->nullable();
             $table->enum('temperature_type', ['oral', 'rectum', 'armpit'])->nullable();
             $table->text('photo_url')->nullable();
             $table->integer('ga')->nullable();

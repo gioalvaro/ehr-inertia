@@ -3485,7 +3485,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       view: "MedicalRecordTable",
-      medical_record: 0
+      id: 0
     };
   },
   methods: {
@@ -3500,9 +3500,9 @@ __webpack_require__.r(__webpack_exports__);
         this.titulo = "Medical Record Table";
 
         if (id !== 0) {
-          this.medical_record = id;
+          this.id = id;
         } else {
-          this.medical_record = 0;
+          this.id = 0;
         }
       }
     }
@@ -3817,6 +3817,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -3826,7 +3827,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MedicalRecord",
   created: function created() {
-    this.patient = this.lookPatient();
+    console.log(this.id);
+    this.form = this.lookPatient();
   },
   props: {
     id: {
@@ -3845,6 +3847,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       patient: {},
+      baseURL: window.location.hostname,
       tab: null,
       form: {
         id: 1,
@@ -3872,7 +3875,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var patient = this.patients[index];
       return patient;
     },
-    updateMedicalRecord: function updateMedicalRecord() {
+    updateMedicalRecord: function updateMedicalRecord(patient) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3881,7 +3884,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this2.$store.dispatch('patient/update', _this2.patient);
+                return _this2.$store.dispatch('patient/update', patient);
 
               case 2:
               case "end":
@@ -3891,8 +3894,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+    updateAllergies: function updateAllergies() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$store.dispatch('patient/update', form);
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     volver: function volver() {
-      this.updateMedicalRecord();
       this.$emit("viewMedicalRecord");
     }
   },
@@ -4123,103 +4144,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4228,18 +4152,14 @@ __webpack_require__.r(__webpack_exports__);
     PhysicianNoteItem: _component_PhysicianNoteItem__WEBPACK_IMPORTED_MODULE_0__["default"],
     PhysicianNoteTable: _component_PhysicianNoteTable__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  created: function created() {
-    this.initialize();
-  },
+  created: function created() {},
   methods: {
     cambiarComponente: function cambiarComponente(id) {
       if (this.view === "PhysicianNoteItem") {
         this.view = "PhysicianNoteTable";
-        this.deshabilitado = false;
         this.titulo = "Physician Note";
       } else {
         this.view = "PhysicianNoteItem";
-        this.deshabilitado = true;
         this.titulo = "Physician Note Table";
 
         if (id !== 0) {
@@ -4252,6 +4172,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      physician_note: 0,
       view: "PhysicianNoteTable"
     };
   }
@@ -6072,8 +5993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MedicalRecordTable",
   created: function created() {
-    this.fetchPatient();
-    this.initialize();
+    this.fetchPatient(); //this.initialize();
   },
   methods: {
     fetchPatient: function fetchPatient() {
@@ -6179,7 +6099,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    patientss: function patientss() {
+    patients: function patients() {
       return this.$store.getters['patient/patients'];
     },
     formTitle: function formTitle() {
@@ -6227,7 +6147,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "actions",
         sortable: false
       }],
-      patients: [],
       editedIndex: -1,
       editedItem: {
         lastname: "",
@@ -29692,7 +29611,7 @@ var render = function() {
                                   [
                                     _c(_vm.view, {
                                       tag: "component",
-                                      attrs: { id: _vm.medical_record },
+                                      attrs: { id: _vm.id },
                                       on: {
                                         viewMedicalRecord: _vm.cambiarComponente
                                       }
@@ -29892,11 +29811,7 @@ var render = function() {
                 [
                   _c("v-col", { attrs: { cols: "2" } }, [
                     _c("img", {
-                      attrs: {
-                        src:
-                          "http://localhost:8000/storage/patient-photos/Patient_1.png",
-                        width: "250"
-                      }
+                      attrs: { src: _vm.form.photo_url, width: "250" }
                     })
                   ]),
                   _vm._v(" "),
@@ -29936,15 +29851,6 @@ var render = function() {
                             [
                               _c(
                                 "v-form",
-                                {
-                                  model: {
-                                    value: _vm.valid,
-                                    callback: function($$v) {
-                                      _vm.valid = $$v
-                                    },
-                                    expression: "valid"
-                                  }
-                                },
                                 [
                                   _c(
                                     "v-container",
@@ -30119,8 +30025,10 @@ var render = function() {
                                               _c("v-checkbox", {
                                                 attrs: {
                                                   label: "Allergies Check",
-                                                  value: "Checked",
-                                                  disabled: ""
+                                                  value: "Checked"
+                                                },
+                                                on: {
+                                                  change: _vm.updateAllergies
                                                 },
                                                 model: {
                                                   value:
@@ -30725,331 +30633,7 @@ var render = function() {
           })
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("v-data-table", {
-        staticClass: "elevation-1",
-        attrs: { headers: _vm.headers, items: _vm.patients, "sort-by": "id" },
-        scopedSlots: _vm._u([
-          {
-            key: "top",
-            fn: function() {
-              return [
-                _c(
-                  "v-toolbar",
-                  { attrs: { flat: "" } },
-                  [
-                    _c("v-toolbar-title", [_vm._v("Medical Records")]),
-                    _vm._v(" "),
-                    _c("v-divider", {
-                      staticClass: "mx-4",
-                      attrs: { inset: "", vertical: "" }
-                    }),
-                    _vm._v(" "),
-                    _c("v-spacer"),
-                    _vm._v(" "),
-                    _c(
-                      "v-dialog",
-                      {
-                        attrs: { "max-width": "500px" },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "activator",
-                            fn: function(ref) {
-                              var on = ref.on
-                              var attrs = ref.attrs
-                              return [
-                                _c(
-                                  "v-btn",
-                                  _vm._g(
-                                    _vm._b(
-                                      {
-                                        staticClass: "mb-2",
-                                        attrs: { color: "primary", dark: "" }
-                                      },
-                                      "v-btn",
-                                      attrs,
-                                      false
-                                    ),
-                                    on
-                                  ),
-                                  [
-                                    _vm._v(
-                                      "\n                            New Patient\n                        "
-                                    )
-                                  ]
-                                )
-                              ]
-                            }
-                          }
-                        ]),
-                        model: {
-                          value: _vm.dialog,
-                          callback: function($$v) {
-                            _vm.dialog = $$v
-                          },
-                          expression: "dialog"
-                        }
-                      },
-                      [
-                        _vm._v(" "),
-                        _c(
-                          "v-card",
-                          [
-                            _c("v-card-title", [
-                              _c("span", { staticClass: "headline" }, [
-                                _vm._v(_vm._s(_vm.formTitle))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-text",
-                              [
-                                _c(
-                                  "v-container",
-                                  [
-                                    _c(
-                                      "v-row",
-                                      [
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Last Name" },
-                                              model: {
-                                                value: _vm.editedItem.lastname,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "lastname",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression:
-                                                  "editedItem.lastname"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "First Name" },
-                                              model: {
-                                                value: _vm.editedItem.firstname,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "firstname",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression:
-                                                  "editedItem.firstname"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Age" },
-                                              model: {
-                                                value: _vm.editedItem.age,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "age",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.age"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: { label: "Sex" },
-                                              model: {
-                                                value: _vm.editedItem.sex,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "sex",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "editedItem.sex"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-col",
-                                          {
-                                            attrs: {
-                                              cols: "12",
-                                              sm: "6",
-                                              md: "4"
-                                            }
-                                          },
-                                          [
-                                            _c("v-text-field", {
-                                              attrs: {
-                                                label: "Scheduled Time"
-                                              },
-                                              model: {
-                                                value:
-                                                  _vm.editedItem.scheduled_time,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.editedItem,
-                                                    "scheduled_time",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression:
-                                                  "\n                                                editedItem.scheduled_time\n                                            "
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-actions",
-                              [
-                                _c("v-spacer"),
-                                _vm._v(" "),
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: { color: "blue darken-1", text: "" },
-                                    on: { click: _vm.close }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Cancel\n                            "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: { color: "blue darken-1", text: "" },
-                                    on: { click: _vm.save }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Save\n                            "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
-            },
-            proxy: true
-          },
-          {
-            key: "item.actions",
-            fn: function(ref) {
-              var item = ref.item
-              return [
-                _c(
-                  "v-icon",
-                  {
-                    attrs: { large: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.viewItem(item)
-                      }
-                    }
-                  },
-                  [_vm._v("mdi-eye")]
-                )
-              ]
-            }
-          },
-          {
-            key: "no-data",
-            fn: function() {
-              return [
-                _c(
-                  "v-btn",
-                  {
-                    attrs: { color: "primary" },
-                    on: { click: _vm.initialize }
-                  },
-                  [_vm._v("\n                Reset\n            ")]
-                )
-              ]
-            },
-            proxy: true
-          }
-        ])
-      })
+      )
     ],
     1
   )
@@ -96276,12 +95860,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       state.patients.splice(index, 1);
     },
-    EDIT_PATIENT: function EDIT_PATIENT(state, patient) {
-      var index = state.patients.findIndex(function (item) {
-        return item.id === patient.id;
-      });
-      state.patients.splice(index, 1);
-      state.patients.unshift(patient);
+    EDIT_PATIENT: function EDIT_PATIENT(state, patient) {// let index = state.patients.findIndex(
+      //     item => item.id === patient.id
+      // );
+      // state.patients.splice(index, 1);
+      // state.patients.unshift(patient);
     }
   },
   actions: {
@@ -96389,6 +95972,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 commit = _ref5.commit;
                 console.log("Comienza actualizacion");
+                console.log(patient);
                 axios.put("/patients/".concat(patient.id), patient).then(function (res) {
                   if (res.data.success) commit("EDIT_PATIENT", patient);
                 })["catch"](function (err) {
@@ -96396,7 +95980,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 console.log("Sale de la actualizacion de patient");
 
-              case 4:
+              case 5:
               case "end":
                 return _context5.stop();
             }

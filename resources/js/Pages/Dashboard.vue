@@ -21,7 +21,7 @@
                                         >
                                             <component
                                                 v-bind:is="view"
-                                                :id="medical_record"
+                                                :id="id"
                                                 @viewMedicalRecord="
                                                     cambiarComponente
                                                 "
@@ -56,10 +56,10 @@ export default {
     },
     data: () => ({
         view: "MedicalRecordTable",
-        medical_record: 0
+        id: 0
     }),
     methods: {
-        cambiarComponente(id) {
+        cambiarComponente(id) {            
             if (this.view === "MedicalRecord") {
                 this.view = "MedicalRecordTable";
                 this.deshabilitado = false;
@@ -69,9 +69,9 @@ export default {
                 this.deshabilitado = true;
                 this.titulo = "Medical Record Table";
                 if (id !== 0) {
-                    this.medical_record = id;
+                    this.id = id;
                 } else {
-                    this.medical_record = 0;
+                    this.id = 0;
                 }
             }
         }

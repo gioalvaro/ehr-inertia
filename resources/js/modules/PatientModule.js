@@ -23,11 +23,11 @@ export default {
             state.patients.splice(index, 1);
         },
         EDIT_PATIENT(state, patient) {
-            let index = state.patients.findIndex(
-                item => item.id === patient.id
-            );
-            state.patients.splice(index, 1);
-            state.patients.unshift(patient);
+            // let index = state.patients.findIndex(
+            //     item => item.id === patient.id
+            // );
+            // state.patients.splice(index, 1);
+            // state.patients.unshift(patient);
         },
     },
     actions: {
@@ -79,6 +79,7 @@ export default {
         },
         async update({commit}, patient) {
             console.log("Comienza actualizacion");
+            console.log(patient);
             axios
                 .put(`/patients/${patient.id}`, patient)
                 .then(res => {

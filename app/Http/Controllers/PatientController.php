@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PatientController extends AppBaseController
@@ -70,7 +71,15 @@ class PatientController extends AppBaseController
      */
     public function update(Request $request, Patient $patient)
     {
-        dd($patient);
+        $input = $request->all();
+        $patient = Patient::where('id','=',$input['id'])->first();
+        
+        $input['scheduled_time'] = new Carbon(new \DateTime($input['scheduled_time']));
+        $input['arrival_time'] = new Carbon($input['arrival_time']);
+
+        $patient->fill($input);
+        $patient->save();
+        return $this->sendSuccess('Patients saved successfully');
     }
 
     /**

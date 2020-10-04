@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Provider;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,7 @@ class CreateNewUser implements CreatesNewUsers
                 'username' => $input['username'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
+                $this->createProvider($user);
                 $this->createTeam($user);
             });
         });
@@ -50,6 +52,22 @@ class CreateNewUser implements CreatesNewUsers
             'user_id' => $user->id,
             'name' => explode(' ', $user->name, 2)[0]."'s Team",
             'personal_team' => true,
+        ]));
+    }
+
+    /**
+     * Create a personal provider for the user.
+     *
+     * @param  \App\Models\User  $user
+     * @return void
+     */
+    protected function createProvider(User $user)
+    {
+        $user->provider()->save(Provider::forceCreate([
+            'user_id' => $user->id,
+            'lastname' => explode(' ', $user->name, 2)[1] != null ? explode(' ', $user->name, 2)[1] : explode(' ', $user->name, 2)[0],
+            'firstname' => explode(' ', $user->name, 2)[0],
+            'title' => 'Dr.',
         ]));
     }
 }
