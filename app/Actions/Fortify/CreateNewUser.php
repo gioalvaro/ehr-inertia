@@ -65,7 +65,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->provider()->save(Provider::forceCreate([
             'user_id' => $user->id,
-            'lastname' => explode(' ', $user->name, 2)[1] != null ? explode(' ', $user->name, 2)[1] : explode(' ', $user->name, 2)[0],
+            'lastname' => count(explode(' ', $user->name, 2)) > 1 ? explode(' ', $user->name, 2)[1] : explode(' ', $user->name, 2)[0],
             'firstname' => explode(' ', $user->name, 2)[0],
             'title' => 'Dr.',
         ]));

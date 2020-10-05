@@ -15,7 +15,7 @@ class PatientController extends AppBaseController
      */
     public function index()
     {
-        $patients = Patient::all();
+        $patients = Patient::with('encounters')->get();
         return $this->sendResponse($patients->toArray(), 'Patients saved successfully');
     }
 

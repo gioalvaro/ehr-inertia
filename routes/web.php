@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\EncounterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -46,11 +47,18 @@ Route::middleware(['auth:sanctum','verified'])->get('/medical-record/{medicalRec
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     //Patient 
-    Route::get('/patients', [PatientController::class, 'index'])->name("patients-index");
-    Route::get('/patients/{id}', [PatientController::class, 'show'])->name("patients-show");
-    Route::put('/patients/{id}', [PatientController::class, 'update'])->name("patients-update");
-    Route::post('/patients', [PatientController::class, 'store'])->name("patients-store");
-    Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->name("patients-destroy");
+    Route::get('/patients', [PatientController::class, 'index'])->name("patients.index");
+    Route::get('/patients/{id}', [PatientController::class, 'show'])->name("patients.show");
+    Route::put('/patients/{id}', [PatientController::class, 'update'])->name("patients.update");
+    Route::post('/patients', [PatientController::class, 'store'])->name("patients.store");
+    Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->name("patients.destroy");
+
+    // Encounter
+    Route::get('/encounters', [EncounterController::class, 'index'])->name("encounters.index");
+    Route::get('/encounters/{id}', [EncounterController::class, 'show'])->name("encounters.show");
+    Route::put('/encounters/{id}', [EncounterController::class, 'update'])->name("encounters.update");
+    Route::post('/encounters', [EncounterController::class, 'store'])->name("encounters.store");
+    Route::delete('/encounters/{id}', [EncounterController::class, 'destroy'])->name("encounters.destroy");
 
     //Medication
     

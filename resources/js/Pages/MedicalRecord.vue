@@ -5,7 +5,7 @@
                 <div>                    
                         <v-row>                            
                             <v-col cols="2">                                
-                                <img :src="form.photo_url" width="250"/>
+                                <img :src="form.patient.photo_url" width="250"/>
                             </v-col>
                             <v-col cols="10">
                                 <v-card>
@@ -26,7 +26,7 @@
                                                     <v-col cols="12" md="4">
                                                         <v-text-field
                                                             v-model="
-                                                                form.firstname
+                                                                form.patient.firstname
                                                             "
                                                             label="First name" disabled
                                                         ></v-text-field>
@@ -35,7 +35,7 @@
                                                     <v-col cols="12" md="4">
                                                         <v-text-field
                                                             v-model="
-                                                                form.lastname
+                                                                form.patient.lastname
                                                             "
                                                             label="Last name" disabled
                                                         ></v-text-field>
@@ -43,28 +43,49 @@
 
                                                     <v-col cols="12" md="4">
                                                         <v-text-field
-                                                            v-model="form.age"
+                                                            v-model="form.patient.age"
                                                             label="Age" disabled
                                                         ></v-text-field>
                                                     </v-col>
                                                 </v-row>
                                                 <v-row>
-                                                    <v-col cols="12" md="3">
+                                                    <v-col cols="12" md="4">
                                                         <v-text-field
-                                                            v-model="form.sex"
+                                                            v-model="form.patient.sex"
                                                             label="Sex" disabled
                                                         ></v-text-field>
                                                     </v-col>
 
-                                                    <v-col cols="12" md="3">
+                                                    <v-col cols="12" md="4">
                                                         <v-text-field
                                                             v-model="
-                                                                form.day_of_birth
+                                                                form.patient.day_of_birth
                                                             "
                                                             label="DOB" disabled
                                                         ></v-text-field>
-                                                    </v-col>
-
+                                                    </v-col>                                                    
+                                                </v-row>                                                
+                                            </v-container>
+                                        </v-form>
+                                    </v-card-text>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-card>
+                                    <v-card-title class="font-weight-regular siprosa white--text headline">
+                                        <v-icon large color="white"
+                                            >mdi-account-details-outline
+                                        </v-icon>
+                                        <span class="white--text ml-4"
+                                            >Encounter's Information</span
+                                        >
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-form>
+                                            <v-container>                                                
+                                                <v-row>
                                                     <v-col cols="12" md="3">
                                                         <v-text-field
                                                             v-model="
@@ -81,28 +102,84 @@
                                                             @change="updateAllergies"
                                                         ></v-checkbox>                                                        
                                                     </v-col>
-                                                </v-row>
-                                                <v-row>
                                                     <v-col cols="6" md="6">
                                                         <v-text-field
                                                             v-model="
-                                                                form.current_vitals
+                                                                form.bp
                                                             "
-                                                            label="Current Vitals" disabled
+                                                            label="BP" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                </v-row>
+                                                <v-row>
+                                                    <v-col cols="6" md="2">
+                                                        <v-text-field
+                                                            v-model="
+                                                                form.hr
+                                                            "
+                                                            label="HR" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="6" md="2">
+                                                        <v-text-field
+                                                            v-model="
+                                                                form.rr
+                                                            "
+                                                            label="RR" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="6" md="2">
+                                                        <v-text-field
+                                                            v-model="
+                                                                form.osat
+                                                            "
+                                                            label="O2 Sat" disabled
                                                         ></v-text-field>
                                                     </v-col>
 
-                                                    <v-col cols="3" md="3">
+                                                    <v-col cols="3" md="2">
                                                         <v-text-field
                                                             v-model="form.bmi"
                                                             label="BMI" disabled
                                                         ></v-text-field>
                                                     </v-col>
 
-                                                    <v-col cols="3" md="3">
+                                                    <v-col cols="3" md="2">
                                                         <v-text-field
                                                             v-model="form.temperature"
                                                             label="Temperature" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="3" md="2">
+                                                        <v-text-field
+                                                            v-model="form.temperature_type"
+                                                            label="Temperature Type" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                </v-row>
+                                                <v-row v-if="form.patient.sex === 'female'">
+                                                    <v-col cols="3" md="3">
+                                                        <v-text-field
+                                                            v-model="form.ga"
+                                                            label="GA" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="3" md="3">
+                                                        <v-text-field
+                                                            v-model="form.edd"
+                                                            label="EDD" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="3" md="3">
+                                                        <v-text-field
+                                                            v-model="form.lmp"
+                                                            label="LMP" disabled
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="3" md="3">
+                                                        <v-text-field
+                                                            v-model="form.gptal"
+                                                            label="GPTAL" disabled
                                                         ></v-text-field>
                                                     </v-col>
                                                 </v-row>
@@ -231,7 +308,7 @@ export default {
         Orders
     },
     data: () => ({
-        patient: {},
+        encounter: {},
         baseURL: window.location.hostname,
         tab: null,
         form: {
@@ -251,17 +328,19 @@ export default {
     }),
     methods: {
         lookPatient(){
-            let index = this.patients.findIndex(
+            let index = this.encounters.findIndex(
                 item => item.id === this.id
             );
-            let patient = this.patients[index];
-            return patient;
+            let encounter = this.encounters[index];
+            encounter.osat = encounter.osat+'%';
+            encounter.temperature = encounter.temperature+'ºC';
+            return encounter;
         },
-        async updateMedicalRecord(patient){
-            await this.$store.dispatch('patient/update', patient);
+        async updateMedicalRecord(encounter){
+            await this.$store.dispatch('encounter/update', encounter);
         },
         async updateAllergies(){
-            await this.$store.dispatch('patient/update', form);
+            await this.$store.dispatch('encounter/update', form);
         },
         volver() {
             this.$emit("viewMedicalRecord");
@@ -271,8 +350,8 @@ export default {
         // patient() {
         //     return this.$store.getters['patient/patient'];
         // },
-        patients() {
-            return this.$store.getters['patient/patients'];
+        encounters() {
+            return this.$store.getters['encounter/encounters'];
         },
     },
 };

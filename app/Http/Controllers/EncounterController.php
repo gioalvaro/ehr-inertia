@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Encounter;
 use Illuminate\Http\Request;
 
-class EncounterController extends Controller
+class EncounterController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class EncounterController extends Controller
      */
     public function index()
     {
-        //
+        $encounters = Encounter::with('patient')->get();
+        return $this->sendResponse($encounters->toArray(), 'Patients saved successfully');
     }
 
     /**

@@ -3818,6 +3818,83 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3846,7 +3923,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      patient: {},
+      encounter: {},
       baseURL: window.location.hostname,
       tab: null,
       form: {
@@ -3869,13 +3946,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     lookPatient: function lookPatient() {
       var _this = this;
 
-      var index = this.patients.findIndex(function (item) {
+      var index = this.encounters.findIndex(function (item) {
         return item.id === _this.id;
       });
-      var patient = this.patients[index];
-      return patient;
+      var encounter = this.encounters[index];
+      encounter.osat = encounter.osat + '%';
+      encounter.temperature = encounter.temperature + 'ºC';
+      return encounter;
     },
-    updateMedicalRecord: function updateMedicalRecord(patient) {
+    updateMedicalRecord: function updateMedicalRecord(encounter) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3884,7 +3963,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this2.$store.dispatch('patient/update', patient);
+                return _this2.$store.dispatch('encounter/update', encounter);
 
               case 2:
               case "end":
@@ -3903,7 +3982,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this3.$store.dispatch('patient/update', form);
+                return _this3.$store.dispatch('encounter/update', form);
 
               case 2:
               case "end":
@@ -3921,8 +4000,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // patient() {
     //     return this.$store.getters['patient/patient'];
     // },
-    patients: function patients() {
-      return this.$store.getters['patient/patients'];
+    encounters: function encounters() {
+      return this.$store.getters['encounter/encounters'];
     }
   }
 });
@@ -5993,10 +6072,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MedicalRecordTable",
   created: function created() {
-    this.fetchPatient(); //this.initialize();
+    this.fetchEncounter(); //this.initialize();
   },
   methods: {
-    fetchPatient: function fetchPatient() {
+    fetchEncounter: function fetchEncounter() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -6005,7 +6084,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.$store.dispatch('patient/all');
+                return _this.$store.dispatch('encounter/all');
 
               case 2:
               case "end":
@@ -6066,13 +6145,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }];
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.patients.indexOf(item);
+      this.editedIndex = this.encounters.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.patients.indexOf(item);
-      confirm("Are you sure you want to delete this patient?") && this.patients.splice(index, 1);
+      var index = this.encounters.indexOf(item);
+      confirm("Are you sure you want to delete this encounter?") && this.encounters.splice(index, 1);
     },
     close: function close() {
       var _this2 = this;
@@ -6085,9 +6164,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     save: function save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.patients[this.editedIndex], this.editedItem);
+        Object.assign(this.encounters[this.editedIndex], this.editedItem);
       } else {
-        this.patients.push(this.editedItem);
+        this.encounters.push(this.editedItem);
       }
 
       this.close();
@@ -6099,11 +6178,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    patients: function patients() {
-      return this.$store.getters['patient/patients'];
+    encounters: function encounters() {
+      return this.$store.getters['encounter/encounters'];
     },
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "New Patient" : "Edit Patient";
+      return this.editedIndex === -1 ? "New Encounter" : "Edit Encounter";
     }
   },
   data: function data() {
@@ -6113,19 +6192,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: "MRN",
         align: "start",
         sortable: false,
-        value: "mrn"
+        value: "patient.mrn"
       }, {
         text: "LN",
-        value: "lastname"
+        value: "patient.lastname"
       }, {
         text: "FN",
-        value: "firstname"
+        value: "patient.firstname"
       }, {
         text: "Age",
-        value: "age"
+        value: "patient.age"
       }, {
         text: "Sex",
-        value: "sex"
+        value: "patient.sex"
       }, {
         text: "Reason for Visit",
         value: "reason",
@@ -6139,8 +6218,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "arrival_time",
         sortable: true
       }, {
-        text: "Checkout",
-        value: "checkout",
+        text: "Check",
+        value: "check",
         sortable: false
       }, {
         text: "Actions",
@@ -29811,7 +29890,7 @@ var render = function() {
                 [
                   _c("v-col", { attrs: { cols: "2" } }, [
                     _c("img", {
-                      attrs: { src: _vm.form.photo_url, width: "250" }
+                      attrs: { src: _vm.form.patient.photo_url, width: "250" }
                     })
                   ]),
                   _vm._v(" "),
@@ -29868,16 +29947,17 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.firstname,
+                                                  value:
+                                                    _vm.form.patient.firstname,
                                                   callback: function($$v) {
                                                     _vm.$set(
-                                                      _vm.form,
+                                                      _vm.form.patient,
                                                       "firstname",
                                                       $$v
                                                     )
                                                   },
                                                   expression:
-                                                    "\n                                                            form.firstname\n                                                        "
+                                                    "\n                                                            form.patient.firstname\n                                                        "
                                                 }
                                               })
                                             ],
@@ -29894,16 +29974,17 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.lastname,
+                                                  value:
+                                                    _vm.form.patient.lastname,
                                                   callback: function($$v) {
                                                     _vm.$set(
-                                                      _vm.form,
+                                                      _vm.form.patient,
                                                       "lastname",
                                                       $$v
                                                     )
                                                   },
                                                   expression:
-                                                    "\n                                                            form.lastname\n                                                        "
+                                                    "\n                                                            form.patient.lastname\n                                                        "
                                                 }
                                               })
                                             ],
@@ -29920,15 +30001,15 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.age,
+                                                  value: _vm.form.patient.age,
                                                   callback: function($$v) {
                                                     _vm.$set(
-                                                      _vm.form,
+                                                      _vm.form.patient,
                                                       "age",
                                                       $$v
                                                     )
                                                   },
-                                                  expression: "form.age"
+                                                  expression: "form.patient.age"
                                                 }
                                               })
                                             ],
@@ -29943,7 +30024,7 @@ var render = function() {
                                         [
                                           _c(
                                             "v-col",
-                                            { attrs: { cols: "12", md: "3" } },
+                                            { attrs: { cols: "12", md: "4" } },
                                             [
                                               _c("v-text-field", {
                                                 attrs: {
@@ -29951,15 +30032,15 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.sex,
+                                                  value: _vm.form.patient.sex,
                                                   callback: function($$v) {
                                                     _vm.$set(
-                                                      _vm.form,
+                                                      _vm.form.patient,
                                                       "sex",
                                                       $$v
                                                     )
                                                   },
-                                                  expression: "form.sex"
+                                                  expression: "form.patient.sex"
                                                 }
                                               })
                                             ],
@@ -29968,7 +30049,7 @@ var render = function() {
                                           _vm._v(" "),
                                           _c(
                                             "v-col",
-                                            { attrs: { cols: "12", md: "3" } },
+                                            { attrs: { cols: "12", md: "4" } },
                                             [
                                               _c("v-text-field", {
                                                 attrs: {
@@ -29976,22 +30057,90 @@ var render = function() {
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value: _vm.form.day_of_birth,
+                                                  value:
+                                                    _vm.form.patient
+                                                      .day_of_birth,
                                                   callback: function($$v) {
                                                     _vm.$set(
-                                                      _vm.form,
+                                                      _vm.form.patient,
                                                       "day_of_birth",
                                                       $$v
                                                     )
                                                   },
                                                   expression:
-                                                    "\n                                                            form.day_of_birth\n                                                        "
+                                                    "\n                                                            form.patient.day_of_birth\n                                                        "
                                                 }
                                               })
                                             ],
                                             1
-                                          ),
-                                          _vm._v(" "),
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    [
+                      _c(
+                        "v-card",
+                        [
+                          _c(
+                            "v-card-title",
+                            {
+                              staticClass:
+                                "font-weight-regular siprosa white--text headline"
+                            },
+                            [
+                              _c(
+                                "v-icon",
+                                { attrs: { large: "", color: "white" } },
+                                [
+                                  _vm._v(
+                                    "mdi-account-details-outline\n                                    "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "white--text ml-4" }, [
+                                _vm._v("Encounter's Information")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c(
+                                "v-form",
+                                [
+                                  _c(
+                                    "v-container",
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
                                           _c(
                                             "v-col",
                                             { attrs: { cols: "12", md: "3" } },
@@ -30046,6 +30195,32 @@ var render = function() {
                                               })
                                             ],
                                             1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "6", md: "6" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "BP",
+                                                  disabled: ""
+                                                },
+                                                model: {
+                                                  value: _vm.form.bp,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "bp",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "\n                                                            form.bp\n                                                        "
+                                                }
+                                              })
+                                            ],
+                                            1
                                           )
                                         ],
                                         1
@@ -30056,25 +30231,24 @@ var render = function() {
                                         [
                                           _c(
                                             "v-col",
-                                            { attrs: { cols: "6", md: "6" } },
+                                            { attrs: { cols: "6", md: "2" } },
                                             [
                                               _c("v-text-field", {
                                                 attrs: {
-                                                  label: "Current Vitals",
+                                                  label: "HR",
                                                   disabled: ""
                                                 },
                                                 model: {
-                                                  value:
-                                                    _vm.form.current_vitals,
+                                                  value: _vm.form.hr,
                                                   callback: function($$v) {
                                                     _vm.$set(
                                                       _vm.form,
-                                                      "current_vitals",
+                                                      "hr",
                                                       $$v
                                                     )
                                                   },
                                                   expression:
-                                                    "\n                                                            form.current_vitals\n                                                        "
+                                                    "\n                                                            form.hr\n                                                        "
                                                 }
                                               })
                                             ],
@@ -30083,7 +30257,59 @@ var render = function() {
                                           _vm._v(" "),
                                           _c(
                                             "v-col",
-                                            { attrs: { cols: "3", md: "3" } },
+                                            { attrs: { cols: "6", md: "2" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "RR",
+                                                  disabled: ""
+                                                },
+                                                model: {
+                                                  value: _vm.form.rr,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "rr",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "\n                                                            form.rr\n                                                        "
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "6", md: "2" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "O2 Sat",
+                                                  disabled: ""
+                                                },
+                                                model: {
+                                                  value: _vm.form.osat,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "osat",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "\n                                                            form.osat\n                                                        "
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "2" } },
                                             [
                                               _c("v-text-field", {
                                                 attrs: {
@@ -30108,7 +30334,7 @@ var render = function() {
                                           _vm._v(" "),
                                           _c(
                                             "v-col",
-                                            { attrs: { cols: "3", md: "3" } },
+                                            { attrs: { cols: "3", md: "2" } },
                                             [
                                               _c("v-text-field", {
                                                 attrs: {
@@ -30129,10 +30355,153 @@ var render = function() {
                                               })
                                             ],
                                             1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "3", md: "2" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Temperature Type",
+                                                  disabled: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.form.temperature_type,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "temperature_type",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "form.temperature_type"
+                                                }
+                                              })
+                                            ],
+                                            1
                                           )
                                         ],
                                         1
-                                      )
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.form.patient.sex === "female"
+                                        ? _c(
+                                            "v-row",
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  attrs: { cols: "3", md: "3" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "GA",
+                                                      disabled: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.form.ga,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "ga",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "form.ga"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  attrs: { cols: "3", md: "3" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "EDD",
+                                                      disabled: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.form.edd,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "edd",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "form.edd"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  attrs: { cols: "3", md: "3" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "LMP",
+                                                      disabled: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.form.lmp,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "lmp",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "form.lmp"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  attrs: { cols: "3", md: "3" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "GPTAL",
+                                                      disabled: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.form.gptal,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "gptal",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "form.gptal"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
                                     ],
                                     1
                                   )
@@ -33422,7 +33791,7 @@ var render = function() {
     [
       _c("v-data-table", {
         staticClass: "elevation-1",
-        attrs: { headers: _vm.headers, items: _vm.patients, "sort-by": "id" },
+        attrs: { headers: _vm.headers, items: _vm.encounters, "sort-by": "id" },
         scopedSlots: _vm._u([
           {
             key: "top",
@@ -33468,18 +33837,18 @@ var render = function() {
             }
           },
           {
-            key: "item.checkout",
+            key: "item.check",
             fn: function(ref) {
               var item = ref.item
               return [
                 _c("v-checkbox", {
                   attrs: { color: "success", disabled: "" },
                   model: {
-                    value: item.checkout,
+                    value: item.check,
                     callback: function($$v) {
-                      _vm.$set(item, "checkout", $$v)
+                      _vm.$set(item, "check", $$v)
                     },
-                    expression: "item.checkout"
+                    expression: "item.check"
                   }
                 })
               ]
@@ -95092,6 +95461,188 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/modules/EncounterModule.js":
+/*!*************************************************!*\
+  !*** ./resources/js/modules/EncounterModule.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    encounters: [],
+    encounter: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.encounters = [];
+      state.encounter = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.encounters = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.encounters.push(item);
+      return state.encounter = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.encounters.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.encounters.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.encounters.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.encounters.splice(index, 1);
+      state.encounters.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/encounters").then(function (res) {
+                  console.log("get encounters ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get encounters: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/encounters/".concat(id)).then(function (res) {
+                  console.log("get encounters ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get encounters: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/encounters", item).then(function (res) {
+                  if (res.data.success) console.log("post encounters ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de encounters: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/encounters/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la encounters: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/encounters/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar encounters" + err);
+                });
+                console.log("Sale de la actualizacion de encounters");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    encounters: function encounters(state) {
+      return state.encounters;
+    },
+    encounter: function encounter(state) {
+      return state.encounter;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/LaboratoryModule.js":
 /*!**************************************************!*\
   !*** ./resources/js/modules/LaboratoryModule.js ***!
@@ -96201,6 +96752,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_PhysicianNoteModule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/PhysicianNoteModule */ "./resources/js/modules/PhysicianNoteModule.js");
 /* harmony import */ var _modules_MedicationModule__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/MedicationModule */ "./resources/js/modules/MedicationModule.js");
 /* harmony import */ var _modules_MedicalRecordModule__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/MedicalRecordModule */ "./resources/js/modules/MedicalRecordModule.js");
+/* harmony import */ var _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/EncounterModule */ "./resources/js/modules/EncounterModule.js");
+
 
 
 
@@ -96217,7 +96770,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     medication: _modules_MedicationModule__WEBPACK_IMPORTED_MODULE_6__["default"],
     nursingNote: _modules_NursingNoteModule__WEBPACK_IMPORTED_MODULE_4__["default"],
     physicianNote: _modules_PhysicianNoteModule__WEBPACK_IMPORTED_MODULE_5__["default"],
-    laboratory: _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__["default"]
+    laboratory: _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__["default"],
+    encounter: _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_8__["default"]
   }
 }));
 
