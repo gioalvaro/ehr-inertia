@@ -38,23 +38,8 @@ class Department extends Model
     /**
      * @return HasMany
      **/
-    public function physician_notes()
+    public function encounters()
     {
-        return $this->hasMany(\App\Models\PhysicianNote::class, 'department_id');
-    }
-    /**
-     * @return HasMany
-     **/
-    public function medications()
-    {
-        return $this->hasMany(\App\Models\Medication::class, 'department_id');
-    }
-
-    /**
-     * @return HasMany
-     **/
-    public function nursing_notes()
-    {
-        return $this->hasMany(\App\Models\NursingNote::class, 'department_id');
+        return $this->hasMany(\App\Models\Encounter::class, 'encounter_id');
     }
 }

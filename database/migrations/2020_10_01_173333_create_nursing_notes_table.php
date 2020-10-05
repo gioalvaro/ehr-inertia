@@ -16,10 +16,8 @@ class CreateNursingNotesTable extends Migration
         Schema::create('nursing_notes', function (Blueprint $table) {
             $table->id();
             $table->longText('note');
-            $table->foreignId('patient_id')->constrained('patients');
+            $table->foreignId('encounter_id')->constrained('encounters');
             $table->foreignId('nursing_type_id')->constrained('nursing_types');
-            $table->foreignId('provider_id')->constrained('providers');
-            $table->foreignId('department_id')->constrained('departments');
             $table->softDeletes();
             $table->timestamps();
         });

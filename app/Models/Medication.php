@@ -18,11 +18,10 @@ class Medication extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'patient_id',
-        'department_id',
+        'encounter_id',
         'medication_type_id',
-        'provider_id',
         'name',
+        'units',
         'dose',
         'route',
         'frequency',
@@ -38,33 +37,20 @@ class Medication extends Model
      */
     protected $casts = [];
 
-    /**
-     * Get the post that owns the comment.
-     */
-    public function provider()
-    {
-        return $this->belongsTo('App\Models\Provider');
-    }
+    
     /**
      * Get the post that owns the comment.
      */
     public function medication_type()
     {
         return $this->belongsTo('App\Models\MedicationType');
-    }
+    }    
     /**
      * Get the post that owns the comment.
      */
-    public function department()
+    public function encounter()
     {
-        return $this->belongsTo('App\Models\Department');
-    }
-    /**
-     * Get the post that owns the comment.
-     */
-    public function patient()
-    {
-        return $this->belongsTo('App\Models\Patient');
+        return $this->belongsTo('App\Models\Encounter');
     }
 
 }

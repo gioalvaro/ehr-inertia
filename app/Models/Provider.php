@@ -48,37 +48,6 @@ class Provider extends Model
       return $this->title . ' ' . $this->lastname;  
     }
 
-     /**
-     * @return HasMany
-     **/
-    public function physician_notes()
-    {
-        return $this->hasMany(\App\Models\PhysicianNote::class, 'provider_id');
-    }
-    /**
-     * @return HasMany
-     **/
-    public function laboratories()
-    {
-        return $this->hasMany(\App\Models\Laboratory::class, 'provider_id');
-    }
-
-    /**
-     * @return HasMany
-     **/
-    public function medications()
-    {
-        return $this->hasMany(\App\Models\Medication::class, 'provider_id');
-    }
-
-    /**
-     * @return HasMany
-     **/
-    public function nursing_notes()
-    {
-        return $this->hasMany(\App\Models\NursingNote::class, 'provider_id');
-    }
-
     public function user()
     {
         return $this->belongsTo('App\Models\User');

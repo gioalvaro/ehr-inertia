@@ -18,12 +18,12 @@ class Laboratory extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'patient_id',        
-        'laboratory_type_id',
-        'provider_id',
+        'encounter_id',        
+        'laboratory_type_id',        
         'current_value',
         'min',
-        'max'
+        'max',
+        'units'
     ];
 
     /**
@@ -33,13 +33,7 @@ class Laboratory extends Model
      */
     protected $casts = [];
 
-    /**
-     * Get the post that owns the comment.
-     */
-    public function provider()
-    {
-        return $this->belongsTo('App\Models\Provider');
-    }
+    
     /**
      * Get the post that owns the comment.
      */
@@ -50,8 +44,8 @@ class Laboratory extends Model
     /**
      * Get the post that owns the comment.
      */
-    public function patient()
+    public function encounter()
     {
-        return $this->belongsTo('App\Models\Patient');
+        return $this->belongsTo('App\Models\Encounter');
     }
 }

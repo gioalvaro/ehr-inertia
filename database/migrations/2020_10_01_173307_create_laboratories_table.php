@@ -18,9 +18,9 @@ class CreateLaboratoriesTable extends Migration
             $table->string('current_value');
             $table->string('min');
             $table->string('max');
-            $table->foreignId('patient_id')->constrained('patients');
+            $table->string('units');
+            $table->foreignId('encounter_id')->constrained('encounters');
             $table->foreignId('laboratory_type_id')->constrained('laboratory_types');
-            $table->foreignId('provider_id')->constrained('providers');
             $table->softDeletes();
             $table->timestamps();
         });

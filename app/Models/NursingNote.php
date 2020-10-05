@@ -17,10 +17,8 @@ class NursingNote extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'patient_id',
-        'department_id',
+        'encounter_id',
         'nursing_type_id',
-        'provider_id',
         'note'
     ];
 
@@ -31,32 +29,19 @@ class NursingNote extends Model
      */
     protected $casts = [];
 
-    /**
-     * Get the post that owns the comment.
-     */
-    public function provider()
-    {
-        return $this->belongsTo('App\Models\Provider');
-    }
+    
     /**
      * Get the post that owns the comment.
      */
     public function nursing_type()
     {
         return $this->belongsTo('App\Models\PhysicianType');
-    }
+    }    
     /**
      * Get the post that owns the comment.
      */
-    public function department()
+    public function encounter()
     {
-        return $this->belongsTo('App\Models\Department');
-    }
-    /**
-     * Get the post that owns the comment.
-     */
-    public function patient()
-    {
-        return $this->belongsTo('App\Models\Patient');
+        return $this->belongsTo('App\Models\Encounter');
     }
 }

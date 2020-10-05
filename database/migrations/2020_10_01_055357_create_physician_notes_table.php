@@ -16,10 +16,8 @@ class CreatePhysicianNotesTable extends Migration
         Schema::create('physician_notes', function (Blueprint $table) {
             $table->id();
             $table->longText('note');
-            $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('department_id')->constrained('departments');
+            $table->foreignId('encounter_id')->constrained('encounters');
             $table->foreignId('physician_type_id')->constrained('physician_types');
-            $table->foreignId('provider_id')->constrained('providers');            
             $table->softDeletes();
             $table->timestamps();
         });
