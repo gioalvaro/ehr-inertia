@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Provider;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProviderFactory extends Factory
@@ -22,9 +23,10 @@ class ProviderFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title(),
+            'title' => 'Dr.',
             'lastname' => $this->faker->lastName(),
             'firstname' => $this->faker->firstName(),
+            'user_id' => User::factory()
         ];
     }
 }

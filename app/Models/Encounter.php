@@ -32,7 +32,9 @@ class Encounter extends Model
         'lmp',
         'edd',
         'gptal',
-        'patient_id'
+        'patient_id',
+        'provider_id',
+        'department_id'
     ];
 
     /**
@@ -84,6 +86,14 @@ class Encounter extends Model
     public function patient()
     {
         return $this->belongsTo(\App\Models\Patient::class);
+    }
+
+     /**
+     * @return BelongsTo
+     **/
+    public function department()
+    {
+        return $this->belongsTo(\App\Models\Department::class);
     }
 
     /**
