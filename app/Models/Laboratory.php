@@ -18,6 +18,7 @@ class Laboratory extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
+        'id',
         'encounter_id',        
         'laboratory_type_id',        
         'current_value',

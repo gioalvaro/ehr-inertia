@@ -18,6 +18,7 @@ class Encounter extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
+        'id',
         'reason',
         'scheduled_time',
         'arrival_time',
@@ -34,7 +35,8 @@ class Encounter extends Model
         'gptal',
         'patient_id',
         'provider_id',
-        'department_id'
+        'department_id',
+        'test'
     ];
 
     /**

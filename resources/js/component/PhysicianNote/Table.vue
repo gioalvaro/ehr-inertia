@@ -2,20 +2,21 @@
     <div>
         <v-data-table
             :headers="headers"
-            :items="physician_notes"
+            :items="items"
             sort-by="id"
             class="elevation-1"
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>Physician Notes</v-toolbar-title>
+                    <v-toolbar-title>{{titulo}}</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>                    
-                    <v-icon class="transition duration-500 ease-in-out text-black hover:text-blue-500 transform hover:-translate-y-1 hover:scale-110" @click="createItem(item)" large>mdi-plus</v-icon>
+                    <v-icon class="transition duration-500 ease-in-out text-black hover:text-blue-500 transform hover:-translate-y-1 hover:scale-110" @click="createItem()" large>mdi-plus</v-icon>
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
+                <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="editItem(item)" large>mdi-pencil</v-icon>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
@@ -28,19 +29,25 @@
 
 <script>
 export default {
-    name:'PhysicianNoteTable',
+    props: {
+        titulo: {
+            type: String,
+            default: 'Physician Note Table'
+        },
+    },
+    name:'Table',
     created() {
         this.initialize();
     },
     methods: {
         viewItem(item) {
-            this.$emit("viewPhysicianNote", item.id);
+            this.$emit("viewNote", item.id);
         },
-        createItem(item) {
-            this.$emit("viewPhysicianNote", 0);
-        },
+        createItem() {
+            this.$emit("createNote",  0);
+        },        
         initialize() {
-            this.physician_notes = [
+            this.items = [
                 {
                     id: 1,
                     created_at: "2020-08-08 12:00",
@@ -73,15 +80,13 @@ export default {
         },
 
         editItem(item) {
-            this.editedIndex = this.physician_notes.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialog = true;
+            this.$emit("editNote", item.id);
         },
 
         deleteItem(item) {
-            const index = this.physician_notes.indexOf(item);
+            const index = this.items.indexOf(item);
             confirm("Are you sure you want to delete this physician note?") &&
-                this.physician_notes.splice(index, 1);
+                this.items.splice(index, 1);
         },
 
         close() {
@@ -94,9 +99,9 @@ export default {
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.physician_notes[this.editedIndex], this.editedItem);
+                Object.assign(this.items[this.editedIndex], this.editedItem);
             } else {
-                this.physician_notes.push(this.editedItem);
+                this.items.push(this.editedItem);
             }
             this.close();
         }
@@ -127,7 +132,7 @@ export default {
                 { text: "Department", value: "department" },
                 { text: "Actions", value: "actions", sortable: false }
             ],
-            physician_notes: [],
+            items: [],
             editedIndex: -1,
             editedItem: {
                 created_at: "",

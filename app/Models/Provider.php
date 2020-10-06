@@ -19,6 +19,7 @@ class Provider extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
+        'id',
         'firstname',
         'lastname',
         'title',
@@ -51,6 +52,11 @@ class Provider extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function encounters()
+    {
+        return $this->hasMany('App\Models\Encounter');
     }
 
 

@@ -19,7 +19,7 @@ class CreateEncountersTable extends Migration
             $table->dateTime('scheduled_time');
             $table->dateTime('arrival_time');
             $table->boolean('check')->nullable();
-            $table->float('bmi');
+            $table->float('bmi')->nullable();
             $table->longText('current_vitals');
             $table->boolean('allergies_check')->nullable();
             $table->string('allergies')->nullable();
@@ -34,8 +34,9 @@ class CreateEncountersTable extends Migration
             $table->integer('lmp')->nullable();
             $table->integer('gptal')->nullable();
             $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('department_id')->constrained('departments');
-            $table->foreignId('provider_id')->constrained('providers');
+            $table->foreignId('department_id')->nullable()->constrained('departments');
+            $table->foreignId('provider_id')->nullable()->constrained('providers');
+            $table->boolean("test");
             $table->softDeletes();
             $table->timestamps();
         });

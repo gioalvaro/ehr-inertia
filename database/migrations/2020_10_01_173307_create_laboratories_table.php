@@ -20,7 +20,7 @@ class CreateLaboratoriesTable extends Migration
             $table->string('max');
             $table->string('units');
             $table->foreignId('encounter_id')->constrained('encounters');
-            $table->foreignId('laboratory_type_id')->constrained('laboratory_types');
+            $table->foreignId('laboratory_type_id')->constrained('laboratory_types');            
             $table->softDeletes();
             $table->timestamps();
         });

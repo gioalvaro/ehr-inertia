@@ -12,9 +12,11 @@ class EncounterController extends AppBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $encounters = Encounter::with('patient')->get();
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $encounters = Encounter::with('patient')->where('provider_id','=',$provider->id)->get();
         return $this->sendResponse($encounters->toArray(), 'Patients saved successfully');
     }
 

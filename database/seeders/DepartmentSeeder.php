@@ -16,24 +16,34 @@ class DepartmentSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         DB::table('departments')->insert([
+            'id' => 1,
             'description' => 'ER',
             'code' => 1
         ]);
         DB::table('departments')->insert([
+            'id' => 2,
             'description' => 'Primary Care',
             'code' => 2
         ]);
         DB::table('departments')->insert([
+            'id' => 3,
             'description' => 'Internal Medicine',
             'code' => 3
         ]);   
         DB::table('departments')->insert([
+            'id' => 4,
             'description' => 'Urology',
             'code' => 4
         ]);   
         DB::table('departments')->insert([
+            'id' => 5,
             'description' => 'General Medicine',
             'code' => 5
+        ]); 
+        DB::table('departments')->insert([
+            'id' => 6,
+            'description' => 'Surgery',
+            'code' => 6
         ]);       
     }
 }

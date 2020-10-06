@@ -19,6 +19,8 @@ class PhysicianNote extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
+        'id',
+        'created_at',
         'encounter_id',
         'physician_type_id',
         'note'

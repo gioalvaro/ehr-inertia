@@ -4097,6 +4097,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      titulo: "",
       view: "NursingNoteTable",
       id: 0,
       type: ''
@@ -4208,8 +4209,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component_PhysicianNoteItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component/PhysicianNoteItem */ "./resources/js/component/PhysicianNoteItem.vue");
-/* harmony import */ var _component_PhysicianNoteTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../component/PhysicianNoteTable */ "./resources/js/component/PhysicianNoteTable.vue");
+/* harmony import */ var _component_PhysicianNote_Item__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component/PhysicianNote/Item */ "./resources/js/component/PhysicianNote/Item.vue");
+/* harmony import */ var _component_PhysicianNote_Table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../component/PhysicianNote/Table */ "./resources/js/component/PhysicianNote/Table.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -4228,12 +4233,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PhysicianNote",
   components: {
-    PhysicianNoteItem: _component_PhysicianNoteItem__WEBPACK_IMPORTED_MODULE_0__["default"],
-    PhysicianNoteTable: _component_PhysicianNoteTable__WEBPACK_IMPORTED_MODULE_1__["default"]
+    PhysicianNoteItem: _component_PhysicianNote_Item__WEBPACK_IMPORTED_MODULE_0__["default"],
+    PhysicianNoteTable: _component_PhysicianNote_Table__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {},
   methods: {
-    cambiarComponente: function cambiarComponente(id) {
+    viewComponent: function viewComponent(evt) {
       if (this.view === "PhysicianNoteItem") {
         this.view = "PhysicianNoteTable";
         this.titulo = "Physician Note";
@@ -4241,18 +4246,33 @@ __webpack_require__.r(__webpack_exports__);
         this.view = "PhysicianNoteItem";
         this.titulo = "Physician Note Table";
 
-        if (id !== 0) {
-          this.physician_note = id;
+        if (evt !== 0) {
+          this.id = evt;
+          this.type = 2;
         } else {
-          this.physician_note = 0;
+          this.id = 0;
         }
       }
+    },
+    createComponent: function createComponent(evt) {
+      this.view = "PhysicianNoteItem";
+      this.titulo = "Physician Note";
+      this.id = 0;
+      this.type = 0;
+    },
+    editComponent: function editComponent(evt) {
+      this.view = "PhysicianNoteItem";
+      this.titulo = "Physician Note";
+      this.id = evt;
+      this.type = 1;
     }
   },
   data: function data() {
     return {
-      physician_note: 0,
-      view: "PhysicianNoteTable"
+      titulo: "",
+      view: "PhysicianNoteTable",
+      id: 0,
+      type: ''
     };
   }
 });
@@ -6300,9 +6320,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NursingNoteItem",
   props: {
@@ -6315,8 +6332,24 @@ __webpack_require__.r(__webpack_exports__);
       "default": 0
     }
   },
+  data: function data() {
+    return {
+      texto: "S: \n\nD: \n\nA: \n\nP:"
+    };
+  },
   methods: {
-    volver: function volver() {
+    save: function save() {
+      var obj = {};
+
+      if (this.type === 0) {
+        this.$store.dispatch('nursingNote/post');
+      }
+
+      if (this.type === 1) {}
+
+      this.$emit("viewNote");
+    },
+    back: function back() {
       this.$emit("viewNote");
     }
   }
@@ -6485,18 +6518,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -6541,21 +6571,41 @@ __webpack_require__.r(__webpack_exports__);
     id: {
       type: Number,
       "default": 0
+    },
+    type: {
+      type: Number,
+      "default": 0
     }
   },
+  data: function data() {
+    return {
+      texto: "S: \n\nD: \n\nA: \n\nP:"
+    };
+  },
   methods: {
-    volver: function volver() {
-      this.$emit("viewPhysicianNote");
+    save: function save() {
+      var obj = {};
+
+      if (this.type === 0) {
+        this.$store.dispatch('physicianNote/post');
+      }
+
+      if (this.type === 1) {}
+
+      this.$emit("viewNote");
+    },
+    back: function back() {
+      this.$emit("viewNote");
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6589,20 +6639,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PhysicianNoteTable',
+  props: {
+    titulo: {
+      type: String,
+      "default": 'Physician Note Table'
+    }
+  },
+  name: 'Table',
   created: function created() {
     this.initialize();
   },
   methods: {
     viewItem: function viewItem(item) {
-      this.$emit("viewPhysicianNote", item.id);
+      this.$emit("viewNote", item.id);
     },
-    createItem: function createItem(item) {
-      this.$emit("viewPhysicianNote", 0);
+    createItem: function createItem() {
+      this.$emit("createNote", 0);
     },
     initialize: function initialize() {
-      this.physician_notes = [{
+      this.items = [{
         id: 1,
         created_at: "2020-08-08 12:00",
         type: "Primary Care",
@@ -6629,13 +6686,11 @@ __webpack_require__.r(__webpack_exports__);
       }];
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.physician_notes.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      this.$emit("editNote", item.id);
     },
     deleteItem: function deleteItem(item) {
-      var index = this.physician_notes.indexOf(item);
-      confirm("Are you sure you want to delete this physician note?") && this.physician_notes.splice(index, 1);
+      var index = this.items.indexOf(item);
+      confirm("Are you sure you want to delete this physician note?") && this.items.splice(index, 1);
     },
     close: function close() {
       var _this = this;
@@ -6648,9 +6703,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     save: function save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.physician_notes[this.editedIndex], this.editedItem);
+        Object.assign(this.items[this.editedIndex], this.editedItem);
       } else {
-        this.physician_notes.push(this.editedItem);
+        this.items.push(this.editedItem);
       }
 
       this.close();
@@ -6688,7 +6743,7 @@ __webpack_require__.r(__webpack_exports__);
         value: "actions",
         sortable: false
       }],
-      physician_notes: [],
+      items: [],
       editedIndex: -1,
       editedItem: {
         created_at: "",
@@ -30997,8 +31052,12 @@ var render = function() {
         [
           _c(_vm.view, {
             tag: "component",
-            attrs: { id: _vm.physician_note },
-            on: { viewPhysicianNote: _vm.cambiarComponente }
+            attrs: { id: _vm.id, type: _vm.type, titulo: _vm.titulo },
+            on: {
+              viewNote: _vm.viewComponent,
+              createNote: _vm.createComponent,
+              editNote: _vm.editComponent
+            }
           })
         ],
         1
@@ -33901,31 +33960,33 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "v-row",
-        [
-          _c(
-            "v-col",
+      _vm.type !== 2
+        ? _c(
+            "v-row",
             [
               _c(
-                "v-btn",
-                {
-                  attrs: {
-                    block: "",
-                    color: "primary",
-                    elevation: "9",
-                    large: ""
-                  },
-                  on: { click: _vm.volver }
-                },
-                [_vm._v("Save & Back")]
+                "v-col",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        block: "",
+                        color: "primary",
+                        elevation: "9",
+                        large: ""
+                      },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save & Back")]
+                  )
+                ],
+                1
               )
             ],
             1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-row",
@@ -33942,7 +34003,7 @@ var render = function() {
                     elevation: "9",
                     large: ""
                   },
-                  on: { click: _vm.volver }
+                  on: { click: _vm.back }
                 },
                 [_vm._v("Back without Saving")]
               )
@@ -33964,7 +34025,7 @@ var render = function() {
                   outlined: "",
                   name: "input-7-4",
                   label: "Subjective - Objective - A - P",
-                  value: "S: \nO: \nA: \nP:",
+                  value: _vm.texto,
                   height: "900",
                   disabled: _vm.type === 2
                 }
@@ -33976,31 +34037,33 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "v-row",
-        [
-          _c(
-            "v-col",
+      _vm.type !== 2
+        ? _c(
+            "v-row",
             [
               _c(
-                "v-btn",
-                {
-                  attrs: {
-                    block: "",
-                    color: "primary",
-                    elevation: "9",
-                    large: ""
-                  },
-                  on: { click: _vm.volver }
-                },
-                [_vm._v("Back & Save")]
+                "v-col",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        block: "",
+                        color: "primary",
+                        elevation: "9",
+                        large: ""
+                      },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Back & Save")]
+                  )
+                ],
+                1
               )
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -34138,10 +34201,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true&":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -34156,32 +34219,33 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._v("\n        Number: " + _vm._s(_vm.id) + "\n        "),
-      _c(
-        "v-row",
-        [
-          _c(
-            "v-col",
+      _vm.type !== 2
+        ? _c(
+            "v-row",
             [
               _c(
-                "v-btn",
-                {
-                  attrs: {
-                    block: "",
-                    color: "primary",
-                    elevation: "9",
-                    large: ""
-                  },
-                  on: { click: _vm.volver }
-                },
-                [_vm._v("Save & Back")]
+                "v-col",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        block: "",
+                        color: "primary",
+                        elevation: "9",
+                        large: ""
+                      },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save & Back")]
+                  )
+                ],
+                1
               )
             ],
             1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-row",
@@ -34198,7 +34262,7 @@ var render = function() {
                     elevation: "9",
                     large: ""
                   },
-                  on: { click: _vm.volver }
+                  on: { click: _vm.back }
                 },
                 [_vm._v("Back without Saving")]
               )
@@ -34220,8 +34284,9 @@ var render = function() {
                   outlined: "",
                   name: "input-7-4",
                   label: "Subjective - Objective - A - P",
-                  value: "S: \nO: \nA: \nP:",
-                  height: "900"
+                  value: _vm.texto,
+                  height: "900",
+                  disabled: _vm.type === 2
                 }
               })
             ],
@@ -34231,31 +34296,33 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "v-row",
-        [
-          _c(
-            "v-col",
+      _vm.type !== 2
+        ? _c(
+            "v-row",
             [
               _c(
-                "v-btn",
-                {
-                  attrs: {
-                    block: "",
-                    color: "primary",
-                    elevation: "9",
-                    large: ""
-                  },
-                  on: { click: _vm.volver }
-                },
-                [_vm._v("Back")]
+                "v-col",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        block: "",
+                        color: "primary",
+                        elevation: "9",
+                        large: ""
+                      },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Back & Save")]
+                  )
+                ],
+                1
               )
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -34267,10 +34334,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -34287,11 +34354,7 @@ var render = function() {
     [
       _c("v-data-table", {
         staticClass: "elevation-1",
-        attrs: {
-          headers: _vm.headers,
-          items: _vm.physician_notes,
-          "sort-by": "id"
-        },
+        attrs: { headers: _vm.headers, items: _vm.items, "sort-by": "id" },
         scopedSlots: _vm._u([
           {
             key: "top",
@@ -34301,7 +34364,7 @@ var render = function() {
                   "v-toolbar",
                   { attrs: { flat: "" } },
                   [
-                    _c("v-toolbar-title", [_vm._v("Physician Notes")]),
+                    _c("v-toolbar-title", [_vm._v(_vm._s(_vm.titulo))]),
                     _vm._v(" "),
                     _c("v-divider", {
                       staticClass: "mx-4",
@@ -34318,7 +34381,7 @@ var render = function() {
                         attrs: { large: "" },
                         on: {
                           click: function($event) {
-                            return _vm.createItem(_vm.item)
+                            return _vm.createItem()
                           }
                         }
                       },
@@ -34349,6 +34412,21 @@ var render = function() {
                     }
                   },
                   [_vm._v("mdi-eye")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    staticClass:
+                      "transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110",
+                    attrs: { large: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-pencil")]
                 )
               ]
             }
@@ -95323,87 +95401,18 @@ component.options.__file = "resources/js/component/Orders/StudiesOrder.vue"
 
 /***/ }),
 
-/***/ "./resources/js/component/PhysicianNoteItem.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteItem.vue ***!
-  \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true& */ "./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true&");
-/* harmony import */ var _PhysicianNoteItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhysicianNoteItem.vue?vue&type=script&lang=js& */ "./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _PhysicianNoteItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "5556012f",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/component/PhysicianNoteItem.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PhysicianNoteItem.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteItem.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true& ***!
-  \*************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteItem.vue?vue&type=template&id=5556012f&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteItem_vue_vue_type_template_id_5556012f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/component/PhysicianNoteTable.vue":
+/***/ "./resources/js/component/PhysicianNote/Item.vue":
 /*!*******************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteTable.vue ***!
+  !*** ./resources/js/component/PhysicianNote/Item.vue ***!
   \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true& */ "./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true&");
-/* harmony import */ var _PhysicianNoteTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhysicianNoteTable.vue?vue&type=script&lang=js& */ "./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Item.vue?vue&type=template&id=3a5bc5d4&scoped=true& */ "./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true&");
+/* harmony import */ var _Item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Item.vue?vue&type=script&lang=js& */ "./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -95412,50 +95421,119 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _PhysicianNoteTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "612362e2",
+  "3a5bc5d4",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/component/PhysicianNoteTable.vue"
+component.options.__file = "resources/js/component/PhysicianNote/Item.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js&":
 /*!********************************************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PhysicianNoteTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Item.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true&":
+/***/ "./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true&":
 /*!**************************************************************************************************!*\
-  !*** ./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true& ***!
+  !*** ./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true& ***!
   \**************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNoteTable.vue?vue&type=template&id=612362e2&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Item.vue?vue&type=template&id=3a5bc5d4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Item.vue?vue&type=template&id=3a5bc5d4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhysicianNoteTable_vue_vue_type_template_id_612362e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Item_vue_vue_type_template_id_3a5bc5d4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/component/PhysicianNote/Table.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/component/PhysicianNote/Table.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table.vue?vue&type=template&id=f9aa784a&scoped=true& */ "./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true&");
+/* harmony import */ var _Table_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Table.vue?vue&type=script&lang=js& */ "./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Table_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "f9aa784a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/component/PhysicianNote/Table.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Table_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Table.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Table.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Table_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Table.vue?vue&type=template&id=f9aa784a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/PhysicianNote/Table.vue?vue&type=template&id=f9aa784a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Table_vue_vue_type_template_id_f9aa784a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

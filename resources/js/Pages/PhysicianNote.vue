@@ -3,8 +3,12 @@
         <transition name="component-fade" mode="out-in">
             <component
                 v-bind:is="view"
-                :id="physician_note"
-                @viewPhysicianNote="cambiarComponente"
+                :id="id"
+                :type="type"
+                :titulo="titulo"
+                @viewNote="viewComponent"
+                @createNote="createComponent"
+                @editNote="editComponent"                
             ></component>
         </transition>
         
@@ -12,8 +16,8 @@
 </template>
 
 <script>
-import PhysicianNoteItem from '../component/PhysicianNoteItem'
-import PhysicianNoteTable from '../component/PhysicianNoteTable'
+import PhysicianNoteItem from '../component/PhysicianNote/Item'
+import PhysicianNoteTable from '../component/PhysicianNote/Table'
 
 export default {
     name: "PhysicianNote",
@@ -25,25 +29,40 @@ export default {
         
     },
     methods: {
-        cambiarComponente(id) {
+        viewComponent(evt) {            
             if (this.view === "PhysicianNoteItem") {
-                this.view = "PhysicianNoteTable";                
+                this.view = "PhysicianNoteTable";
                 this.titulo = "Physician Note";
-            } else {
+            } else {                
                 this.view = "PhysicianNoteItem";
                 this.titulo = "Physician Note Table";
-                if (id !== 0) {
-                    this.physician_note = id;
+                if (evt !== 0) {                    
+                    this.id = evt;
+                    this.type = 2
                 } else {
-                    this.physician_note = 0;
+                    this.id = 0;
                 }
             }
+        },
+        createComponent(evt){
+            this.view = "PhysicianNoteItem";
+            this.titulo = "Physician Note";
+            this.id = 0;
+            this.type = 0
+        },
+        editComponent(evt){
+            this.view = "PhysicianNoteItem";
+            this.titulo = "Physician Note";
+            this.id = evt;
+            this.type = 1
         }
     },
     data() {
         return {
-            physician_note:0,
-            view: "PhysicianNoteTable"
+            titulo:"",
+            view: "PhysicianNoteTable",
+            id: 0,
+            type: ''
         };
     }
 };

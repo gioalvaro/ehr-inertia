@@ -16,20 +16,39 @@ class MedicationTypeSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         DB::table('medication_types')->insert([
+            'id' => 1,
             'description' => 'Sunitinib',
             'code' => 1
         ]);
         DB::table('medication_types')->insert([
+            'id' => 2,
             'description' => 'Pamidronate',
             'code' => 2
         ]);
         DB::table('medication_types')->insert([
+            'id' => 3,
             'description' => 'Tamsulosin',
             'code' => 3
         ]);
         DB::table('medication_types')->insert([
+            'id' => 4,
             'description' => 'Nivolumab',
             'code' => 4
+        ]); 
+        DB::table('medication_types')->insert([
+            'id' => 5,
+            'description' => 'Dilaud',
+            'code' => 5
+        ]); 
+        DB::table('medication_types')->insert([
+            'id' => 6,
+            'description' => 'Zofran',
+            'code' => 6
+        ]); 
+        DB::table('medication_types')->insert([
+            'id' => 7,
+            'description' => 'NS',
+            'code' => 7
         ]);        
     }
     

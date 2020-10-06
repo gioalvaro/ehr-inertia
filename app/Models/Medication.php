@@ -18,6 +18,7 @@ class Medication extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
+        'id',
         'encounter_id',
         'medication_type_id',
         'name',

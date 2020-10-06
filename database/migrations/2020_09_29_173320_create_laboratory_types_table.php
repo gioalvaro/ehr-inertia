@@ -17,6 +17,7 @@ class CreateLaboratoryTypesTable extends Migration
             $table->id();
             $table->integer('code');
             $table->string('description');
+            $table->boolean('verification');
             $table->softDeletes();
             $table->timestamps();
         });

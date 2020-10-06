@@ -38,7 +38,7 @@
 
 <script>
 export default {
-    name: "NursingNoteItem",
+    name: "PhysicianNoteItem",
     props: {
         id: {
             type: Number,
@@ -58,7 +58,7 @@ export default {
         save(){
             let obj = {}
             if (this.type === 0){
-                this.$store.dispatch('nursingNote/post', )
+                this.$store.dispatch('physicianNote/post', )
             }
             if (this.type === 1){
 
