@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Encounter;
 use App\Models\PhysicianNote;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
-class PhysicianNoteController extends Controller
+class PhysicianNoteController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $physician_note = PhysicianNote::whereHas('encounter', function (Builder $query) use ($provider) {
+            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        })->with('physician_type')->with('encounter.department','encounter.provider')->get();
+        return $this->sendResponse($physician_note->toArray(), 'Physician Notes retrieve successfully');
     }
 
     /**

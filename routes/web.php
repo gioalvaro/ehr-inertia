@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\NursingNoteController;
+use App\Http\Controllers\PhysicianNoteController;
+use App\Models\Medication;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -61,11 +65,25 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/encounters/{id}', [EncounterController::class, 'destroy'])->name("encounters.destroy");
 
     //Medication
-    
+    Route::get('/medications', [MedicationController::class, 'index'])->name("medications.index");
+    Route::get('/medications/{id}', [MedicationController::class, 'show'])->name("medications.show");
+    Route::put('/medications/{id}', [MedicationController::class, 'update'])->name("medications.update");
+    Route::post('/medications', [MedicationController::class, 'store'])->name("medications.store");
+    Route::delete('/medications/{id}', [MedicationController::class, 'destroy'])->name("medications.destroy");
 
     //Physician note
+    Route::get('/physician_notes', [PhysicianNoteController::class, 'index'])->name("physician_notes.index");
+    Route::get('/physician_notes/{id}', [PhysicianNoteController::class, 'show'])->name("physician_notes.show");
+    Route::put('/physician_notes/{id}', [PhysicianNoteController::class, 'update'])->name("physician_notes.update");
+    Route::post('/physician_notes', [PhysicianNoteController::class, 'store'])->name("physician_notes.store");
+    Route::delete('/physician_notes/{id}', [PhysicianNoteController::class, 'destroy'])->name("physician_notes.destroy");
 
     //Nursing Note
+    Route::get('/nursing_notes', [NursingNoteController::class, 'index'])->name("nursing_notes.index");
+    Route::get('/nursing_notes/{id}', [NursingNoteController::class, 'show'])->name("nursing_notes.show");
+    Route::put('/nursing_notes/{id}', [NursingNoteController::class, 'update'])->name("nursing_notes.update");
+    Route::post('/nursing_notes', [NursingNoteController::class, 'store'])->name("nursing_notes.store");
+    Route::delete('/nursing_notes/{id}', [NursingNoteController::class, 'destroy'])->name("nursing_notes.destroy");
 
     //Lab results
     

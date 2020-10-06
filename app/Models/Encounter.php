@@ -89,6 +89,13 @@ class Encounter extends Model
     {
         return $this->belongsTo(\App\Models\Patient::class);
     }
+    /**
+     * @return BelongsTo
+     **/
+    public function provider()
+    {
+        return $this->belongsTo(\App\Models\Provider::class);
+    }
 
      /**
      * @return BelongsTo

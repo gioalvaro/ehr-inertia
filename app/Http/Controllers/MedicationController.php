@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Medication;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class MedicationController extends Controller
 {
@@ -12,9 +13,14 @@ class MedicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $physician_note = Medication::whereHas('encounter', function (Builder $query) use ($provider) {
+            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        })->get();
+        return $this->sendResponse($physician_note->toArray(), 'Medications retrieve successfully');
     }
 
     /**

@@ -37,9 +37,15 @@ export default {
     },
     name:'Table',
     created() {
+        this.fetchNote();        
         this.initialize();
+        //this.items = this.physician_notes
     },
     methods: {
+        async fetchNote() {
+            await this.$store
+                .dispatch('physicianNote/all');
+         },
         viewItem(item) {
             this.$emit("viewNote", item.id);
         },
@@ -112,6 +118,9 @@ export default {
         }
     },
     computed: {
+        physician_notes() {
+            return this.$store.getters['physicianNote/physician_notes']
+        },
         formTitle() {
             return this.editedIndex === -1 ? "New Physician Note" : "Edit Physician Note";
         }
@@ -127,9 +136,9 @@ export default {
                     sortable: false,
                     value: "created_at"
                 },
-                { text: "Type", value: "type" },
-                { text: "Provider", value: "provider" },
-                { text: "Department", value: "department" },
+                { text: "Type", value: "physician_type.description" },
+                { text: "Provider", value: "provider.name" },
+                { text: "Department", value: "department.description" },
                 { text: "Actions", value: "actions", sortable: false }
             ],
             items: [],

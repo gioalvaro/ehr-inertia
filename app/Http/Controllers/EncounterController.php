@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Encounter;
+use App\Models\PhysicianNote;
 use Illuminate\Http\Request;
 
 class EncounterController extends AppBaseController

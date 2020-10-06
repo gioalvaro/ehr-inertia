@@ -6366,6 +6366,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6404,9 +6412,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'Table',
   created: function created() {
-    this.initialize();
+    this.fetchNote();
+    this.initialize(); //this.items = this.nursing_notes
   },
   methods: {
+    fetchNote: function fetchNote() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('nursingNote/all');
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     viewItem: function viewItem(item) {
       this.$emit("viewNote", item.id);
     },
@@ -6448,12 +6476,12 @@ __webpack_require__.r(__webpack_exports__);
       confirm("Are you sure you want to delete this nursing note?") && this.items.splice(index, 1);
     },
     close: function close() {
-      var _this = this;
+      var _this2 = this;
 
       this.dialog = false;
       this.$nextTick(function () {
-        _this.editedItem = Object.assign({}, _this.defaultItem);
-        _this.editedIndex = -1;
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
       });
     },
     save: function save() {
@@ -6472,6 +6500,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    nursing_notes: function nursing_notes() {
+      return this.$store.getters['nursingNote/nursing_notes'];
+    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? "New Nursing Note" : "Edit Nursing Note";
     }
@@ -6611,6 +6642,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6649,9 +6688,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'Table',
   created: function created() {
-    this.initialize();
+    this.fetchNote();
+    this.initialize(); //this.items = this.physician_notes
   },
   methods: {
+    fetchNote: function fetchNote() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('physicianNote/all');
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     viewItem: function viewItem(item) {
       this.$emit("viewNote", item.id);
     },
@@ -6693,12 +6752,12 @@ __webpack_require__.r(__webpack_exports__);
       confirm("Are you sure you want to delete this physician note?") && this.items.splice(index, 1);
     },
     close: function close() {
-      var _this = this;
+      var _this2 = this;
 
       this.dialog = false;
       this.$nextTick(function () {
-        _this.editedItem = Object.assign({}, _this.defaultItem);
-        _this.editedIndex = -1;
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
       });
     },
     save: function save() {
@@ -6717,6 +6776,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    physician_notes: function physician_notes() {
+      return this.$store.getters['physicianNote/physician_notes'];
+    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? "New Physician Note" : "Edit Physician Note";
     }
@@ -6731,13 +6793,13 @@ __webpack_require__.r(__webpack_exports__);
         value: "created_at"
       }, {
         text: "Type",
-        value: "type"
+        value: "physician_type.description"
       }, {
         text: "Provider",
-        value: "provider"
+        value: "provider.name"
       }, {
         text: "Department",
-        value: "department"
+        value: "department.description"
       }, {
         text: "Actions",
         value: "actions",

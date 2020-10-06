@@ -37,9 +37,15 @@ export default {
     },
     name:'Table',
     created() {
+         this.fetchNote();
         this.initialize();
+        //this.items = this.nursing_notes
     },
     methods: {
+        async fetchNote() {
+            await this.$store
+                .dispatch('nursingNote/all');
+         },
         viewItem(item) {
             this.$emit("viewNote", item.id);
         },
@@ -112,6 +118,9 @@ export default {
         }
     },
     computed: {
+        nursing_notes() {
+            return this.$store.getters['nursingNote/nursing_notes']
+        },
         formTitle() {
             return this.editedIndex === -1 ? "New Nursing Note" : "Edit Nursing Note";
         }
