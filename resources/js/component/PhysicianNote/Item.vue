@@ -21,7 +21,7 @@
                     name="input-7-4"
                     label="Subjective - Objective - A - P"
                     :value=texto
-                    height="900"
+                    height="1100"
                     :disabled="type === 2"                
                 ></v-textarea>
             </v-col>
@@ -39,6 +39,9 @@
 <script>
 export default {
     name: "PhysicianNoteItem",
+    created(){
+        this.look();
+    },
     props: {
         id: {
             type: Number,
@@ -54,7 +57,19 @@ export default {
             texto: "S: \n\nD: \n\nA: \n\nP:"
         }
     },
+    computed: {
+        physician_notes() {
+            return this.$store.getters['physicianNote/physician_notes']
+        }
+    },
     methods: {
+         look(){
+            let index = this.physician_notes.findIndex(
+                item => item.id === this.id
+            );
+            let physician_note = this.physician_notes[index];
+            this.texto = physician_note.note;
+        },
         save(){
             let obj = {}
             if (this.type === 0){

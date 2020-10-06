@@ -87,5 +87,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Lab results
     
+    // Providers
+    Route::get('/providers/myself', [ProviderController::class, 'me'])->name("provider.me");
 
 });

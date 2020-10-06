@@ -2,7 +2,7 @@
     <div>
         <v-data-table
             :headers="headers"
-            :items="items"
+            :items="physician_notes"
             sort-by="id"
             class="elevation-1"
         >
@@ -137,8 +137,8 @@ export default {
                     value: "created_at"
                 },
                 { text: "Type", value: "physician_type.description" },
-                { text: "Provider", value: "provider.name" },
-                { text: "Department", value: "department.description" },
+                { text: "Provider", value: "encounter.provider.name" },
+                { text: "Department", value: "encounter.department.description" },
                 { text: "Actions", value: "actions", sortable: false }
             ],
             items: [],

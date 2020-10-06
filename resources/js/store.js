@@ -7,6 +7,7 @@ import PhysicianNoteModule from './modules/PhysicianNoteModule';
 import MedicationModule from './modules/MedicationModule';
 import MedicalRecordModule from './modules/MedicalRecordModule';
 import EncounterModule from './modules/EncounterModule';
+import ProviderModule from "./modules/ProviderModule";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         nursingNote: NursingNoteModule,
         physicianNote: PhysicianNoteModule,
         laboratory: LaboratoryModule,
-        encounter: EncounterModule    
+        encounter: EncounterModule,
+        provider: ProviderModule 
     }
 });

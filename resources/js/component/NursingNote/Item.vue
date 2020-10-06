@@ -54,7 +54,22 @@ export default {
             texto: "S: \n\nD: \n\nA: \n\nP:"
         }
     },
+    computed: {
+        nursing_notes() {
+            return this.$store.getters['nursingNote/nursing_notes']
+        }
+    },
+     created(){
+        this.look();
+    },
     methods: {
+        look(){
+            let index = this.nursing_notes.findIndex(
+                item => item.id === this.id
+            );
+            let nursing_note = this.nursing_notes[index];
+            this.texto = nursing_note.note;
+        },
         save(){
             let obj = {}
             if (this.type === 0){

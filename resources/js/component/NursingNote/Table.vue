@@ -2,7 +2,7 @@
     <div>
         <v-data-table
             :headers="headers"
-            :items="items"
+            :items="nursing_notes"
             sort-by="id"
             class="elevation-1"
         >
@@ -16,7 +16,7 @@
             </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
-                <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="editItem(item)" large>mdi-pencil</v-icon>
+                <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="editItem(item)" large>mdi-pencil</v-icon>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
@@ -121,11 +121,13 @@ export default {
         nursing_notes() {
             return this.$store.getters['nursingNote/nursing_notes']
         },
+        provider() {
+            return this.$store.getters['provider/provider']
+        },
         formTitle() {
             return this.editedIndex === -1 ? "New Nursing Note" : "Edit Nursing Note";
         }
-    },
-    
+    },   
     data() {
         return {
             dialog: false,
@@ -136,9 +138,9 @@ export default {
                     sortable: false,
                     value: "created_at"
                 },
-                { text: "Type", value: "type" },
-                { text: "Provider", value: "provider" },
-                { text: "Department", value: "department" },
+                { text: "Type", value: "nursing_type.description" },
+                { text: "Provider", value: "encounter.provider.name" },
+                { text: "Department", value: "encounter.department.description" },
                 { text: "Actions", value: "actions", sortable: false }
             ],
             items: [],

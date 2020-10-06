@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 
-class ProviderController extends Controller
+class ProviderController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -47,6 +47,19 @@ class ProviderController extends Controller
     public function show(Provider $provider)
     {
         //
+    }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function me(Request $request)
+    {
+        $user = $request->user();
+        $provider = $user->provider()->first();        
+        return $this->sendResponse($provider->toArray(), 'Provider retrieve successfully');
     }
 
     /**

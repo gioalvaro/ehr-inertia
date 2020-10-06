@@ -6337,7 +6337,24 @@ __webpack_require__.r(__webpack_exports__);
       texto: "S: \n\nD: \n\nA: \n\nP:"
     };
   },
+  computed: {
+    nursing_notes: function nursing_notes() {
+      return this.$store.getters['nursingNote/nursing_notes'];
+    }
+  },
+  created: function created() {
+    this.look();
+  },
   methods: {
+    look: function look() {
+      var _this = this;
+
+      var index = this.nursing_notes.findIndex(function (item) {
+        return item.id === _this.id;
+      });
+      var nursing_note = this.nursing_notes[index];
+      this.texto = nursing_note.note;
+    },
     save: function save() {
       var obj = {};
 
@@ -6503,6 +6520,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     nursing_notes: function nursing_notes() {
       return this.$store.getters['nursingNote/nursing_notes'];
     },
+    provider: function provider() {
+      return this.$store.getters['provider/provider'];
+    },
     formTitle: function formTitle() {
       return this.editedIndex === -1 ? "New Nursing Note" : "Edit Nursing Note";
     }
@@ -6517,13 +6537,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "created_at"
       }, {
         text: "Type",
-        value: "type"
+        value: "nursing_type.description"
       }, {
         text: "Provider",
-        value: "provider"
+        value: "encounter.provider.name"
       }, {
         text: "Department",
-        value: "department"
+        value: "encounter.department.description"
       }, {
         text: "Actions",
         value: "actions",
@@ -6598,6 +6618,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PhysicianNoteItem",
+  created: function created() {
+    this.look();
+  },
   props: {
     id: {
       type: Number,
@@ -6613,7 +6636,21 @@ __webpack_require__.r(__webpack_exports__);
       texto: "S: \n\nD: \n\nA: \n\nP:"
     };
   },
+  computed: {
+    physician_notes: function physician_notes() {
+      return this.$store.getters['physicianNote/physician_notes'];
+    }
+  },
   methods: {
+    look: function look() {
+      var _this = this;
+
+      var index = this.physician_notes.findIndex(function (item) {
+        return item.id === _this.id;
+      });
+      var physician_note = this.physician_notes[index];
+      this.texto = physician_note.note;
+    },
     save: function save() {
       var obj = {};
 
@@ -6796,10 +6833,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "physician_type.description"
       }, {
         text: "Provider",
-        value: "provider.name"
+        value: "encounter.provider.name"
       }, {
         text: "Department",
-        value: "department.description"
+        value: "encounter.department.description"
       }, {
         text: "Actions",
         value: "actions",
@@ -34157,7 +34194,11 @@ var render = function() {
     [
       _c("v-data-table", {
         staticClass: "elevation-1",
-        attrs: { headers: _vm.headers, items: _vm.items, "sort-by": "id" },
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.nursing_notes,
+          "sort-by": "id"
+        },
         scopedSlots: _vm._u([
           {
             key: "top",
@@ -34217,20 +34258,22 @@ var render = function() {
                   [_vm._v("mdi-eye")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "v-icon",
-                  {
-                    staticClass:
-                      "transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110",
-                    attrs: { large: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.editItem(item)
-                      }
-                    }
-                  },
-                  [_vm._v("mdi-pencil")]
-                )
+                item.encounter.provider_id === _vm.provider.id
+                  ? _c(
+                      "v-icon",
+                      {
+                        staticClass:
+                          "transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110",
+                        attrs: { large: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editItem(item)
+                          }
+                        }
+                      },
+                      [_vm._v("mdi-pencil")]
+                    )
+                  : _vm._e()
               ]
             }
           },
@@ -34347,7 +34390,7 @@ var render = function() {
                   name: "input-7-4",
                   label: "Subjective - Objective - A - P",
                   value: _vm.texto,
-                  height: "900",
+                  height: "1100",
                   disabled: _vm.type === 2
                 }
               })
@@ -34416,7 +34459,11 @@ var render = function() {
     [
       _c("v-data-table", {
         staticClass: "elevation-1",
-        attrs: { headers: _vm.headers, items: _vm.items, "sort-by": "id" },
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.physician_notes,
+          "sort-by": "id"
+        },
         scopedSlots: _vm._u([
           {
             key: "top",
@@ -96874,6 +96921,212 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/ProviderModule.js":
+/*!************************************************!*\
+  !*** ./resources/js/modules/ProviderModule.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    providers: [],
+    provider: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.providers = [];
+      state.provider = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.providers = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.providers.push(item);
+      return state.provider = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.providers.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.providers.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.providers.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.providers.splice(index, 1);
+      state.providers.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/providers").then(function (res) {
+                  console.log("get providers ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get providers: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/providers/".concat(id)).then(function (res) {
+                  console.log("get providers ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get providers: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    me: function me(_ref3) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                _context3.next = 3;
+                return axios.get("/providers/myself").then(function (res) {
+                  console.log("get providers ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get providers: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    post: function post(_ref4, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("inicio de post");
+                axios.post("/providers", item).then(function (res) {
+                  if (res.data.success) console.log("post providers ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de providers: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    "delete": function _delete(_ref5, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/providers/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la providers: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    update: function update(_ref6, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                commit = _ref6.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/providers/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar providers" + err);
+                });
+                console.log("Sale de la actualizacion de providers");
+
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    }
+  },
+  getters: {
+    providers: function providers(state) {
+      return state.providers;
+    },
+    provider: function provider(state) {
+      return state.provider;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/store.js":
 /*!*******************************!*\
   !*** ./resources/js/store.js ***!
@@ -96893,6 +97146,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_MedicationModule__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/MedicationModule */ "./resources/js/modules/MedicationModule.js");
 /* harmony import */ var _modules_MedicalRecordModule__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/MedicalRecordModule */ "./resources/js/modules/MedicalRecordModule.js");
 /* harmony import */ var _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/EncounterModule */ "./resources/js/modules/EncounterModule.js");
+/* harmony import */ var _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ProviderModule */ "./resources/js/modules/ProviderModule.js");
+
 
 
 
@@ -96911,7 +97166,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     nursingNote: _modules_NursingNoteModule__WEBPACK_IMPORTED_MODULE_4__["default"],
     physicianNote: _modules_PhysicianNoteModule__WEBPACK_IMPORTED_MODULE_5__["default"],
     laboratory: _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__["default"],
-    encounter: _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_8__["default"]
+    encounter: _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_8__["default"],
+    provider: _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_9__["default"]
   }
 }));
 
