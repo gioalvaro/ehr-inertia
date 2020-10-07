@@ -93,10 +93,10 @@ class LaboratoryController extends Controller
      * @param  \App\Models\Laboratory  $laboratory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laboratory $laboratory)
+    public function destroy($id)
     {
-        $medication = Medication::find($id);                        
-        $medication->delete();
-        return $this->sendSuccess('Medication delete Successfuly');
+        $lab = Laboratory::find($id);                        
+        $lab->delete();
+        return $this->sendSuccess('Laboratory delete Successfuly');
     }
 }
