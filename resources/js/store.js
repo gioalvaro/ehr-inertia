@@ -5,6 +5,7 @@ import LaboratoryModule from './modules/LaboratoryModule';
 import NursingNoteModule from './modules/NursingNoteModule';
 import PhysicianNoteModule from './modules/PhysicianNoteModule';
 import MedicationModule from './modules/MedicationModule';
+import MedicationTypeModule from './modules/MedicationTypeModule';
 import MedicalRecordModule from './modules/MedicalRecordModule';
 import EncounterModule from './modules/EncounterModule';
 import ProviderModule from "./modules/ProviderModule";
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         physicianNote: PhysicianNoteModule,
         laboratory: LaboratoryModule,
         encounter: EncounterModule,
-        provider: ProviderModule 
+        provider: ProviderModule,
+        medicationType: MedicationTypeModule
     }
 });

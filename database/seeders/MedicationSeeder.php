@@ -21,7 +21,8 @@ class MedicationSeeder extends Seeder
             'id' => 1,
             'medication_type_id' => 5,
             'encounter_id' => 1,
-            'dose' => '1 mg IV',
+            'dose' => '1',
+            'units' => 'mg',
             'route' => 'oral',
             'frequency' => '3/day',
             'start_date' => new Carbon(new DateTime('2019-10-08'))
@@ -30,7 +31,8 @@ class MedicationSeeder extends Seeder
             'id' => 2,
             'medication_type_id' => 6,
             'encounter_id' => 1,
-            'dose' => '4 mg IV',
+            'dose' => '4',
+            'units' => 'mg',
             'route' => 'oral',
             'frequency' => '5/day',
             'start_date' => new Carbon(new DateTime('2019-10-08'))
@@ -39,7 +41,8 @@ class MedicationSeeder extends Seeder
             'id' => 3,
             'medication_type_id' => 7,
             'encounter_id' => 1,
-            'dose' => '1 L',
+            'dose' => '1',
+            'units' => 'L',
             'route' => 'Bolus',
             'frequency' => '0',
             'start_date' => new Carbon(new DateTime('2019-10-08'))

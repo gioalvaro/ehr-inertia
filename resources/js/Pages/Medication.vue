@@ -2,13 +2,13 @@
     <div>
         <v-data-table
             :headers="headers"
-            :items="desserts"
+            :items="medications"
             sort-by="calories"
             class="elevation-1"
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>My CRUD</v-toolbar-title>
+                    <v-toolbar-title>Medications</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
@@ -20,7 +20,7 @@
                                 v-bind="attrs"
                                 v-on="on"
                             >
-                                New Item
+                                New Medication
                             </v-btn>
                         </template>
                         <v-card>
@@ -32,35 +32,71 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
+                                           <v-select
+                                                :items="medication_types"
+                                                v-model="editedItem.medication_type"
+                                                item-text="description"
+                                                item-value="id"                                                                                                
+                                                return-object
+                                                single-line
+                                                label="Name"
+                                            ></v-select>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
                                             <v-text-field
-                                                v-model="editedItem.name"
-                                                label="Dessert name"
+                                                v-model="editedItem.dose"
+                                                label="Dose"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field
-                                                v-model="editedItem.calories"
-                                                label="Calories"
+                                                v-model="editedItem.frequency"
+                                                label="Frequency"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field
-                                                v-model="editedItem.fat"
-                                                label="Fat (g)"
+                                                v-model="editedItem.units"
+                                                label="Units"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field
-                                                v-model="editedItem.carbs"
-                                                label="Carbs (g)"
+                                                v-model="editedItem.route"
+                                                label="Route"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                                v-model="editedItem.protein"
-                                                label="Protein (g)"
-                                            ></v-text-field>
+                                            <v-checkbox
+                                                v-model="editedItem.verified"
+                                                label="Verified"                                                
+                                            ></v-checkbox>
                                         </v-col>
+                                        <v-col cols="12" sm="6" md="4">                                            
+                                            <v-menu
+                                            v-model="menu2"
+                                            :close-on-content-click="false"
+                                            :nudge-right="40"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="290px"
+                                            >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                v-model="editedItem.start_date"
+                                                label="Start Date"
+                                                prepend-icon="mdi-calendar"
+                                                readonly
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                                v-model="editedItem.date"
+                                                @input="menu2 = false"
+                                            ></v-date-picker>
+                                            </v-menu>
+                                        </v-col>                                        
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -84,7 +120,7 @@
                         <v-card>
                             <v-card-title class="headline"
                                 >Are you sure you want to delete this
-                                item?</v-card-title
+                                medication?</v-card-title
                             >
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -104,18 +140,27 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
-                </v-toolbar>
+                </v-toolbar>            
+            </template>
+            <template v-slot:item.verified="{ item }">
+                <v-checkbox
+                    v-model="item.verified"              
+                    color="success"              
+                    disabled
+                ></v-checkbox>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
-                    mdi-pencil
-                </v-icon>
-                <v-icon small @click="deleteItem(item)">
-                    mdi-delete
-                </v-icon>
+                <div v-if="item.encounter.provider_id === provider.id">
+                    <v-icon class="mr-2" @click="editItem(item)">
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon @click="deleteItem(item)">
+                        mdi-delete
+                    </v-icon>
+                </div>
             </template>
             <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">
+                <v-btn color="primary" @click="fetchMedication">
                     Reset
                 </v-btn>
             </template>
@@ -128,41 +173,67 @@ export default {
     name: "Medications",
     data: () => ({
         dialog: false,
+        menu2: false,
         dialogDelete: false,
         headers: [
             {
-                text: "Dessert (100g serving)",
+                text: "Medication Name",
                 align: "start",
                 sortable: false,
-                value: "name"
+                value: "medication_type.description"
             },
-            { text: "Calories", value: "calories" },
-            { text: "Fat (g)", value: "fat" },
-            { text: "Carbs (g)", value: "carbs" },
-            { text: "Protein (g)", value: "protein" },
+            { text: "Dose", value: "dose" },
+            { text: "Frequency", value: "frequency" },
+            { text: "Units", value: "units" },
+            { text: "Route", value: "route" },
+            { text: "Provider", value: "encounter.provider.name" },
+            { text: "Department", value: "encounter.department.description" },
+            { text: "Start Date", value: "start_date" },
+            { text: "Verified", value: "verified" },
             { text: "Actions", value: "actions", sortable: false }
         ],
         desserts: [],
         editedIndex: -1,
         editedItem: {
             name: "",
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0
+            medication_type:{},
+            dose: '',
+            units: '',
+            frequency: '',
+            route: '',
+            start_date: new Date().toISOString().substr(0, 10),
+            verified: false
         },
         defaultItem: {
             name: "",
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0
+            medication_type:{},
+            dose: '',
+            units: '',
+            frequency: '',
+            route: '',
+            start_date: new Date().toISOString().substr(0, 10),
+            verified: false
         }
     }),
 
     computed: {
+        provider() {
+            return this.$store.getters['provider/provider']
+        },
+        encounter() {
+            return this.$store.getters['encounter/encounter'];
+        },
+        medication_types() {
+            return this.$store.getters['medicationType/medication_types']
+        },
+        medications() {
+            return this.$store.getters['medication/medications']
+        },
+        provider() {
+            return this.$store.getters['provider/provider']
+        },
         formTitle() {
-            return this.editedIndex === -1 ? "New Item" : "Edit Item";
+            return this.editedIndex === -1 ? "New Medication" : "Edit Medication";
         }
     },
 
@@ -175,103 +246,35 @@ export default {
         }
     },
 
-    created() {
-        this.initialize();
+    created() {        
+        this.fetchMedication();
+        this.fetchMedType();
     },
 
     methods: {
-        initialize() {
-            this.desserts = [
-                {
-                    name: "Frozen Yogurt",
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0
-                },
-                {
-                    name: "Ice cream sandwich",
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3
-                },
-                {
-                    name: "Eclair",
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0
-                },
-                {
-                    name: "Cupcake",
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3
-                },
-                {
-                    name: "Gingerbread",
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9
-                },
-                {
-                    name: "Jelly bean",
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0
-                },
-                {
-                    name: "Lollipop",
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0
-                },
-                {
-                    name: "Honeycomb",
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5
-                },
-                {
-                    name: "Donut",
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9
-                },
-                {
-                    name: "KitKat",
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7
-                }
-            ];
+        async fetchMedType(){
+            await this.$store.dispatch('medicationType/all');
         },
-
+         async fetchMedication() {
+            await this.$store
+                .dispatch('medication/all');
+         },
         editItem(item) {
-            this.editedIndex = this.desserts.indexOf(item);
+            this.editedIndex = this.medications.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
-
         deleteItem(item) {
-            this.editedIndex = this.desserts.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialogDelete = true;
+            const index = this.medications.indexOf(item);
+            if (window.confirm("Are you sure you want to delete this medication?")){
+                  this.$store.dispatch('medication/delete',item.id);
+            } 
+            this.fetchMedication();
         },
-
         deleteItemConfirm() {
-            this.desserts.splice(this.editedIndex, 1);
+            this.medications.splice(this.editedIndex, 1);
             this.closeDelete();
         },
-
         close() {
             this.dialog = false;
             this.$nextTick(() => {
@@ -279,7 +282,6 @@ export default {
                 this.editedIndex = -1;
             });
         },
-
         closeDelete() {
             this.dialogDelete = false;
             this.$nextTick(() => {
@@ -287,13 +289,16 @@ export default {
                 this.editedIndex = -1;
             });
         },
-
-        save() {
+        async save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.desserts[this.editedIndex], this.editedItem);
+                //Object.assign(this.medications[this.editedIndex], this.editedItem);
+                await this.$store.dispatch('medication/update', this.editedItem);
             } else {
-                this.desserts.push(this.editedItem);
+                //this.medications.push(this.editedItem);
+                this.editedItem.encounter_id = this.encounter.id;
+                await this.$store.dispatch('medication/post', this.editedItem);
             }
+            this.fetchMedication();
             this.close();
         }
     }

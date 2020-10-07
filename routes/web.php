@@ -3,6 +3,7 @@
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\MedicationTypeController;
 use App\Http\Controllers\NursingNoteController;
 use App\Http\Controllers\PhysicianNoteController;
 use App\Http\Controllers\ProviderController;
@@ -90,5 +91,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     // Providers
     Route::get('/providers/myself', [ProviderController::class, 'me'])->name("provider.me");
+
+
+    // Medication Type
+    Route::get('/medication_types', [MedicationTypeController::class, 'index'])->name("medication_types.index");
+    Route::get('/medication_types/{id}', [MedicationTypeController::class, 'show'])->name("medication_types.show");
+    Route::put('/medication_types/{id}', [MedicationTypeController::class, 'update'])->name("medication_types.update");
+    Route::post('/medication_types', [MedicationTypeController::class, 'store'])->name("medication_types.store");
+    Route::delete('/medication_types/{id}', [MedicationTypeController::class, 'destroy'])->name("medication_types.destroy");
 
 });

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MedicationType;
 use Illuminate\Http\Request;
 
-class MedicationTypeController extends Controller
+class MedicationTypeController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class MedicationTypeController extends Controller
      */
     public function index()
     {
-        //
+        $medications = MedicationType::all();
+        return $this->sendResponse($medications->toArray(), 'Medications retrieve successfully');
     }
 
     /**

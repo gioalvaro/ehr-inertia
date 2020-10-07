@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use DateTime;
 
-class MedicationController extends Controller
+class MedicationController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class MedicationController extends Controller
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $medications = Medication::with('medication_type')->whereHas('encounter', function (Builder $query) use ($provider) {
+        $medications = Medication::with('medication_type')->with('encounter.provider','encounter.department')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
         return $this->sendResponse($medications->toArray(), 'Medications retrieve successfully');
@@ -46,14 +46,15 @@ class MedicationController extends Controller
         $obj = $request->all();
         $medication = Medication::create([
             'encounter_id' => $obj['encounter_id'],
+            'medication_type_id' => $obj['medication_type']['id'],
             'name' => $obj['name'],
             'dose' => $obj['dose'],
             'frequency' => $obj['frequency'],
             'units' => $obj['units'],
             'route' => $obj['route'],
             'verified' => $obj['verified'],
-            'start_date' => new Carbon(new DateTime($obj['start_date'])),
-            'end_date' => new Carbon(new DateTime($obj['end_date']))
+            'start_date' => new Carbon(new DateTime($obj['start_date']))//,
+            //'end_date' => new Carbon(new DateTime($obj['end_date']))
         ]);
         $this->sendSuccess('Medication save Successfuly');
     }
@@ -77,7 +78,7 @@ class MedicationController extends Controller
      */
     public function edit(Medication $medication)
     {
-        //
+        dd($obj);
     }
 
     /**
@@ -88,7 +89,7 @@ class MedicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Medication $medication)
-    {
+    {        
         $medication = Medication::find($request->all()['id']);        
         $medication->name = $request->all()['name'];
         $medication->dose = $request->all()['dose'];
@@ -109,7 +110,7 @@ class MedicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {        
         $medication = Medication::find($id);                        
         $medication->delete();
         return $this->sendSuccess('Medication delete Successfuly');
