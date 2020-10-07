@@ -5,6 +5,7 @@ use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\NursingNoteController;
 use App\Http\Controllers\PhysicianNoteController;
+use App\Http\Controllers\ProviderController;
 use App\Models\Medication;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;

@@ -29,8 +29,14 @@ export default {
             state.encounters.splice(index, 1);
             state.encounters.unshift(item);
         },
+        SET(state, item){
+            return state.encounter = item;
+        }
     },
     actions: {
+        select({commit}, obj){
+            commit("SET", obj);
+        },
         async all({commit}) {
             await axios
                 .get(`/encounters`)

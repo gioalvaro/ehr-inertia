@@ -29,6 +29,9 @@ export default {
             state.providers.splice(index, 1);
             state.providers.unshift(item);
         },
+        SET(state, item){
+            state.provider = item;
+        }
     },
     actions: {
         async all({commit}) {
@@ -57,8 +60,8 @@ export default {
             await axios
                 .get(`/providers/myself`)
                 .then(res => {
-                    console.log("get providers ", res.data.data);
-                    commit("FETCH", res.data.data);
+                    console.log("get providers ", res.data);
+                    commit("SET", res.data.data);
                 })
                 .catch(err => {
                     console.error("Error en get providers: " + err);

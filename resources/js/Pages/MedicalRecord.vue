@@ -97,8 +97,7 @@
                                                     <v-col cols="12" md="3">
                                                         <v-checkbox
                                                             v-model="form.allergies_check"
-                                                            label="Allergies Check"
-                                                            value="Checked"
+                                                            label="Allergies Check"                                                            
                                                             @change="updateAllergies"
                                                         ></v-checkbox>                                                        
                                                     </v-col>
@@ -292,6 +291,7 @@ export default {
     created () {
         console.log(this.id)
         this.form = this.lookPatient();
+        this.setEncounter();
     },
     props: {
         id: {
@@ -308,7 +308,6 @@ export default {
         Orders
     },
     data: () => ({
-        encounter: {},
         baseURL: window.location.hostname,
         tab: null,
         form: {
@@ -327,6 +326,9 @@ export default {
         },
     }),
     methods: {
+        setEncounter(){
+            this.$store.dispatch('encounter/select', this.form)
+        },
         lookPatient(){
             let index = this.encounters.findIndex(
                 item => item.id === this.id
@@ -340,16 +342,16 @@ export default {
             await this.$store.dispatch('encounter/update', encounter);
         },
         async updateAllergies(){
-            await this.$store.dispatch('encounter/update', form);
+            await this.$store.dispatch('encounter/update', this.form);
         },
         volver() {
             this.$emit("viewMedicalRecord");
         }
     },
     computed: {
-        // patient() {
-        //     return this.$store.getters['patient/patient'];
-        // },
+        encounter() {
+            return this.$store.getters['encounter/encounter'];
+        },
         encounters() {
             return this.$store.getters['encounter/encounters'];
         },

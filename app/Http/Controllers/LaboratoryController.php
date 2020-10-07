@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class LaboratoryController extends Controller
 {
@@ -12,9 +13,14 @@ class LaboratoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $laboratory = Laboratory::with('laboratory_type')->whereHas('encounter', function (Builder $query) use ($provider) {
+            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        })->get();
+        return $this->sendResponse($laboratory->toArray(), 'Laboratory retrieve successfully');
     }
 
     /**
@@ -35,7 +41,16 @@ class LaboratoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $obj = $request->all();
+        $medication = Laboratory::create([
+            'encounter_id' => $obj['encounter_id'],
+            'laboratory_type_id' => $obj['laboratory_type_id'],
+            'current_value' => $obj['current_value'],
+            'min' => $obj['min'],
+            'max' => $obj['max'],
+            'units' => $obj['units']            
+        ]);
+        $this->sendSuccess('Laboratory save Successfuly');
     }
 
     /**
@@ -46,7 +61,7 @@ class LaboratoryController extends Controller
      */
     public function show(Laboratory $laboratory)
     {
-        //
+        
     }
 
     /**
@@ -80,6 +95,8 @@ class LaboratoryController extends Controller
      */
     public function destroy(Laboratory $laboratory)
     {
-        //
+        $medication = Medication::find($id);                        
+        $medication->delete();
+        return $this->sendSuccess('Medication delete Successfuly');
     }
 }

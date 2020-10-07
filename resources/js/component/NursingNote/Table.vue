@@ -8,15 +8,15 @@
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>{{titulo}}</v-toolbar-title>
+                    <v-toolbar-title>Nursing Note</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-spacer></v-spacer>                    
-                    <v-icon class="transition duration-500 ease-in-out text-black hover:text-blue-500 transform hover:-translate-y-1 hover:scale-110" @click="createItem()" large>mdi-plus</v-icon>
+                    <v-spacer></v-spacer>                                        
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
                 <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
                 <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="editItem(item)" large>mdi-pencil</v-icon>
+                <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="deleteItem(item)" large>mdi-delete</v-icon>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="initialize">
@@ -92,7 +92,7 @@ export default {
         deleteItem(item) {
             const index = this.items.indexOf(item);
             confirm("Are you sure you want to delete this nursing note?") &&
-                this.items.splice(index, 1);
+                this.$store.dispatch('nursingNote/delete',item.id);
         },
 
         close() {

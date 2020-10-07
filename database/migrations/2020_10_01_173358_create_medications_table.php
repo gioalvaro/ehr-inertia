@@ -24,7 +24,7 @@ class CreateMedicationsTable extends Migration
             $table->date('end_date')->nullable();
             $table->boolean('verified')->nullable();
             $table->foreignId('encounter_id')->constrained('encounters');
-            $table->foreignId('medication_type_id')->constrained('medication_types');
+            $table->foreignId('medication_type_id')->nullable()->constrained('medication_types');
             $table->softDeletes();
             $table->timestamps();
         });

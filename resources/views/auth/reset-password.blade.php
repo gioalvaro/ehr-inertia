@@ -4,7 +4,7 @@
         <img class="logo_login" src="http://www.cnsu.edu/images/CNU_Logo_English.png" width="300" />
         </x-slot>
         <x-slot name="header">
-            Electronic Health Record
+            Electronic Medical Record
         </x-slot>
         <x-jet-validation-errors class="mb-4" />
 

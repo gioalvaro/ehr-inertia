@@ -42,7 +42,14 @@ class PhysicianNoteController extends AppBaseController
      */
     public function store(Request $request)
     {
-        //
+        
+        $obj = $request->all();
+        $physician = PhysicianNote::create([
+            'encounter_id' => $obj['encounter_id'],
+            'physician_type_id' => 1,
+            'note' => $obj['note']
+        ]);
+        $this->sendSuccess('Physician Note save Successfuly');
     }
 
     /**
@@ -64,7 +71,7 @@ class PhysicianNoteController extends AppBaseController
      */
     public function edit(PhysicianNote $physicianNote)
     {
-        //
+        dd($physicianNote);
     }
 
     /**
@@ -76,7 +83,10 @@ class PhysicianNoteController extends AppBaseController
      */
     public function update(Request $request, PhysicianNote $physicianNote)
     {
-        //
+        $physician = PhysicianNote::find($request->all()['id']);        
+        $physician->note = $request->all()['note'];
+        $physician->save();
+        return $this->sendSuccess('Physician Note update Successfuly');
     }
 
     /**
@@ -85,8 +95,10 @@ class PhysicianNoteController extends AppBaseController
      * @param  \App\Models\PhysicianNote  $physicianNote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PhysicianNote $physicianNote)
-    {
-        //
+    public function destroy(Request $request, $id)
+    {   
+        $physician = PhysicianNote::find($id);                        
+        $physician->delete();
+        return $this->sendSuccess('Physician Note delete Successfuly');
     }
 }

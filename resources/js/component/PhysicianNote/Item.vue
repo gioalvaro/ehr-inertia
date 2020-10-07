@@ -1,5 +1,5 @@
 <template>
-    <div>        
+    <div>
         <v-row v-if="type !== 2">
             <v-col>
                 <v-btn block color="primary" elevation="9" large @click="save"
@@ -20,12 +20,13 @@
                     outlined
                     name="input-7-4"
                     label="Subjective - Objective - A - P"
-                    :value=texto
+                    v-model="texto"
+                    :value="texto"
                     height="1100"
-                    :disabled="type === 2"                
+                    :disabled="type === 2"
                 ></v-textarea>
             </v-col>
-        </v-row>        
+        </v-row>
         <v-row v-if="type !== 2">
             <v-col>
                 <v-btn block color="primary" elevation="9" large @click="save"
@@ -40,7 +41,10 @@
 export default {
     name: "PhysicianNoteItem",
     created(){
-        this.look();
+        if(this.id > 0){
+            this.look();
+        }
+        
     },
     props: {
         id: {
@@ -58,6 +62,9 @@ export default {
         }
     },
     computed: {
+        encounter() {
+            return this.$store.getters['encounter/encounter'];
+        },
         physician_notes() {
             return this.$store.getters['physicianNote/physician_notes']
         }
@@ -71,12 +78,16 @@ export default {
             this.texto = physician_note.note;
         },
         save(){
-            let obj = {}
+            let obj = {
+                note: this.texto,
+                encounter_id: this.encounter.id
+            }
             if (this.type === 0){
-                this.$store.dispatch('physicianNote/post', )
+                this.$store.dispatch('physicianNote/post', obj)
             }
             if (this.type === 1){
-
+                obj.id = this.id;
+                this.$store.dispatch('physicianNote/update', obj)
             }
             this.$emit("viewNote");
         },

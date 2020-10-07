@@ -71,9 +71,13 @@ class EncounterController extends AppBaseController
      * @param  \App\Models\Encounter  $encounter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Encounter $encounter)
+    public function update(Request $request, $id)
     {
-        //
+        $encounter = Encounter::find($id);
+        $encounter->allergies_check = $request->all()['allergies_check'];
+        $encounter->save();
+        return $this->sendSuccess("Encounter update successful");
+
     }
 
     /**

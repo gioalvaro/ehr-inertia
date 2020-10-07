@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Medication;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
+use DateTime;
 
 class MedicationController extends Controller
 {
@@ -17,10 +19,10 @@ class MedicationController extends Controller
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $physician_note = Medication::whereHas('encounter', function (Builder $query) use ($provider) {
+        $medications = Medication::with('medication_type')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
-        return $this->sendResponse($physician_note->toArray(), 'Medications retrieve successfully');
+        return $this->sendResponse($medications->toArray(), 'Medications retrieve successfully');
     }
 
     /**
@@ -41,7 +43,19 @@ class MedicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $obj = $request->all();
+        $medication = Medication::create([
+            'encounter_id' => $obj['encounter_id'],
+            'name' => $obj['name'],
+            'dose' => $obj['dose'],
+            'frequency' => $obj['frequency'],
+            'units' => $obj['units'],
+            'route' => $obj['route'],
+            'verified' => $obj['verified'],
+            'start_date' => new Carbon(new DateTime($obj['start_date'])),
+            'end_date' => new Carbon(new DateTime($obj['end_date']))
+        ]);
+        $this->sendSuccess('Medication save Successfuly');
     }
 
     /**
@@ -75,7 +89,17 @@ class MedicationController extends Controller
      */
     public function update(Request $request, Medication $medication)
     {
-        //
+        $medication = Medication::find($request->all()['id']);        
+        $medication->name = $request->all()['name'];
+        $medication->dose = $request->all()['dose'];
+        $medication->frequency = $request->all()['frequency'];
+        $medication->route = $request->all()['route'];
+        $medication->units = $request->all()['units'];
+        $medication->start_date = new Carbon(new DateTime($request->all()['start_date']));
+        $medication->end_date = new Carbon(new DateTime($request->all()['end_date']));
+        $medication->verified = $request->all()['verified'];
+        $medication->save();
+        return $this->sendSuccess('Medication update Successfuly');
     }
 
     /**
@@ -84,8 +108,10 @@ class MedicationController extends Controller
      * @param  \App\Models\Medication  $medication
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Medication $medication)
+    public function destroy($id)
     {
-        //
+        $medication = Medication::find($id);                        
+        $medication->delete();
+        return $this->sendSuccess('Medication delete Successfuly');
     }
 }

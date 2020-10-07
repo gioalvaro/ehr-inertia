@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Electronical Health Record Simulator v.01
+                Electronical Medical Record Simulator v.01
             </h2>
         </template>
         <div class="py-12">
@@ -54,11 +54,17 @@ export default {
         MedicalRecordTable,
         MedicalRecord
     },
+    created () {
+        this.setProvider();
+    },
     data: () => ({
         view: "MedicalRecordTable",
         id: 0
     }),
     methods: {
+        async setProvider(){
+            await this.$store.dispatch('provider/me');
+        },
         cambiarComponente(id) {            
             if (this.view === "MedicalRecord") {
                 this.view = "MedicalRecordTable";
