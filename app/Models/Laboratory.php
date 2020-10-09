@@ -27,12 +27,9 @@ class Laboratory extends Model
         'units'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [];
+    protected $casts = [
+        'created_at' => 'datetime:m-d-Y h:m'
+    ];
 
     
     /**

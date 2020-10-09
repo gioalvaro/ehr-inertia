@@ -19,7 +19,7 @@
                 <v-textarea
                     outlined
                     name="input-7-4"
-                    label="Subjective - Objective - A - P"
+                    label=""
                     :value=texto
                     height="900"
                     :disabled="type === 2"                

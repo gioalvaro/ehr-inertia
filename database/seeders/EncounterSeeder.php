@@ -187,6 +187,14 @@ class EncounterSeeder extends Seeder
             'test' => true
         ]);
         DB::table('encounters')->insert([
+            'id' => 9,
+            'patient_id' => 1,
+            'department_id' => 7,
+            'provider_id' => 9,
+            'test' => true
+
+        ]);
+        DB::table('encounters')->insert([
             'patient_id' => 2,
             // 'provider_id' => Provider::factory()->create()['id'],
             // 'department_id' => Department::inRandomOrder()->first()['id'],

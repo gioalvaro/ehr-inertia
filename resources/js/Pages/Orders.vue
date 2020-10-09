@@ -25,7 +25,7 @@
             </v-tab>
 
             <v-tab href="#tab-4">
-                Medications
+                Consult
                 <v-icon>mdi-account-box</v-icon>
             </v-tab>
         </v-tabs>
@@ -49,7 +49,7 @@
                 </v-card> 
                 <v-card v-if="i === 4" flat>
                     <v-card-text>
-                        <medications />
+                        <consult />
                     </v-card-text>
                 </v-card>                
             </v-tab-item>
@@ -61,7 +61,7 @@
 import Laboratories from "../component/Orders/LaboratoriesOrder"
 import Imaging from "../component/Orders/ImagingOrder"
 import Studies from "../component/Orders/StudiesOrder"
-import Medications from "../component/Orders/MedicationsOrder"
+import ConsultOrder from "../component/Orders/ConsultOrder"
 
 export default {
     name: "LabsResult",
@@ -69,7 +69,7 @@ export default {
         Laboratories,
         Imaging,
         Studies,
-        Medications
+        ConsultOrder
     },
     data: () => ({
         tab: null

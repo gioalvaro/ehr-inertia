@@ -58,7 +58,7 @@ export default {
     },
     data() {
         return {
-            texto: "S: \n\nD: \n\nA: \n\nP:"
+            texto: "S: \n\nO: \n\nA: \n\nP:"
         }
     },
     computed: {

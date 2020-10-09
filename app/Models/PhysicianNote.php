@@ -32,7 +32,7 @@ class PhysicianNote extends Model
      * @var array
      */
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d h:m'
+        'created_at' => 'datetime:m-d-Y h:m'
     ];
 
    

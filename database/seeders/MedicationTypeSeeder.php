@@ -37,7 +37,7 @@ class MedicationTypeSeeder extends Seeder
         ]); 
         DB::table('medication_types')->insert([
             'id' => 5,
-            'description' => 'Dilaud',
+            'description' => 'Dilaudid',
             'code' => 5
         ]); 
         DB::table('medication_types')->insert([

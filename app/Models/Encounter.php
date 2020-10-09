@@ -47,8 +47,8 @@ class Encounter extends Model
     protected $casts = [
         'id' => 'integer',
         'reason' => 'string',
-        'scheduled_time' => 'datetime:Y-m-d h:m',
-        'arrival_time' => 'datetime:Y-m-d h:m',
+        'scheduled_time' => 'datetime:m-d-Y h:m',
+        'arrival_time' => 'datetime:m-d-Y h:m',
         'check' => 'boolean',
         'temperature' => 'float',
         'temperature_type' => 'string',
@@ -120,6 +120,15 @@ class Encounter extends Model
     {
         return $this->hasMany(\App\Models\Medication::class, 'encounter_id');
     }
+
+    /**
+     * @return HasMany
+     **/
+    public function medication_verications()
+    {
+        return $this->hasMany(\App\Models\MedicationVerification::class, 'encounter_id');
+    }
+
 
     /**
      * @return HasMany

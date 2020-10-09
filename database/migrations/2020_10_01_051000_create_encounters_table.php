@@ -16,11 +16,11 @@ class CreateEncountersTable extends Migration
         Schema::create('encounters', function (Blueprint $table) {
             $table->id();
             $table->string('reason')->nullable();
-            $table->dateTime('scheduled_time');
-            $table->dateTime('arrival_time');
+            $table->dateTime('scheduled_time')->nullable();
+            $table->dateTime('arrival_time')->nullable();
             $table->boolean('check')->nullable();
             $table->float('bmi')->nullable();
-            $table->longText('current_vitals');
+            $table->longText('current_vitals')->nullable();
             $table->boolean('allergies_check')->nullable();
             $table->string('allergies')->nullable();
             $table->float('temperature')->nullable();

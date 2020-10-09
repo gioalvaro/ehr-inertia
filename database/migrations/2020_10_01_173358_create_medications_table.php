@@ -21,8 +21,7 @@ class CreateMedicationsTable extends Migration
             $table->string('route')->nullable();
             $table->string('frequency')->nullable();
             $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->boolean('verified')->nullable();
+            $table->date('end_date')->nullable();            
             $table->foreignId('encounter_id')->constrained('encounters');
             $table->foreignId('medication_type_id')->nullable()->constrained('medication_types');
             $table->softDeletes();

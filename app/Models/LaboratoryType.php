@@ -20,7 +20,8 @@ class LaboratoryType extends Model
         'id',
         'code',
         'description',
-        'verification'
+        'verification',
+        'laboratory_group_id'
     ];
 
     /**
@@ -41,6 +42,13 @@ class LaboratoryType extends Model
     public function laboratories()
     {
         return $this->hasMany(\App\Models\Laboratory::class, 'laboratory_type_id');
+    }
+    /**
+     * @return BelongsTo
+     **/
+    public function laboratory_group()
+    {
+        return $this->belongsTo(\App\Models\LaboratoryGroup::class);
     }
 
 }

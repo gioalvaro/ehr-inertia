@@ -27,16 +27,12 @@ class Medication extends Model
         'route',
         'frequency',
         'start_date',
-        'end_date',
-        'verified'
+        'end_date'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [];
+    protected $casts = [
+        'created_at' => 'datetime:m-d-Y h:m'
+    ];
 
     
     /**
@@ -53,5 +49,14 @@ class Medication extends Model
     {
         return $this->belongsTo('App\Models\Encounter');
     }
+
+    /**
+     * @return HasMany
+     **/
+    public function medication_verications()
+    {
+        return $this->hasMany(\App\Models\MedicationVerification::class, 'medication_id');
+    }
+
 
 }

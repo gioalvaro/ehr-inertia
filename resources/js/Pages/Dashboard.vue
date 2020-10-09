@@ -14,7 +14,7 @@
                                 class="bg-white overflow-hidden shadow-xl sm:rounded-lg"
                             >
                                 <v-row>
-                                    <v-col>
+                                    <v-col>                                        
                                         <transition
                                             name="component-fade"
                                             mode="out-in"
@@ -62,6 +62,9 @@ export default {
         id: 0
     }),
     methods: {
+        probar(){
+            axios.get('api/user').then((res) => {console.log("user ", res.data)}).catch((err) => console.error(err));
+        },
         async setProvider(){
             await this.$store.dispatch('provider/me');
         },

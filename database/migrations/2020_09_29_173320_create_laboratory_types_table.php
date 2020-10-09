@@ -18,6 +18,7 @@ class CreateLaboratoryTypesTable extends Migration
             $table->integer('code');
             $table->string('description');
             $table->boolean('verification');
+            $table->foreignId('laboratory_group_id')->constrained('laboratory_groups');
             $table->softDeletes();
             $table->timestamps();
         });
