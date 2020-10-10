@@ -232,7 +232,15 @@
                                         </v-tab>
                                         <v-tab href="#tab-5">
                                             Orders
-                                            <v-icon>mdi-account-box</v-icon>
+                                            <v-icon>mdi-flask-empty-plus-outline</v-icon>
+                                        </v-tab>
+                                        <v-tab href="#tab-6">
+                                            Problems
+                                            <v-icon>mdi-medical-bag</v-icon>
+                                        </v-tab>
+                                        <v-tab href="#tab-7">
+                                            Consult
+                                            <v-icon>mdi-account-voice</v-icon>
                                         </v-tab>
                                     </v-tabs>
 

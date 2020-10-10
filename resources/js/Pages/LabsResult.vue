@@ -11,17 +11,17 @@
 
             <v-tab href="#tab-1">
                 Laboratories
-                <v-icon>mdi-phone</v-icon>
+                <v-icon>mdi-account-heart-outline</v-icon>
             </v-tab>
 
             <v-tab href="#tab-2">
                 Imaging
-                <v-icon>mdi-heart</v-icon>
+                <v-icon>mdi-account-box-multiple-outline</v-icon>
             </v-tab>
 
             <v-tab href="#tab-3">
                 Studies
-                <v-icon>mdi-account-box</v-icon>
+                <v-icon>mdi-clipboard-pulse-outline</v-icon>
             </v-tab>
         </v-tabs>
 
