@@ -23,6 +23,8 @@ class CreateEncountersTable extends Migration
             $table->longText('current_vitals')->nullable();
             $table->boolean('allergies_check')->nullable();
             $table->string('allergies')->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('height')->nullable();
             $table->float('temperature')->nullable();
             $table->enum('temperature_type', ['oral', 'rectum', 'armpit'])->nullable();
             $table->string('bp')->nullable();

@@ -29,86 +29,65 @@
                 <v-tab>
                     Others
                 </v-tab>
+                <v-tab>
+                    <v-btn @click="guardarLabs">
+                        Save & Send
+                    </v-btn>
+                </v-tab>
 
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="hematologic"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="blood_plasma_serum"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text>
-                            <v-list shaped>
-                                <v-list-item-group v-model="model" multiple>
-                                    <template v-for="(item, i) in items">
-                                        <v-divider
-                                            v-if="!item"
-                                            :key="`divider-${i}`"
-                                        ></v-divider>
-
-                                        <v-list-item
-                                            v-else
-                                            :key="`item-${i}`"
-                                            :value="item"
-                                            active-class="deep-purple--text text--accent-4"
-                                        >
-                                            <template
-                                                v-slot:default="{ active }"
-                                            >
-                                                <v-list-item-content>
-                                                    <v-list-item-title
-                                                        v-text="item"
-                                                    ></v-list-item-title>
-                                                </v-list-item-content>
-
-                                                <v-list-item-action>
-                                                    <v-checkbox
-                                                        :input-value="active"
-                                                        color="deep-purple accent-4"
-                                                    ></v-checkbox>
-                                                </v-list-item-action>
-                                            </template>
-                                        </v-list-item>
-                                    </template>
-                                </v-list-item-group>
-                            </v-list>
-                        </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="lipids"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="genetics"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="endo"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="urine"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="cerebrospinal_fluid"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="infectious_disease"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat>
-                        <v-card-text> </v-card-text>
-                    </v-card>
+                    <labs-type-item
+                        :items="others"
+                        @returnSelection="returnSelected"
+                    />
                 </v-tab-item>
             </v-tabs>
         </v-card>
@@ -116,57 +95,74 @@
 </template>
 
 <script>
+import LabsTypeItem from "../Laboratories/LabsTypeItems";
 export default {
-    name:"LaboratoriesOrder",
+    name: "LaboratoriesOrder",
+    components: {
+        LabsTypeItem
+    },
+    created() {
+        this.fetchLabTypes();
+    },
     data() {
-        return {
-            hematologic: [
-                'CBC',
-                'White Blood Cell Differential',
-                'INR',
-                'Partial thromboplastin time (activated)',
-                'Prothrombin time',
-                'Thrombin time',
-                'D-dimer',
-                'Fibrin Degradation Products',
-                'Fibrinogen',
-                'Hemoglobin, A1c',
-                'ABORH',
-                'Type & Screen',
-                'Reticulocyte count',
-                'Erythrocyte sedimentation rate',
-                'Ferritin',
-                'Iron Levels',
-                ],
-            blood_plasma_serum: [
-                'Chen-7',
-                'Sodium (Na+)',
-                'Potassiun (K)',
-                'Chloride (Cl-)',
-                'Bicarbonate (HCO3-)',
-                'Urea nitrogen, serum',
-                'Creatinine, serum',
-                'Glucose, random',
-                'Liver Function Test',
-                'AST',
-                'ALT',
-                'Alkanine Phosphatase',
-                'Lipase',
-                'Amylase',
-                'Billirubin Direct',
-                'Billirubin Total',
-                'GGT',
-                'Calcium',
-                'Magnesium (Mg2+)',
-                'Phosphorus',
-                'Albumin',
-                'Albumin',
-
-            ],
-            model: ['Carrots'],
+        return {            
+            selected: []
+        };
+    },
+    computed: {
+        encounter() {
+            return this.$store.getters["encounter/encounter"];
+        },
+        hematologic() {
+            return this.$store.getters["laboratoryType/hematologic"];
+        },
+        blood_plasma_serum() {
+            return this.$store.getters["laboratoryType/blood_plasma_serum"];
+        },
+        lipids() {
+            return this.$store.getters["laboratoryType/lipids"];
+        },
+        genetics() {
+            return this.$store.getters["laboratoryType/genetics"];
+        },
+        endo() {
+            return this.$store.getters["laboratoryType/endo"];
+        },
+        urine() {
+            return this.$store.getters["laboratoryType/urine"];
+        },
+        cerebrospinal_fluid() {
+            return this.$store.getters["laboratoryType/cerebrospinal_fluid"];
+        },
+        infectious_disease() {
+            return this.$store.getters["laboratoryType/infectious_disease"];
+        },
+        others() {
+            return this.$store.getters["laboratoryType/others"];
         }
     },
-}
+    methods: {
+        guardarLabs(){
+            console.log(this.selected);
+            var set = new Set(this.selected);       
+            var send = {encounter_id: this.encounter.id, labsType: [...set] }     
+            this.$store.dispatch('laboratory/post', send);
+        },
+        returnSelected(evt) {
+            this.selected.push(...evt);
+        },
+        async fetchLabTypes() {
+            await this.$store
+                .dispatch("laboratoryType/all")
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.error(`Error to retrieve ${err}`);
+                });
+        }
+    }
+};
 </script>
 
 <style lang="scss" scoped></style>

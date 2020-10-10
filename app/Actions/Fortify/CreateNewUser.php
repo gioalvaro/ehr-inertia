@@ -85,6 +85,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createEncounters(Provider $provider)
     {
+        
         $faker = \Faker\Factory::create();
         DB::table('encounters')->insert([
             'provider_id' => $provider->id,
@@ -94,15 +95,17 @@ class CreateNewUser implements CreatesNewUsers
             'scheduled_time' => new Carbon(new DateTime('2020-10-06 9:00')),
             'arrival_time' => new Carbon(new DateTime('2020-10-06 8:55')),
             'check' => false,
-            'temperature' => 36,
+            'temperature' => 102,
             'temperature_type' => 'oral',
             'bmi' => 29,
             'allergies' => 'None',
             'allergies_check' => false,
             'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
             'bp' => '120/60',
-            'hr' => 100,
-            'rr' => 25,
+            'hr' => 110,
+            'rr' => 18,
+            'height' => 70,
+            'weight' => 200,
             'osat' => 98,
             'test' => false
         ]);

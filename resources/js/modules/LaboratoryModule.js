@@ -55,6 +55,7 @@ export default {
         },
         async post({commit}, item) {
             console.log("inicio de post");
+            console.log(item);
             axios
                 .post(`/laboratories`, item)
                 .then((res) => {
@@ -96,6 +97,6 @@ export default {
         },
         laboratory(state) {
             return state.laboratory;
-        },
+        }
     }
 };

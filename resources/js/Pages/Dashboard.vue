@@ -34,7 +34,7 @@
                     </v-main>
 
                 <v-footer app>
-                    Created by 
+                    Created by Alvaro Fraga & Jose Puglisi
                 </v-footer>
             </v-app>
         </div>

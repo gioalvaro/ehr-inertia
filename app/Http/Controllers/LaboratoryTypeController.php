@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LaboratoryType;
 use Illuminate\Http\Request;
 
-class LaboratoryTypeController extends Controller
+class LaboratoryTypeController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class LaboratoryTypeController extends Controller
      */
     public function index()
     {
-        //
+        $laboratory_types = LaboratoryType::all();
+        return $this->sendResponse($laboratory_types, "Laboratory Types Retrieve Successfuly");
     }
 
     /**

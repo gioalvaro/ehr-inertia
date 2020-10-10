@@ -2,12 +2,16 @@
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\LaboratoryController;
+use App\Http\Controllers\LaboratoryTypeController;
 use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\MedicationTypeController;
 use App\Http\Controllers\NursingNoteController;
 use App\Http\Controllers\PhysicianNoteController;
 use App\Http\Controllers\ProviderController;
+use App\Models\LaboratoryType;
 use App\Models\Medication;
+use App\Models\Encounter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -25,6 +29,13 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return redirect('login');
 });
+
+Route::get('/alvaro', function () {
+    $a = Encounter::where('id','=',1)->first();
+    $a->reason = 'nada';
+    return $a;
+});
+
 
 // Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
 //     // Authentication...
@@ -88,6 +99,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/nursing_notes/{id}', [NursingNoteController::class, 'destroy'])->name("nursing_notes.destroy");
 
     //Lab results
+    Route::get('/laboratories', [LaboratoryController::class, 'index'])->name("laboratories.index");
+    Route::get('/laboratories/{id}', [LaboratoryController::class, 'show'])->name("laboratories.show");
+    Route::put('/laboratories/{id}', [LaboratoryController::class, 'update'])->name("laboratories.update");
+    Route::post('/laboratories', [LaboratoryController::class, 'store'])->name("laboratories.store");
+    Route::delete('/laboratories/{id}', [LaboratoryController::class, 'destroy'])->name("laboratories.destroy");
+
     
     // Providers
     Route::get('/providers/myself', [ProviderController::class, 'me'])->name("provider.me");
@@ -99,5 +116,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/medication_types/{id}', [MedicationTypeController::class, 'update'])->name("medication_types.update");
     Route::post('/medication_types', [MedicationTypeController::class, 'store'])->name("medication_types.store");
     Route::delete('/medication_types/{id}', [MedicationTypeController::class, 'destroy'])->name("medication_types.destroy");
+
+    //  Lab Types
+    Route::get('/laboratory_types', [LaboratoryTypeController::class, 'index'])->name("laboratory_types.index");
+    Route::get('/laboratory_types/{id}', [LaboratoryTypeController::class, 'show'])->name("laboratory_types.show");
+    Route::put('/laboratory_types/{id}', [LaboratoryTypeController::class, 'update'])->name("laboratory_types.update");
+    Route::post('/laboratory_types', [LaboratoryTypeController::class, 'store'])->name("laboratory_types.store");
+    Route::delete('/laboratory_types/{id}', [LaboratoryTypeController::class, 'destroy'])->name("laboratory_types.destroy");
+
+
 
 });

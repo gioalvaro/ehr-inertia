@@ -9,6 +9,7 @@ import MedicationTypeModule from './modules/MedicationTypeModule';
 import MedicalRecordModule from './modules/MedicalRecordModule';
 import EncounterModule from './modules/EncounterModule';
 import ProviderModule from "./modules/ProviderModule";
+import LaboratoryTypeModule from "./modules/LaboratoryTypeModule";
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         laboratory: LaboratoryModule,
         encounter: EncounterModule,
         provider: ProviderModule,
-        medicationType: MedicationTypeModule
+        medicationType: MedicationTypeModule,
+        laboratoryType: LaboratoryTypeModule
     }
 });

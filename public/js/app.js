@@ -3990,7 +3990,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       var encounter = this.encounters[index];
       encounter.osat = encounter.osat + '%';
-      encounter.temperature = encounter.temperature + 'ºC';
+      encounter.rr = encounter.rr + ' breaths/minutes';
+      encounter.hr = encounter.hr + ' beats/minutes';
+      encounter.bp = encounter.bp + ' mmHg, R arm seated';
+      encounter.bmi = encounter.bmi + ' kg/m2';
+      encounter.weight = encounter.weight + ' lbs';
+      encounter.height = encounter.height + ' inches';
+      encounter.temperature = encounter.temperature + 'ºF';
       return encounter;
     },
     updateMedicalRecord: function updateMedicalRecord(encounter) {
@@ -4647,7 +4653,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "LabsResult",
+  name: "Orders",
   components: {
     Laboratories: _component_Orders_LaboratoriesOrder__WEBPACK_IMPORTED_MODULE_0__["default"],
     Imaging: _component_Orders_ImagingOrder__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -6373,11 +6379,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6402,88 +6411,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Laboratories',
+  name: "Laboratories",
   created: function created() {
-    this.initialize();
+    this.fetchLabs();
   },
   methods: {
-    viewItem: function viewItem(item) {
-      this.$emit("viewLabResults", item.id);
-    },
-    createItem: function createItem(item) {
-      this.$emit("viewLabResults", 0);
-    },
-    initialize: function initialize() {
-      this.lab_results = [{
-        id: 1,
-        created_at: "2020-08-08 12:00",
-        type: "Hgb",
-        provider: 'Dr. Fraga',
-        current_value: "100",
-        min: 10,
-        max: 200
-      }, {
-        id: 2,
-        created_at: "2020-08-07 12:00",
-        type: "Hematocrit",
-        provider: 'Dr. Fraga',
-        current_value: "100",
-        min: 10,
-        max: 200
-      }, {
-        id: 3,
-        created_at: "2020-08-06 12:00",
-        type: "WBC",
-        provider: 'Dr. Fraga',
-        current_value: "100",
-        min: 10,
-        max: 200
-      }, {
-        id: 4,
-        created_at: "2020-08-05 12:00",
-        type: "CKMB",
-        provider: 'Dr. Fraga',
-        current_value: "100",
-        min: 10,
-        max: 200
-      }];
-    },
-    editItem: function editItem(item) {
-      this.editedIndex = this.lab_results.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-    deleteItem: function deleteItem(item) {
-      var index = this.lab_results.indexOf(item);
-      confirm("Are you sure you want to delete this lab results?") && this.lab_results.splice(index, 1);
-    },
-    close: function close() {
+    fetchLabs: function fetchLabs() {
       var _this = this;
 
-      this.dialog = false;
-      this.$nextTick(function () {
-        _this.editedItem = Object.assign({}, _this.defaultItem);
-        _this.editedIndex = -1;
-      });
-    },
-    save: function save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.lab_results[this.editedIndex], this.editedItem);
-      } else {
-        this.lab_results.push(this.editedItem);
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch("laboratory/all");
 
-      this.close();
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   },
-  watch: {
-    dialog: function dialog(val) {
-      val || this.close();
-    }
-  },
+  watch: {},
   computed: {
-    formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "New Lab Result" : "Edit Lab Result";
+    laboratories: function laboratories() {
+      this.$store.getters["laboratory/laboratories"];
     }
   },
   data: function data() {
@@ -6496,10 +6452,10 @@ __webpack_require__.r(__webpack_exports__);
         value: "created_at"
       }, {
         text: "Type",
-        value: "type"
+        value: "laboratory_type.description"
       }, {
         text: "Ordered by",
-        value: "provider"
+        value: "encounter.provider.name"
       }, {
         text: "Current Value",
         value: "current_value"
@@ -6511,25 +6467,7 @@ __webpack_require__.r(__webpack_exports__);
         text: "Maximun",
         value: "max",
         sortable: false
-      }],
-      lab_results: [],
-      editedIndex: -1,
-      editedItem: {
-        created_at: "",
-        type: "",
-        provider: "",
-        current_value: 0,
-        min: 0,
-        max: 0
-      },
-      defaultItem: {
-        created_at: "",
-        type: "",
-        provider: "",
-        current_value: 0,
-        min: 0,
-        max: 0
-      }
+      }]
     };
   }
 });
@@ -6553,6 +6491,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Studies'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "LabsTypeItem",
+  props: {
+    items: {
+      type: Array
+    }
+  },
+  data: function data() {
+    return {
+      selected: []
+    };
+  },
+  watch: {
+    selected: {
+      deep: true,
+      // We have to move our method to a handler field
+      handler: function handler() {
+        this.$emit('returnSelection', this.selected);
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -7118,6 +7131,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Laboratories_LabsTypeItems__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Laboratories/LabsTypeItems */ "./resources/js/component/Laboratories/LabsTypeItems.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -7214,35 +7248,90 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LaboratoriesOrder",
+  components: {
+    LabsTypeItem: _Laboratories_LabsTypeItems__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  created: function created() {
+    this.fetchLabTypes();
+  },
   data: function data() {
     return {
-      hematologic: ['CBC', 'White Blood Cell Differential', 'INR', 'Partial thromboplastin time (activated)', 'Prothrombin time', 'Thrombin time', 'D-dimer', 'Fibrin Degradation Products', 'Fibrinogen', 'Hemoglobin, A1c', 'ABORH', 'Type & Screen', 'Reticulocyte count', 'Erythrocyte sedimentation rate', 'Ferritin', 'Iron Levels'],
-      blood_plasma_serum: ['Chen-7', 'Sodium (Na+)', 'Potassiun (K)', 'Chloride (Cl-)', 'Bicarbonate (HCO3-)', 'Urea nitrogen, serum', 'Creatinine, serum', 'Glucose, random', 'Liver Function Test', 'AST', 'ALT', 'Alkanine Phosphatase', 'Lipase', 'Amylase', 'Billirubin Direct', 'Billirubin Total', 'GGT', 'Calcium', 'Magnesium (Mg2+)', 'Phosphorus', 'Albumin', 'Albumin'],
-      model: ['Carrots']
+      selected: []
     };
+  },
+  computed: {
+    encounter: function encounter() {
+      return this.$store.getters["encounter/encounter"];
+    },
+    hematologic: function hematologic() {
+      return this.$store.getters["laboratoryType/hematologic"];
+    },
+    blood_plasma_serum: function blood_plasma_serum() {
+      return this.$store.getters["laboratoryType/blood_plasma_serum"];
+    },
+    lipids: function lipids() {
+      return this.$store.getters["laboratoryType/lipids"];
+    },
+    genetics: function genetics() {
+      return this.$store.getters["laboratoryType/genetics"];
+    },
+    endo: function endo() {
+      return this.$store.getters["laboratoryType/endo"];
+    },
+    urine: function urine() {
+      return this.$store.getters["laboratoryType/urine"];
+    },
+    cerebrospinal_fluid: function cerebrospinal_fluid() {
+      return this.$store.getters["laboratoryType/cerebrospinal_fluid"];
+    },
+    infectious_disease: function infectious_disease() {
+      return this.$store.getters["laboratoryType/infectious_disease"];
+    },
+    others: function others() {
+      return this.$store.getters["laboratoryType/others"];
+    }
+  },
+  methods: {
+    guardarLabs: function guardarLabs() {
+      console.log(this.selected);
+      var set = new Set(this.selected);
+      var send = {
+        encounter_id: this.encounter.id,
+        labsType: _toConsumableArray(set)
+      };
+      this.$store.dispatch('laboratory/post', send);
+    },
+    returnSelected: function returnSelected(evt) {
+      var _this$selected;
+
+      (_this$selected = this.selected).push.apply(_this$selected, _toConsumableArray(evt));
+    },
+    fetchLabTypes: function fetchLabTypes() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch("laboratoryType/all").then(function (res) {
+                  console.log(res);
+                })["catch"](function (err) {
+                  console.error("Error to retrieve ".concat(err));
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
   }
 });
 
@@ -30563,7 +30652,9 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("v-footer", { attrs: { app: "" } }, [
-                _vm._v("\n                Created by \n            ")
+                _vm._v(
+                  "\n                Created by Alvaro Fraga & Jose Puglisi\n            "
+                )
               ])
             ],
             1
@@ -35238,7 +35329,7 @@ var render = function() {
         staticClass: "elevation-1",
         attrs: {
           headers: _vm.headers,
-          items: _vm.lab_results,
+          items: _vm.laboratories,
           "sort-by": "id"
         },
         scopedSlots: _vm._u([
@@ -35255,22 +35346,7 @@ var render = function() {
                     _c("v-divider", {
                       staticClass: "mx-4",
                       attrs: { inset: "", vertical: "" }
-                    }),
-                    _vm._v(" "),
-                    _c("v-spacer"),
-                    _vm._v(" "),
-                    _c(
-                      "v-icon",
-                      {
-                        attrs: { large: "" },
-                        on: {
-                          click: function($event) {
-                            return _vm.createItem(_vm.item)
-                          }
-                        }
-                      },
-                      [_vm._v("mdi-plus")]
-                    )
+                    })
                   ],
                   1
                 )
@@ -35279,35 +35355,12 @@ var render = function() {
             proxy: true
           },
           {
-            key: "item.actions",
-            fn: function(ref) {
-              var item = ref.item
-              return [
-                _c(
-                  "v-icon",
-                  {
-                    attrs: { large: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.viewItem(item)
-                      }
-                    }
-                  },
-                  [_vm._v("mdi-eye")]
-                )
-              ]
-            }
-          },
-          {
             key: "no-data",
             fn: function() {
               return [
                 _c(
                   "v-btn",
-                  {
-                    attrs: { color: "primary" },
-                    on: { click: _vm.initialize }
-                  },
+                  { attrs: { color: "primary" }, on: { click: _vm.fetchLabs } },
                   [_vm._v("\n                Reset\n            ")]
                 )
               ]
@@ -35343,6 +35396,125 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-card",
+        { attrs: { flat: "" } },
+        [
+          _c(
+            "v-card-text",
+            [
+              _c(
+                "v-list",
+                { attrs: { shaped: "" } },
+                [
+                  _c(
+                    "v-list-item-group",
+                    {
+                      attrs: { multiple: "" },
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
+                      }
+                    },
+                    [
+                      _vm._l(_vm.items, function(item, i) {
+                        return [
+                          !item
+                            ? _c("v-divider", { key: "divider-" + i })
+                            : _c("v-list-item", {
+                                key: "item-" + i,
+                                attrs: {
+                                  value: item.id,
+                                  "active-class":
+                                    "deep-purple--text text--accent-4"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(ref) {
+                                        var active = ref.active
+                                        return [
+                                          _c(
+                                            "v-list-item-content",
+                                            [
+                                              _c("v-list-item-title", {
+                                                domProps: {
+                                                  textContent: _vm._s(
+                                                    item.description
+                                                  )
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-item-action",
+                                            [
+                                              _c("v-checkbox", {
+                                                attrs: {
+                                                  "input-value": active,
+                                                  color: "deep-purple accent-4"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                        ]
+                      })
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -35808,153 +35980,113 @@ var render = function() {
               _c("v-tab", [_vm._v("\n                Others\n            ")]),
               _vm._v(" "),
               _c(
-                "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-tab-item",
+                "v-tab",
                 [
-                  _c(
-                    "v-card",
-                    { attrs: { flat: "" } },
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c(
-                            "v-list",
-                            { attrs: { shaped: "" } },
-                            [
-                              _c(
-                                "v-list-item-group",
-                                {
-                                  attrs: { multiple: "" },
-                                  model: {
-                                    value: _vm.model,
-                                    callback: function($$v) {
-                                      _vm.model = $$v
-                                    },
-                                    expression: "model"
-                                  }
-                                },
-                                [
-                                  _vm._l(_vm.items, function(item, i) {
-                                    return [
-                                      !item
-                                        ? _c("v-divider", {
-                                            key: "divider-" + i
-                                          })
-                                        : _c("v-list-item", {
-                                            key: "item-" + i,
-                                            attrs: {
-                                              value: item,
-                                              "active-class":
-                                                "deep-purple--text text--accent-4"
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function(ref) {
-                                                    var active = ref.active
-                                                    return [
-                                                      _c(
-                                                        "v-list-item-content",
-                                                        [
-                                                          _c(
-                                                            "v-list-item-title",
-                                                            {
-                                                              domProps: {
-                                                                textContent: _vm._s(
-                                                                  item
-                                                                )
-                                                              }
-                                                            }
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-item-action",
-                                                        [
-                                                          _c("v-checkbox", {
-                                                            attrs: {
-                                                              "input-value": active,
-                                                              color:
-                                                                "deep-purple accent-4"
-                                                            }
-                                                          })
-                                                        ],
-                                                        1
-                                                      )
-                                                    ]
-                                                  }
-                                                }
-                                              ],
-                                              null,
-                                              true
-                                            )
-                                          })
-                                    ]
-                                  })
-                                ],
-                                2
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                  _c("v-btn", { on: { click: _vm.guardarLabs } }, [
+                    _vm._v(
+                      "\n                    Save & Send\n                "
+                    )
+                  ])
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.hematologic },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.blood_plasma_serum },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.lipids },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.genetics },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.endo },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-tab-item",
-                [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-text")], 1)],
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.urine },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tab-item",
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.cerebrospinal_fluid },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tab-item",
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.infectious_disease },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tab-item",
+                [
+                  _c("labs-type-item", {
+                    attrs: { items: _vm.others },
+                    on: { returnSelection: _vm.returnSelected }
+                  })
+                ],
                 1
               )
             ],
@@ -96869,6 +97001,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/component/Laboratories/LabsTypeItems.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/component/Laboratories/LabsTypeItems.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true& */ "./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true&");
+/* harmony import */ var _LabsTypeItems_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LabsTypeItems.vue?vue&type=script&lang=js& */ "./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LabsTypeItems_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "68dbc6dc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/component/Laboratories/LabsTypeItems.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LabsTypeItems_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LabsTypeItems.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LabsTypeItems_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/Laboratories/LabsTypeItems.vue?vue&type=template&id=68dbc6dc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LabsTypeItems_vue_vue_type_template_id_68dbc6dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/component/MedicalRecordTable.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/component/MedicalRecordTable.vue ***!
@@ -97712,6 +97913,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 commit = _ref3.commit;
                 console.log("inicio de post");
+                console.log(item);
                 axios.post("/laboratories", item).then(function (res) {
                   if (res.data.success) console.log("post laboratories ", res.data);
                   commit("FETCH", item);
@@ -97719,7 +97921,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return console.error("Error con la insertada de laboratories: ".concat(error));
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -97781,6 +97983,233 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     laboratory: function laboratory(state) {
       return state.laboratory;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/LaboratoryTypeModule.js":
+/*!******************************************************!*\
+  !*** ./resources/js/modules/LaboratoryTypeModule.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    laboratory_types: [],
+    laboratory_type: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.laboratory_types = [];
+      state.laboratory_type = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.laboratory_types = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.laboratory_types.push(item);
+      return state.laboratory_type = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.laboratory_types.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.laboratory_types.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.laboratory_types.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.laboratory_types.splice(index, 1);
+      state.laboratory_types.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/laboratory_types").then(function (res) {
+                  console.log("get laboratory_types ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get laboratory_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/laboratory_types/".concat(id)).then(function (res) {
+                  console.log("get laboratory_types ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get laboratory_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/laboratory_types", item).then(function (res) {
+                  if (res.data.success) console.log("post laboratory_types ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de laboratory_types: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/laboratory_types/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la laboratory_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/laboratory_types/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar laboratory_types" + err);
+                });
+                console.log("Sale de la actualizacion de laboratory_types");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    laboratory_types: function laboratory_types(state) {
+      return state.laboratory_types;
+    },
+    laboratory_type: function laboratory_type(state) {
+      return state.laboratory_type;
+    },
+    hematologic: function hematologic(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 1;
+      });
+    },
+    blood_plasma_serum: function blood_plasma_serum(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 2;
+      });
+    },
+    lipids: function lipids(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 3;
+      });
+    },
+    genetics: function genetics(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 4;
+      });
+    },
+    endo: function endo(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 5;
+      });
+    },
+    urine: function urine(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 6;
+      });
+    },
+    cerebrospinal_fluid: function cerebrospinal_fluid(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 7;
+      });
+    },
+    infectious_disease: function infectious_disease(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 8;
+      });
+    },
+    others: function others(state) {
+      return _.filter(state.laboratory_types, function (row) {
+        return row.laboratory_group_id === 9;
+      });
     }
   }
 });
@@ -99109,6 +99538,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_MedicalRecordModule__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/MedicalRecordModule */ "./resources/js/modules/MedicalRecordModule.js");
 /* harmony import */ var _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/EncounterModule */ "./resources/js/modules/EncounterModule.js");
 /* harmony import */ var _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/ProviderModule */ "./resources/js/modules/ProviderModule.js");
+/* harmony import */ var _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/LaboratoryTypeModule */ "./resources/js/modules/LaboratoryTypeModule.js");
+
 
 
 
@@ -99131,7 +99562,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     laboratory: _modules_LaboratoryModule__WEBPACK_IMPORTED_MODULE_3__["default"],
     encounter: _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_9__["default"],
     provider: _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_10__["default"],
-    medicationType: _modules_MedicationTypeModule__WEBPACK_IMPORTED_MODULE_7__["default"]
+    medicationType: _modules_MedicationTypeModule__WEBPACK_IMPORTED_MODULE_7__["default"],
+    laboratoryType: _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__["default"]
   }
 }));
 

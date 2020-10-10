@@ -64,7 +64,7 @@ import Studies from "../component/Orders/StudiesOrder"
 import ConsultOrder from "../component/Orders/ConsultOrder"
 
 export default {
-    name: "LabsResult",
+    name: "Orders",
     components: {
         Laboratories,
         Imaging,

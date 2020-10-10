@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\LaboratoryType;
-use App\Models\MedicationType;
-use App\Models\NursingType;
-use App\Models\PhysicianType;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             EncounterSeeder::class,
             NursingTypeSeeder::class,
+            LaboratoryGroupSeeder::class,
             PhysicianTypeSeeder::class,
             LaboratoryTypeSeeder::class,
             MedicationTypeSeeder::class,

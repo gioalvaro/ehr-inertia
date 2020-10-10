@@ -335,7 +335,13 @@ export default {
             );
             let encounter = this.encounters[index];
             encounter.osat = encounter.osat+'%';
-            encounter.temperature = encounter.temperature+'ºC';
+            encounter.rr = encounter.rr+' breaths/minutes';
+            encounter.hr = encounter.hr+' beats/minutes';
+            encounter.bp = encounter.bp+' mmHg, R arm seated';
+            encounter.bmi = encounter.bmi+' kg/m2';
+            encounter.weight = encounter.weight+' lbs';
+            encounter.height = encounter.height+' inches';
+            encounter.temperature = encounter.temperature+'ºF';
             return encounter;
         },
         async updateMedicalRecord(encounter){
