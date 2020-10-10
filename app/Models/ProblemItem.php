@@ -6,40 +6,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imaging extends Model
+class ProblemItem extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-    public $table = 'imagings';
+    use SoftDeletes;
+    public $table = 'problem_items';
     protected $primaryKey = 'id';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'observation',
-        'image_url',
-        'type',
-        'encounter_id'
+        'id',
+        'problem_id',
+        'problem_type_id'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'created_at' => 'datetime:m-d-Y h:m'
     ];
     
     protected $dates = ['deleted_at'];
 
-
+     /**
+     * Get the post that owns the comment.
+     */
+    public function problem_type()
+    {
+        return $this->belongsTo('App\Models\ProblemType');
+    }
     /**
      * Get the post that owns the comment.
      */
-    public function encounter()
+    public function problem()
     {
-        return $this->belongsTo('App\Models\Encounter');
+        return $this->belongsTo('App\Models\Problem');
     }
 }

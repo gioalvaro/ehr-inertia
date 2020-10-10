@@ -6,21 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imaging extends Model
+class Problem extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-    public $table = 'imagings';
+    use SoftDeletes;
+
+
+    public $table = 'problems';
     protected $primaryKey = 'id';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'observation',
-        'image_url',
-        'type',
-        'encounter_id'
+        'id',        
+        'encounter_id',                
     ];
 
     /**
@@ -31,9 +31,6 @@ class Imaging extends Model
     protected $casts = [
         'created_at' => 'datetime:m-d-Y h:m'
     ];
-    
-    protected $dates = ['deleted_at'];
-
 
     /**
      * Get the post that owns the comment.

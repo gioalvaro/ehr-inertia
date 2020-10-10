@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imaging extends Model
+class Study extends Model
 {
     use SoftDeletes;
     use HasFactory;
-    public $table = 'imagings';
+    public $table = 'studies';
     protected $primaryKey = 'id';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'observation',
-        'image_url',
+        'observation',        
         'type',
         'encounter_id'
     ];

@@ -27,7 +27,7 @@ class Consult extends Model
      * @var array
      */
     protected $casts = [
-        
+        'created_at' => 'datetime:m-d-Y h:m'
     ];
     
     protected $dates = ['deleted_at'];

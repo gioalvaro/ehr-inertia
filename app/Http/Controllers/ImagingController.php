@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consult;
+use App\Models\Imaging;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
-class ConsultController extends AppBaseController
+class ImagingController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class ConsultController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Consult::whereHas('encounter', function (Builder $query) use ($provider) {
+        $laboratory = Imaging::whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
-        return $this->sendResponse($laboratory->toArray(), 'Consults retrieve successfully');
+        return $this->sendResponse($laboratory->toArray(), 'Imaging retrieve successfully');
     }
 
     /**
@@ -47,10 +47,10 @@ class ConsultController extends AppBaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Imaging  $imaging
      * @return \Illuminate\Http\Response
      */
-    public function show(Consult $consult)
+    public function show(Imaging $imaging)
     {
         //
     }
@@ -58,10 +58,10 @@ class ConsultController extends AppBaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Imaging  $imaging
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consult $consult)
+    public function edit(Imaging $imaging)
     {
         //
     }
@@ -70,10 +70,10 @@ class ConsultController extends AppBaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Imaging  $imaging
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consult $consult)
+    public function update(Request $request, Imaging $imaging)
     {
         //
     }
@@ -81,10 +81,10 @@ class ConsultController extends AppBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Imaging  $imaging
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consult $consult)
+    public function destroy(Imaging $imaging)
     {
         //
     }

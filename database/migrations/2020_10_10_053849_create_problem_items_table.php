@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagingsTable extends Migration
+class CreateProblemItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateImagingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('imagings', function (Blueprint $table) {
+        Schema::create('problem_items', function (Blueprint $table) {
             $table->id();
-            $table->text('observation')->nullable();
-            $table->enum('type', ['ct', 'mri', 'ultrasound', 'rx', 'endoscopy']);
-            $table->text('image_url')->nullable();
-            $table->foreignId('encounter_id')->constrained('encounters');
+            $table->foreignId('problem_id')->constrained('problems');
+            $table->foreignId('problem_type_id')->constrained('problem_types');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ class CreateImagingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imagings');
+        Schema::dropIfExists('problem_items');
     }
 }

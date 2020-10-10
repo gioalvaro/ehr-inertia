@@ -1,102 +1,104 @@
 export default {
     namespaced: true,
     state: {
-        consults: [],
-        consult: {},
+        studies: [],
+        study: {},
     },
     mutations: {
         RESET(state){
-            state.consults = [];
-            state.consult = {};
+            state.studies = [];
+            state.study = {};
         },
         ALL(state, items) {
-            return (state.consults = items);
+            return (state.studies = items);
         },
         FETCH(state, item) {
-            state.consults.push(item);
-            return (state.consult = item);
+            state.studies.push(item);
+            return (state.study = item);
         },
         DELETE(state, id) {
-            let index = state.consults.findIndex(
+            let index = state.studies.findIndex(
                 item => item.id === id
             );
-            state.consults.splice(index, 1);
+            state.studies.splice(index, 1);
         },
         EDIT(state, item) {
-            let index = state.consults.findIndex(
+            let index = state.studies.findIndex(
                 i => i.id === item.id
             );
-            state.consults.splice(index, 1);
-            state.consults.unshift(item);
+            state.studies.splice(index, 1);
+            state.studies.unshift(item);
         },
+        SET(state, item){
+            state.study = item;
+        }
     },
     actions: {
         async all({commit}) {
             await axios
-                .get(`/consults`)
+                .get(`/studies`)
                 .then(res => {
-                    console.log("get consults ", res.data.data);
+                    console.log("get studies ", res.data.data);
                     commit("ALL", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get consults: " + err);
+                    console.error("Error en get studies: " + err);
                 });
         },
         async show({commit}, id) {
             await axios
-                .get(`/consults/${id}`)
+                .get(`/studies/${id}`)
                 .then(res => {
-                    console.log("get consults ", res.data.data);
+                    console.log("get studies ", res.data.data);
                     commit("FETCH", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get consults: " + err);
+                    console.error("Error en get studies: " + err);
                 });
         },
         async post({commit}, item) {
             console.log("inicio de post");
-            console.log(item);
             axios
-                .post(`/consults`, item)
+                .post(`/studies`, item)
                 .then((res) => {
                     if (res.data.success)
-                        console.log("post consults ", res.data);
+                        console.log("post studies ", res.data);
                         commit("FETCH", item);
                 })
                 .catch(error =>
-                    console.error(`Error con la insertada de consults: ${error}`)
+                    console.error(`Error con la insertada de studies: ${error}`)
                 );
         },
         async delete({commit}, id) {
             console.log("Comienza borrado");
             axios
-                .delete(`/consults/${id}`)
+                .delete(`/studies/${id}`)
                 .then(res => {
                     if (res.data.success) commit("DELETE", id);
                 })
                 .catch(err => {
-                    console.error("Error al borrar la consults: " + err);
+                    console.error("Error al borrar la studies: " + err);
                 });
         },
         async update({commit}, item) {
             console.log("Comienza actualizacion");
             axios
-                .put(`/consults/${item.id}`, item)
+                .put(`/studies/${item.id}`, item)
                 .then(res => {
                     if (res.data.success) commit("EDIT", item);
                 })
                 .catch(err => {
-                    console.error("Error al modificar consults" + err);
+                    console.error("Error al modificar studies" + err);
                 });
-            console.log("Sale de la actualizacion de consults");
+            console.log("Sale de la actualizacion de studies");
         },
     },
     getters: {
-        consults(state) {
-            return state.consults;
+        studies(state) {
+            return state.studies;
         },
-        consult(state) {
-            return state.consult;
-        }
+        study(state) {
+            return state.study;
+        },
     }
 };

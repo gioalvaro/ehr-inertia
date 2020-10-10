@@ -97932,6 +97932,189 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/modules/ConsultModule.js":
+/*!***********************************************!*\
+  !*** ./resources/js/modules/ConsultModule.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    consults: [],
+    consult: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.consults = [];
+      state.consult = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.consults = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.consults.push(item);
+      return state.consult = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.consults.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.consults.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.consults.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.consults.splice(index, 1);
+      state.consults.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/consults").then(function (res) {
+                  console.log("get consults ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get consults: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/consults/".concat(id)).then(function (res) {
+                  console.log("get consults ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get consults: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                console.log(item);
+                axios.post("/consults", item).then(function (res) {
+                  if (res.data.success) console.log("post consults ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de consults: ".concat(error));
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/consults/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la consults: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/consults/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar consults" + err);
+                });
+                console.log("Sale de la actualizacion de consults");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    consults: function consults(state) {
+      return state.consults;
+    },
+    consult: function consult(state) {
+      return state.consult;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/EncounterModule.js":
 /*!*************************************************!*\
   !*** ./resources/js/modules/EncounterModule.js ***!
@@ -99623,6 +99806,372 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/ProblemModule.js":
+/*!***********************************************!*\
+  !*** ./resources/js/modules/ProblemModule.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    problems: [],
+    problem: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.problems = [];
+      state.problem = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.problems = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.problems.push(item);
+      return state.problem = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.problems.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.problems.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.problems.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.problems.splice(index, 1);
+      state.problems.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/problems").then(function (res) {
+                  console.log("get problems ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get problems: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/problems/".concat(id)).then(function (res) {
+                  console.log("get problems ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get problems: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                console.log(item);
+                axios.post("/problems", item).then(function (res) {
+                  if (res.data.success) console.log("post problems ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de problems: ".concat(error));
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/problems/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la problems: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/problems/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar problems" + err);
+                });
+                console.log("Sale de la actualizacion de problems");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    problems: function problems(state) {
+      return state.problems;
+    },
+    problem: function problem(state) {
+      return state.problem;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/ProblemTypeModule.js":
+/*!***************************************************!*\
+  !*** ./resources/js/modules/ProblemTypeModule.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    problem_types: [],
+    problem_type: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.problem_types = [];
+      state.problem_type = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.problem_types = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.problem_types.push(item);
+      return state.problem_type = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.problem_types.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.problem_types.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.problem_types.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.problem_types.splice(index, 1);
+      state.problem_types.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/problem_types").then(function (res) {
+                  console.log("get problem_types ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get problem_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/problem_types/".concat(id)).then(function (res) {
+                  console.log("get problem_types ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get problem_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                console.log(item);
+                axios.post("/problem_types", item).then(function (res) {
+                  if (res.data.success) console.log("post problem_types ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de problem_types: ".concat(error));
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/problem_types/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la problem_types: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/problem_types/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar problem_types" + err);
+                });
+                console.log("Sale de la actualizacion de problem_types");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    problem_types: function problem_types(state) {
+      return state.problem_types;
+    },
+    problem_type: function problem_type(state) {
+      return state.problem_type;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/ProviderModule.js":
 /*!************************************************!*\
   !*** ./resources/js/modules/ProviderModule.js ***!
@@ -99832,6 +100381,191 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/StudyModule.js":
+/*!*********************************************!*\
+  !*** ./resources/js/modules/StudyModule.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    studies: [],
+    study: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.studies = [];
+      state.study = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.studies = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.studies.push(item);
+      return state.study = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.studies.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.studies.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.studies.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.studies.splice(index, 1);
+      state.studies.unshift(item);
+    },
+    SET: function SET(state, item) {
+      state.study = item;
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/studies").then(function (res) {
+                  console.log("get studies ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get studies: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/studies/".concat(id)).then(function (res) {
+                  console.log("get studies ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get studies: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                axios.post("/studies", item).then(function (res) {
+                  if (res.data.success) console.log("post studies ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de studies: ".concat(error));
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/studies/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la studies: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/studies/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar studies" + err);
+                });
+                console.log("Sale de la actualizacion de studies");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    studies: function studies(state) {
+      return state.studies;
+    },
+    study: function study(state) {
+      return state.study;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/store.js":
 /*!*******************************!*\
   !*** ./resources/js/store.js ***!
@@ -99854,6 +100588,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/EncounterModule */ "./resources/js/modules/EncounterModule.js");
 /* harmony import */ var _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/ProviderModule */ "./resources/js/modules/ProviderModule.js");
 /* harmony import */ var _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/LaboratoryTypeModule */ "./resources/js/modules/LaboratoryTypeModule.js");
+/* harmony import */ var _modules_StudyModule__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/StudyModule */ "./resources/js/modules/StudyModule.js");
+/* harmony import */ var _modules_ProblemModule__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/ProblemModule */ "./resources/js/modules/ProblemModule.js");
+/* harmony import */ var _modules_ProblemTypeModule__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/ProblemTypeModule */ "./resources/js/modules/ProblemTypeModule.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module './modules/ImagingModule'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _modules_ConsultModule__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/ConsultModule */ "./resources/js/modules/ConsultModule.js");
+
+
+
+
+
 
 
 
@@ -99878,7 +100622,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     encounter: _modules_EncounterModule__WEBPACK_IMPORTED_MODULE_9__["default"],
     provider: _modules_ProviderModule__WEBPACK_IMPORTED_MODULE_10__["default"],
     medicationType: _modules_MedicationTypeModule__WEBPACK_IMPORTED_MODULE_7__["default"],
-    laboratoryType: _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__["default"]
+    laboratoryType: _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__["default"],
+    consult: _modules_ConsultModule__WEBPACK_IMPORTED_MODULE_16__["default"],
+    imaging: !(function webpackMissingModule() { var e = new Error("Cannot find module './modules/ImagingModule'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    problem: _modules_ProblemModule__WEBPACK_IMPORTED_MODULE_13__["default"],
+    problemType: _modules_ProblemTypeModule__WEBPACK_IMPORTED_MODULE_14__["default"],
+    study: _modules_StudyModule__WEBPACK_IMPORTED_MODULE_12__["default"]
   }
 }));
 

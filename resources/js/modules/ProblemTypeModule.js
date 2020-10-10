@@ -1,102 +1,102 @@
 export default {
     namespaced: true,
     state: {
-        consults: [],
-        consult: {},
+        problem_types: [],
+        problem_type: {},
     },
     mutations: {
         RESET(state){
-            state.consults = [];
-            state.consult = {};
+            state.problem_types = [];
+            state.problem_type = {};
         },
         ALL(state, items) {
-            return (state.consults = items);
+            return (state.problem_types = items);
         },
         FETCH(state, item) {
-            state.consults.push(item);
-            return (state.consult = item);
+            state.problem_types.push(item);
+            return (state.problem_type = item);
         },
         DELETE(state, id) {
-            let index = state.consults.findIndex(
+            let index = state.problem_types.findIndex(
                 item => item.id === id
             );
-            state.consults.splice(index, 1);
+            state.problem_types.splice(index, 1);
         },
         EDIT(state, item) {
-            let index = state.consults.findIndex(
+            let index = state.problem_types.findIndex(
                 i => i.id === item.id
             );
-            state.consults.splice(index, 1);
-            state.consults.unshift(item);
+            state.problem_types.splice(index, 1);
+            state.problem_types.unshift(item);
         },
     },
     actions: {
         async all({commit}) {
             await axios
-                .get(`/consults`)
+                .get(`/problem_types`)
                 .then(res => {
-                    console.log("get consults ", res.data.data);
+                    console.log("get problem_types ", res.data.data);
                     commit("ALL", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get consults: " + err);
+                    console.error("Error en get problem_types: " + err);
                 });
         },
         async show({commit}, id) {
             await axios
-                .get(`/consults/${id}`)
+                .get(`/problem_types/${id}`)
                 .then(res => {
-                    console.log("get consults ", res.data.data);
+                    console.log("get problem_types ", res.data.data);
                     commit("FETCH", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get consults: " + err);
+                    console.error("Error en get problem_types: " + err);
                 });
         },
         async post({commit}, item) {
             console.log("inicio de post");
             console.log(item);
             axios
-                .post(`/consults`, item)
+                .post(`/problem_types`, item)
                 .then((res) => {
                     if (res.data.success)
-                        console.log("post consults ", res.data);
+                        console.log("post problem_types ", res.data);
                         commit("FETCH", item);
                 })
                 .catch(error =>
-                    console.error(`Error con la insertada de consults: ${error}`)
+                    console.error(`Error con la insertada de problem_types: ${error}`)
                 );
         },
         async delete({commit}, id) {
             console.log("Comienza borrado");
             axios
-                .delete(`/consults/${id}`)
+                .delete(`/problem_types/${id}`)
                 .then(res => {
                     if (res.data.success) commit("DELETE", id);
                 })
                 .catch(err => {
-                    console.error("Error al borrar la consults: " + err);
+                    console.error("Error al borrar la problem_types: " + err);
                 });
         },
         async update({commit}, item) {
             console.log("Comienza actualizacion");
             axios
-                .put(`/consults/${item.id}`, item)
+                .put(`/problem_types/${item.id}`, item)
                 .then(res => {
                     if (res.data.success) commit("EDIT", item);
                 })
                 .catch(err => {
-                    console.error("Error al modificar consults" + err);
+                    console.error("Error al modificar problem_types" + err);
                 });
-            console.log("Sale de la actualizacion de consults");
+            console.log("Sale de la actualizacion de problem_types");
         },
     },
     getters: {
-        consults(state) {
-            return state.consults;
+        problem_types(state) {
+            return state.problem_types;
         },
-        consult(state) {
-            return state.consult;
+        problem_type(state) {
+            return state.problem_type;
         }
     }
 };

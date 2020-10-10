@@ -2,25 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consult;
+use App\Models\Study;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
 
-class ConsultController extends AppBaseController
+class StudyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        $provider = $user->provider()->first();
-        $laboratory = Consult::whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
-        })->get();
-        return $this->sendResponse($laboratory->toArray(), 'Consults retrieve successfully');
+        //
     }
 
     /**
@@ -47,10 +41,10 @@ class ConsultController extends AppBaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function show(Consult $consult)
+    public function show(Study $study)
     {
         //
     }
@@ -58,10 +52,10 @@ class ConsultController extends AppBaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consult $consult)
+    public function edit(Study $study)
     {
         //
     }
@@ -70,10 +64,10 @@ class ConsultController extends AppBaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consult $consult)
+    public function update(Request $request, Study $study)
     {
         //
     }
@@ -81,10 +75,10 @@ class ConsultController extends AppBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Consult  $consult
+     * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consult $consult)
+    public function destroy(Study $study)
     {
         //
     }
