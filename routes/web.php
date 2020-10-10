@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsultController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\LaboratoryController;
@@ -62,6 +63,9 @@ Route::middleware(['auth:sanctum','verified'])->get('/medical-record/{medicalRec
 })->name('medical-record');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    
+    // Consult
+    Route::resource('consult', 'ConsultController');
     
     //Patient 
     Route::get('/patients', [PatientController::class, 'index'])->name("patients.index");
