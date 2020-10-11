@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Problem;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
-class ProblemController extends Controller
+class ProblemController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $problem = Problem::with('problem_items','problem_items.problem_type')->whereHas('encounter', function (Builder $query) use ($provider) {
+            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        })->get();
+        return $this->sendResponse($problem->toArray(), 'problem retrieve successfully');
     }
 
     /**

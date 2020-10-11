@@ -17,7 +17,7 @@ class ImagingController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Imaging::whereHas('encounter', function (Builder $query) use ($provider) {
+        $laboratory = Imaging::with('imaging_items')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Imaging retrieve successfully');

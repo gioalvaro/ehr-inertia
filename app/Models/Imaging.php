@@ -17,8 +17,7 @@ class Imaging extends Model
     const UPDATED_AT = 'updated_at';
 
     public $fillable = [
-        'observation',
-        'image_url',
+        'summary',        
         'type',
         'encounter_id'
     ];
@@ -41,5 +40,12 @@ class Imaging extends Model
     public function encounter()
     {
         return $this->belongsTo('App\Models\Encounter');
+    }
+    /**
+     * @return HasMany
+     **/
+    public function imaging_items()
+    {
+        return $this->hasMany(\App\Models\ImagingItem::class, 'imaging_id');
     }
 }

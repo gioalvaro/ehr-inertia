@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Study;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
-class StudyController extends Controller
+class StudyController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $provider = $user->provider()->first();
+        $laboratory = Study::whereHas('encounter', function (Builder $query) use ($provider) {
+            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        })->get();
+        return $this->sendResponse($laboratory->toArray(), 'Study retrieve successfully');
     }
 
     /**

@@ -4667,7 +4667,7 @@ __webpack_require__.r(__webpack_exports__);
     Laboratories: _component_Orders_LaboratoriesOrder__WEBPACK_IMPORTED_MODULE_0__["default"],
     Imaging: _component_Orders_ImagingOrder__WEBPACK_IMPORTED_MODULE_1__["default"],
     Studies: _component_Orders_StudiesOrder__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ConsultOrder: _component_Orders_ConsultOrder__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Consult: _component_Orders_ConsultOrder__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -6332,6 +6332,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6371,6 +6379,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Imaging",
+  created: function created() {
+    this.fetchImaging();
+  },
   data: function data() {
     return {
       texto: "CLINICAL INFORMATION: RIGHT UPPER QUADRANT PAIN. \nEXAMINATION: ABDOMEN ULTRASOUND, LIMITED\nFINDINGS: LIVER IS NORMAL IN APPEARANCE WITHOUT BILIARY DUCTAL DILITATION OR FOCAL MASS.\nGALLBLADDER IS DISTENDED WITH WALL THICKENING, A GALLSTONE AND BILIARY SLUDGE ARE PRESENT,\nAND PERICHOLECYSTIC FLUID IS PRESENT. PANCREAS APPEARS NORMAL. THE COMMON DUCT MEASURES 3 MM IN DIAMETER.",
@@ -6395,6 +6406,32 @@ __webpack_require__.r(__webpack_exports__);
         value: 5
       }]
     };
+  },
+  methods: {
+    fetchImaging: function fetchImaging() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch("imaging/all");
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  computed: {
+    imagings: function imagings() {
+      return this.$store.getters['imaging/imagings'];
+    }
   }
 });
 
@@ -6513,6 +6550,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -6520,7 +6565,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Studies'
+  name: 'Studies',
+  created: function created() {
+    this.fetchStudies();
+  },
+  data: function data() {
+    return {
+      ecg: false,
+      visual: false,
+      orthostatic: false,
+      texto: ""
+    };
+  },
+  methods: {
+    fetchStudies: function fetchStudies() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('study/all');
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  computed: {
+    studies: function studies() {
+      return this.$store.getters['study/studies'];
+    }
+  }
 });
 
 /***/ }),
@@ -7140,6 +7222,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7147,7 +7248,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ConsultOrder'
+  name: 'ConsultOrder',
+  created: function created() {
+    this.fetchConsult();
+  },
+  data: function data() {
+    return {
+      texto: ""
+    };
+  },
+  computed: {
+    consult: function consult() {
+      return this.$store.getters['consult/consults'];
+    }
+  },
+  methods: {
+    fetchConsult: function fetchConsult() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('consult/all');
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
 });
 
 /***/ }),
@@ -7167,8 +7302,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ImagingOrder'
+  name: 'ImagingOrder',
+  data: function data() {
+    return {
+      ct: false,
+      visual: false,
+      orthostatic: false,
+      texto: "CLINICAL INFORMATION: RIGHT UPPER QUADRANT PAIN. \nEXAMINATION: ABDOMEN ULTRASOUND, LIMITED\nFINDINGS: LIVER IS NORMAL IN APPEARANCE WITHOUT BILIARY DUCTAL DILITATION OR FOCAL MASS.\nGALLBLADDER IS DISTENDED WITH WALL THICKENING, A GALLSTONE AND BILIARY SLUDGE ARE PRESENT,\nAND PERICHOLECYSTIC FLUID IS PRESENT. PANCREAS APPEARS NORMAL. THE COMMON DUCT MEASURES 3 MM IN DIAMETER.",
+      select: {
+        state: 'Radiology',
+        value: 1
+      },
+      items: [{
+        state: 'Radiology',
+        value: 1
+      }, {
+        state: 'MRI',
+        value: 2
+      }, {
+        state: 'CT',
+        value: 3
+      }, {
+        state: 'Ultrasound',
+        value: 4
+      }, {
+        state: 'Endoscopy',
+        value: 5
+      }]
+    };
+  },
+  methods: {
+    save: function save() {}
+  }
 });
 
 /***/ }),
@@ -7397,6 +7590,41 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7404,7 +7632,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "StudiesOrder"
+  name: "StudiesOrder",
+  data: function data() {
+    return {
+      ecg: false,
+      visual: false,
+      orthostatic: false,
+      texto: ""
+    };
+  },
+  methods: {
+    save: function save() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var obj;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                obj = {
+                  ecg: _this.ecg,
+                  visual: _this.visual,
+                  orthostatic: _this.orthostatic,
+                  texto: _this.texto
+                };
+                _context.next = 3;
+                return _this.$store.dispatch("study/post", obj);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
 });
 
 /***/ }),
@@ -36041,7 +36305,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            [
+              _c("v-textarea", {
+                model: {
+                  value: _vm.texto,
+                  callback: function($$v) {
+                    _vm.texto = $$v
+                  },
+                  expression: "texto"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-row", [_c("v-col", [_c("v-btn")], 1)], 1)
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36065,7 +36357,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            [
+              _c("v-checkbox", {
+                attrs: { label: "CT" },
+                model: {
+                  value: _vm.ct,
+                  callback: function($$v) {
+                    _vm.ct = $$v
+                  },
+                  expression: "ct"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-checkbox", {
+                attrs: { label: "Visual Acuity" },
+                model: {
+                  value: _vm.visual,
+                  callback: function($$v) {
+                    _vm.visual = $$v
+                  },
+                  expression: "visual"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-checkbox", {
+                attrs: { label: "Orthostatic Test" },
+                model: {
+                  value: _vm.orthostatic,
+                  callback: function($$v) {
+                    _vm.orthostatic = $$v
+                  },
+                  expression: "orthostatic"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            [
+              _c("v-textarea", {
+                model: {
+                  value: _vm.texto,
+                  callback: function($$v) {
+                    _vm.texto = $$v
+                  },
+                  expression: "texto"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            [
+              _c("v-btn", { on: { click: _vm.save } }, [
+                _vm._v("\n                Save\n            ")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36267,7 +36640,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            [
+              _c("v-checkbox", {
+                attrs: { label: "12 leads ECG" },
+                model: {
+                  value: _vm.ecg,
+                  callback: function($$v) {
+                    _vm.ecg = $$v
+                  },
+                  expression: "ecg"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-checkbox", {
+                attrs: { label: "Visual Acuity" },
+                model: {
+                  value: _vm.visual,
+                  callback: function($$v) {
+                    _vm.visual = $$v
+                  },
+                  expression: "visual"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-checkbox", {
+                attrs: { label: "Orthostatic Test" },
+                model: {
+                  value: _vm.orthostatic,
+                  callback: function($$v) {
+                    _vm.orthostatic = $$v
+                  },
+                  expression: "orthostatic"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            [
+              _c("v-textarea", {
+                model: {
+                  value: _vm.texto,
+                  callback: function($$v) {
+                    _vm.texto = $$v
+                  },
+                  expression: "texto"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            [
+              _c("v-btn", { on: { click: _vm.save } }, [
+                _vm._v("\n                Save\n            ")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98304,6 +98758,189 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/ImagingModule.js":
+/*!***********************************************!*\
+  !*** ./resources/js/modules/ImagingModule.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    imagings: [],
+    imaging: {}
+  },
+  mutations: {
+    RESET: function RESET(state) {
+      state.imagings = [];
+      state.imaging = {};
+    },
+    ALL: function ALL(state, items) {
+      return state.imagings = items;
+    },
+    FETCH: function FETCH(state, item) {
+      state.imagings.push(item);
+      return state.imaging = item;
+    },
+    DELETE: function DELETE(state, id) {
+      var index = state.imagings.findIndex(function (item) {
+        return item.id === id;
+      });
+      state.imagings.splice(index, 1);
+    },
+    EDIT: function EDIT(state, item) {
+      var index = state.imagings.findIndex(function (i) {
+        return i.id === item.id;
+      });
+      state.imagings.splice(index, 1);
+      state.imagings.unshift(item);
+    }
+  },
+  actions: {
+    all: function all(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/imagings").then(function (res) {
+                  console.log("get imagings ", res.data.data);
+                  commit("ALL", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get imagings: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    show: function show(_ref2, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return axios.get("/imagings/".concat(id)).then(function (res) {
+                  console.log("get imagings ", res.data.data);
+                  commit("FETCH", res.data.data);
+                })["catch"](function (err) {
+                  console.error("Error en get imagings: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    post: function post(_ref3, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                console.log("inicio de post");
+                console.log(item);
+                axios.post("/imagings", item).then(function (res) {
+                  if (res.data.success) console.log("post imagings ", res.data);
+                  commit("FETCH", item);
+                })["catch"](function (error) {
+                  return console.error("Error con la insertada de imagings: ".concat(error));
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    "delete": function _delete(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                console.log("Comienza borrado");
+                axios["delete"]("/imagings/".concat(id)).then(function (res) {
+                  if (res.data.success) commit("DELETE", id);
+                })["catch"](function (err) {
+                  console.error("Error al borrar la imagings: " + err);
+                });
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    update: function update(_ref5, item) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                console.log("Comienza actualizacion");
+                axios.put("/imagings/".concat(item.id), item).then(function (res) {
+                  if (res.data.success) commit("EDIT", item);
+                })["catch"](function (err) {
+                  console.error("Error al modificar imagings" + err);
+                });
+                console.log("Sale de la actualizacion de imagings");
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  },
+  getters: {
+    imagings: function imagings(state) {
+      return state.imagings;
+    },
+    imaging: function imaging(state) {
+      return state.imaging;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/LaboratoryModule.js":
 /*!**************************************************!*\
   !*** ./resources/js/modules/LaboratoryModule.js ***!
@@ -100591,7 +101228,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_StudyModule__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/StudyModule */ "./resources/js/modules/StudyModule.js");
 /* harmony import */ var _modules_ProblemModule__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/ProblemModule */ "./resources/js/modules/ProblemModule.js");
 /* harmony import */ var _modules_ProblemTypeModule__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/ProblemTypeModule */ "./resources/js/modules/ProblemTypeModule.js");
-!(function webpackMissingModule() { var e = new Error("Cannot find module './modules/ImagingModule'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _modules_ImagingModule__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/ImagingModule */ "./resources/js/modules/ImagingModule.js");
 /* harmony import */ var _modules_ConsultModule__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/ConsultModule */ "./resources/js/modules/ConsultModule.js");
 
 
@@ -100624,7 +101261,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     medicationType: _modules_MedicationTypeModule__WEBPACK_IMPORTED_MODULE_7__["default"],
     laboratoryType: _modules_LaboratoryTypeModule__WEBPACK_IMPORTED_MODULE_11__["default"],
     consult: _modules_ConsultModule__WEBPACK_IMPORTED_MODULE_16__["default"],
-    imaging: !(function webpackMissingModule() { var e = new Error("Cannot find module './modules/ImagingModule'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    imaging: _modules_ImagingModule__WEBPACK_IMPORTED_MODULE_15__["default"],
     problem: _modules_ProblemModule__WEBPACK_IMPORTED_MODULE_13__["default"],
     problemType: _modules_ProblemTypeModule__WEBPACK_IMPORTED_MODULE_14__["default"],
     study: _modules_StudyModule__WEBPACK_IMPORTED_MODULE_12__["default"]

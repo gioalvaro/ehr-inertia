@@ -62,7 +62,7 @@
 import Laboratories from "../component/Orders/LaboratoriesOrder"
 import Imaging from "../component/Orders/ImagingOrder"
 import Studies from "../component/Orders/StudiesOrder"
-import ConsultOrder from "../component/Orders/ConsultOrder"
+import Consult from "../component/Orders/ConsultOrder"
 
 export default {
     name: "Orders",
@@ -70,7 +70,7 @@ export default {
         Laboratories,
         Imaging,
         Studies,
-        ConsultOrder
+        Consult
     },
     data: () => ({
         tab: null

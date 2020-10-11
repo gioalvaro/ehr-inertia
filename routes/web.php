@@ -67,18 +67,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     
     // Problems
-    Route::resource('problems', 'ProblemController');
-    Route::resource('problem_types', 'ProblemTypeController');
-    Route::resource('problem_itens', 'ProblemItemController');
+    Route::resource('problems', App\Http\Controllers\ProblemController::class);
+    Route::resource('problem_types', App\Http\Controllers\ProblemTypeController::class);
+    Route::resource('problem_itens', App\Http\Controllers\ProblemItemController::class);
     
     // Study    
-    Route::resource('studies', 'StudyController');
+    Route::resource('studies', App\Http\Controllers\StudyController::class);
 
     // Consult
-    Route::resource('consults', 'ConsultController');
+    Route::resource('consults', App\Http\Controllers\ConsultController::class);
 
     // Imaging
-    Route::resource('imagings', 'ImagingController');
+    Route::resource('imagings', App\Http\Controllers\ImagingController::class);
 
 
     //Patient 

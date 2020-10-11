@@ -38,6 +38,9 @@
 <script>
     export default {
         name:"Imaging",
+        created () {
+            this.fetchImaging();
+        },
         data() {
             return {
                 texto:"CLINICAL INFORMATION: RIGHT UPPER QUADRANT PAIN. \nEXAMINATION: ABDOMEN ULTRASOUND, LIMITED\nFINDINGS: LIVER IS NORMAL IN APPEARANCE WITHOUT BILIARY DUCTAL DILITATION OR FOCAL MASS.\nGALLBLADDER IS DISTENDED WITH WALL THICKENING, A GALLSTONE AND BILIARY SLUDGE ARE PRESENT,\nAND PERICHOLECYSTIC FLUID IS PRESENT. PANCREAS APPEARS NORMAL. THE COMMON DUCT MEASURES 3 MM IN DIAMETER.",
@@ -50,7 +53,17 @@
                     { state: 'Endoscopy', value: 5 },
                 ],
             }
-        },        
+        },   
+        methods: {
+            async fetchImaging() {
+                await this.$store.dispatch("imaging/all");
+            }
+        },
+        computed: {
+            imagings() {
+                return this.$store.getters['imaging/imagings'];
+            }
+        },     
     }
 </script>
 

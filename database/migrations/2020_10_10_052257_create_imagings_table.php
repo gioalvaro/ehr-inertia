@@ -14,10 +14,9 @@ class CreateImagingsTable extends Migration
     public function up()
     {
         Schema::create('imagings', function (Blueprint $table) {
-            $table->id();
-            $table->text('observation')->nullable();
-            $table->enum('type', ['ct', 'mri', 'ultrasound', 'rx', 'endoscopy']);
-            $table->text('image_url')->nullable();
+            $table->id();            
+            $table->enum('type', ['ct', 'mri', 'ultrasound', 'radx', 'endoscopy']);
+            $table->text('summary')->nullable();            
             $table->foreignId('encounter_id')->constrained('encounters');
             $table->softDeletes();
             $table->timestamps();

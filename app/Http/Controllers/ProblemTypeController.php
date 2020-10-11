@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ProblemType;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
-class ProblemTypeController extends Controller
+class ProblemTypeController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class ProblemTypeController extends Controller
      */
     public function index()
     {
-        //
+        $problems = ProblemType::all();
+        return $this->sendResponse($problems->toArray(), 'Problem Types retrieve successfully');
     }
 
     /**

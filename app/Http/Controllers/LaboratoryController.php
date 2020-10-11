@@ -7,7 +7,7 @@ use App\Models\LaboratoryType;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
-class LaboratoryController extends Controller
+class LaboratoryController extends AppBaseController
 {
     /**
      * Display a listing of the resource.
