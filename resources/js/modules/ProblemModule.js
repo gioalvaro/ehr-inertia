@@ -12,8 +12,11 @@ export default {
         ALL(state, items) {
             return (state.problems = items);
         },
-        FETCH(state, item) {
+        ADD(state, item) {
             state.problems.push(item);
+            return (state.problem = item);
+        },
+        FETCH(state, item) {            
             return (state.problem = item);
         },
         DELETE(state, id) {
@@ -61,7 +64,7 @@ export default {
                 .then((res) => {
                     if (res.data.success)
                         console.log("post problems ", res.data);
-                        commit("FETCH", item);
+                        commit("ADD", res.data.data);
                 })
                 .catch(error =>
                     console.error(`Error con la insertada de problems: ${error}`)

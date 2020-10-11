@@ -2,13 +2,13 @@
     <div>
         <v-row>
             <v-col>
-                <v-textarea v-model="texto">
-                </v-textarea>
+                <v-textarea label="Observation:" v-model="texto"> </v-textarea>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-btn>
+                <v-btn color="primary" @click="save">
+                    Save & Send
                 </v-btn>
             </v-col>
         </v-row>
@@ -16,29 +16,41 @@
 </template>
 
 <script>
-    export default {
-        name:'ConsultOrder',
-        created () {
-            this.fetchConsult();
+export default {
+    name: "ConsultOrder",
+    created() {        
+        this.fetchConsult();
+    },
+    data() {
+        return {
+            texto: ""
+        };
+    },
+    computed: {
+        consult() {
+            return this.$store.getters["consult/consults"];
         },
-        data() {
-            return {
-                texto: ""
-            }
+        encounter() {
+            return this.$store.getters["encounter/encounter"];
+        }
+    },
+    methods: {
+        async save() {
+            await this.$store.dispatch("consult/post", {
+                observation: this.texto,
+                encounter_id: this.encounter.id
+            });
         },
-        computed: {
-            consult() {
-                return this.$store.getters['consult/consults']; 
-            }
-        },
-        methods: {
-            async fetchConsult() {
-                await this.$store.dispatch('consult/all');
-            }
-        },
+        async fetchConsult() {
+            await this.$store.dispatch("consult/all").then(res => {
+                if (this.consult.length > 0){
+                    this.texto = this.consult[0].observation;
+                }
+                
+            });
+        }
     }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -21,6 +21,7 @@ class Problem extends Model
     public $fillable = [
         'id',        
         'encounter_id',                
+        'problem_type_id'
     ];
 
     /**
@@ -38,5 +39,12 @@ class Problem extends Model
     public function encounter()
     {
         return $this->belongsTo('App\Models\Encounter');
+    }
+    /**
+     * Get the post that owns the comment.
+     */
+    public function problem_type()
+    {
+        return $this->belongsTo('App\Models\ProblemType');
     }
 }

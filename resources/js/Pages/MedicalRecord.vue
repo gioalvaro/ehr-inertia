@@ -246,7 +246,7 @@
 
                                     <v-tabs-items v-model="tab">
                                         <v-tab-item
-                                            v-for="i in 5"
+                                            v-for="i in 7"
                                             :key="i"
                                             :value="'tab-' + i"
                                         >
@@ -275,6 +275,16 @@
                                                     <orders />
                                                 </v-card-text>
                                             </v-card>
+                                            <v-card v-if="i === 6" flat>
+                                                <v-card-text>
+                                                    <problems />
+                                                </v-card-text>
+                                            </v-card>
+                                            <v-card v-if="i === 7" flat>
+                                                <v-card-text>
+                                                    <consult />
+                                                </v-card-text>
+                                            </v-card>
                                         </v-tab-item>
                                     </v-tabs-items>
                                 </v-card>
@@ -293,7 +303,8 @@ import Orders from "./Orders";
 import PhysicianNote from "./PhysicianNote";
 import NursingNote from "./NursingNote";
 import Medication from "./Medication";
-
+import Consult from "./Consult";
+import Problems from "./Problems";
 export default {
     name:"MedicalRecord",
     created () {
@@ -313,7 +324,9 @@ export default {
         PhysicianNote,
         NursingNote,
         Medication,
-        Orders
+        Orders,
+        Consult,
+        Problems
     },
     data: () => ({
         baseURL: window.location.hostname,

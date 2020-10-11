@@ -41,7 +41,19 @@ class ConsultController extends AppBaseController
      */
     public function store(Request $request)
     {
-        //
+        
+        $obj = $request->all();
+        
+        $consult = Consult::where('encounter_id','=',$obj['encounter_id'])->first();
+        
+        if (!empty($consult)){
+            $consult->delete();
+        }
+        $consult = new Consult();
+        $consult->observation = $obj['observation'];
+        $consult->encounter_id = $obj['encounter_id'];
+        $consult->save();
+        return $this->sendResponse($consult,'consult was save successful');
     }
 
     /**

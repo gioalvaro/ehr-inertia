@@ -47,6 +47,7 @@ export default {
                 .get(`/consults/${id}`)
                 .then(res => {
                     console.log("get consults ", res.data.data);
+                    commit("RESET");
                     commit("FETCH", res.data.data);
                 })
                 .catch(err => {
@@ -60,8 +61,9 @@ export default {
                 .post(`/consults`, item)
                 .then((res) => {
                     if (res.data.success)
-                        console.log("post consults ", res.data);
-                        commit("FETCH", item);
+                        console.log("post consults ", res.data.data);
+                        commit("RESET");
+                        commit("FETCH", res.data.data);
                 })
                 .catch(error =>
                     console.error(`Error con la insertada de consults: ${error}`)
