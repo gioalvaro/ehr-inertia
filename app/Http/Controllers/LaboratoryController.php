@@ -18,7 +18,7 @@ class LaboratoryController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Laboratory::with('laboratory_type')->whereHas('encounter', function (Builder $query) use ($provider) {
+        $laboratory = Laboratory::with('laboratory_type','encounter.provider')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Laboratory retrieve successfully');
@@ -42,16 +42,18 @@ class LaboratoryController extends AppBaseController
      */
     public function store(Request $request)
     {        
+        
         $labsTypeIds = $request->all()['labsType'];
         $encounter_id = $request->all()['encounter_id'];        
         $laboratories_types = LaboratoryType::whereIn('id',$labsTypeIds)->get();
-        foreach($laboratories_types as $row){
-            if($row->verified == true){
-                switch ($row->id) {
+        foreach($laboratories_types as $row=>$valor){
+            
+            if($valor['verification'] == 1){                
+                switch ($valor->id) {
                     case 2:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "13.500",                            
                             'min' => "4.500",
                             'max' => "11.000",
@@ -61,7 +63,7 @@ class LaboratoryController extends AppBaseController
                     case 3:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "1",                            
                             'min' => "0.9",
                             'max' => "1.1",
@@ -71,7 +73,7 @@ class LaboratoryController extends AppBaseController
                     case 4:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "28",                            
                             'min' => "25",
                             'max' => "40",
@@ -81,7 +83,7 @@ class LaboratoryController extends AppBaseController
                     case 5:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "12",                            
                             'min' => "11",
                             'max' => "15",
@@ -91,7 +93,7 @@ class LaboratoryController extends AppBaseController
                     case 14:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "46",                            
                             'min' => "0",
                             'max' => "15",
@@ -101,7 +103,7 @@ class LaboratoryController extends AppBaseController
                     case 17:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "145",                            
                             'min' => "136",
                             'max' => "145",
@@ -111,7 +113,7 @@ class LaboratoryController extends AppBaseController
                     case 18:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "5",
                             'min' => "3.5",
                             'max' => "5",
@@ -121,7 +123,7 @@ class LaboratoryController extends AppBaseController
                     case 19:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "102",
                             'min' => "95",
                             'max' => "105",
@@ -131,7 +133,7 @@ class LaboratoryController extends AppBaseController
                     case 20:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "24",
                             'min' => "22",
                             'max' => "28",
@@ -141,7 +143,7 @@ class LaboratoryController extends AppBaseController
                     case 22:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "0.8",
                             'min' => "0.6",
                             'max' => "1.2",
@@ -151,7 +153,7 @@ class LaboratoryController extends AppBaseController
                     case 24:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "47",
                             'min' => "8",
                             'max' => "20",
@@ -161,7 +163,7 @@ class LaboratoryController extends AppBaseController
                     case 25:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "62",
                             'min' => "8",
                             'max' => "20",
@@ -171,7 +173,7 @@ class LaboratoryController extends AppBaseController
                     case 26:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "145",
                             'min' => "37",
                             'max' => "107",
@@ -181,7 +183,7 @@ class LaboratoryController extends AppBaseController
                     case 27:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "100",
                             'min' => "0",
                             'max' => "160",
@@ -191,7 +193,7 @@ class LaboratoryController extends AppBaseController
                     case 28:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "110",
                             'min' => "25",
                             'max' => "125",
@@ -201,7 +203,7 @@ class LaboratoryController extends AppBaseController
                     case 30:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "1",
                             'min' => "0.3",
                             'max' => "1.2",
@@ -211,7 +213,7 @@ class LaboratoryController extends AppBaseController
                     case 32:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "9.6",
                             'min' => "8.4",
                             'max' => "10.2",
@@ -221,7 +223,7 @@ class LaboratoryController extends AppBaseController
                     case 35:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "4.4",
                             'min' => "3.5",
                             'max' => "5.5",
@@ -231,7 +233,7 @@ class LaboratoryController extends AppBaseController
                     case 36:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "46",
                             'min' => "25",
                             'max' => "90",
@@ -241,7 +243,7 @@ class LaboratoryController extends AppBaseController
                     case 37:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "3",
                             'min' => "0",
                             'max' => "10",
@@ -251,7 +253,7 @@ class LaboratoryController extends AppBaseController
                     case 38:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "0.03",
                             'min' => "0",
                             'max' => "0.03",
@@ -261,7 +263,7 @@ class LaboratoryController extends AppBaseController
                     case 90:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "Positive for gram negative rods",
                             'min' => "",
                             'max' => "Negative",
@@ -271,7 +273,7 @@ class LaboratoryController extends AppBaseController
                     case 120:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "28",
                             'min' => "10",
                             'max' => "20",
@@ -281,7 +283,7 @@ class LaboratoryController extends AppBaseController
                     case 121:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "420.000",
                             'min' => "150.000",
                             'max' => "400.000",
@@ -291,7 +293,7 @@ class LaboratoryController extends AppBaseController
                     case 122:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "10",
                             'min' => "0",
                             'max' => "5",
@@ -301,7 +303,7 @@ class LaboratoryController extends AppBaseController
                     case 123:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "74",
                             'min' => "45",
                             'max' => "75",
@@ -311,7 +313,7 @@ class LaboratoryController extends AppBaseController
                     case 124:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "14",
                             'min' => "14",
                             'max' => "18",
@@ -321,7 +323,7 @@ class LaboratoryController extends AppBaseController
                     case 125:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
-                            'laboratory_type_id' => $row->id,
+                            'laboratory_type_id' => $valor->id,
                             'current_value' => "42",
                             'min' => "36",
                             'max' => "53",
@@ -332,9 +334,10 @@ class LaboratoryController extends AppBaseController
                 }
             }
             else{
+                dd();
                 $laboratory = Laboratory::create([
                     'encounter_id' => $encounter_id,
-                    'laboratory_type_id' => $row->id,
+                    'laboratory_type_id' => $valor->id,
                     'current_value' => "Need Validation",                            
                     'min' => "",
                     'max' => "",
@@ -343,7 +346,7 @@ class LaboratoryController extends AppBaseController
             }
         }
         
-        $this->sendSuccess('Laboratory save Successfuly');
+        return $this->sendSuccess('Laboratory save Successfuly');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Imaging;
+use App\Models\ImagingItem;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -17,7 +18,7 @@ class ImagingController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Imaging::with('imaging_items')->whereHas('encounter', function (Builder $query) use ($provider) {
+        $laboratory = Imaging::with('imaging_items', 'encounter', 'encounter.provider', 'encounter.department')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Imaging retrieve successfully');
@@ -41,7 +42,36 @@ class ImagingController extends AppBaseController
      */
     public function store(Request $request)
     {
-        //
+        $obj = $request->all();
+        $repeated = Imaging::where('encounter_id','=',$obj['encounter_id'])->where('type','=',$obj['type'])->first();
+        
+        if (!empty($repeated)){
+            return $this->sendError("Cannot save cause already send the same type of order");
+        }
+        $problem = new Imaging();
+        $problem->encounter_id = $obj['encounter_id'];
+        $problem->type = $obj['type'];
+        $problem->summary = $obj['summary'];
+        $problem->save();
+        $problem_new = Imaging::with('encounter', 'encounter.department','encounter.provider')->where('id', '=', $problem->id)->first();
+        $user = $request->user();
+        $provider = $user->provider()->first();        
+                
+        if($obj['type'] == 5){
+            $item = new ImagingItem();
+            $item->imaging_id = $problem->id;
+            $item->image_url = '/storage/imaging-dx/Imaging_2.jpg';
+            $item->observation = 'Gallbladder wall showing thickening, a large gallstone, and abundant heterogeneous sludge and air within the gallbladder, represented by a bright echogenic stripe with “dirty shadowing” beneath, consistent with emphysematous cholecystitis.  
+            Clinical correlation advised.';
+            $item->save();
+            $item2 = new ImagingItem();
+            $item2->imaging_id = $problem->id;
+            $item2->image_url = '/storage/imaging-dx/Imaging_3.jpg';
+            $item2->observation = 'Gallbladder wall showing thickening, a large gallstone, and abundant heterogeneous sludge and air within the gallbladder, represented by a bright echogenic stripe with “dirty shadowing” beneath, consistent with emphysematous cholecystitis.  
+            Clinical correlation advised.';
+            $item2->save();
+        }
+        return $this->sendResponse($problem_new, "Problem stored");
     }
 
     /**
@@ -84,8 +114,10 @@ class ImagingController extends AppBaseController
      * @param  \App\Models\Imaging  $imaging
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Imaging $imaging)
+    public function destroy($id)
     {
-        //
+        $problem = Imaging::find($id);        
+        $problem->delete();
+        return $this->sendResponse($problem, "Imging deleted");
     }
 }

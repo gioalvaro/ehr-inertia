@@ -17,7 +17,7 @@ class StudyController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Study::whereHas('encounter', function (Builder $query) use ($provider) {
+        $laboratory = Study::with('encounter', 'encounter.department','encounter.provider')->whereHas('encounter', function (Builder $query) use ($provider) {
             $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Study retrieve successfully');
@@ -41,7 +41,14 @@ class StudyController extends AppBaseController
      */
     public function store(Request $request)
     {
-        //
+        $obj = $request->all();
+        $problem = new Study();
+        $problem->encounter_id = $obj['encounter_id'];
+        $problem->type = $obj['type'];
+        $problem->observation = $obj['observation'];
+        $problem->save();
+        $problem_new = Study::with('encounter', 'encounter.department','encounter.provider')->where('id', '=', $problem->id)->first();
+        return $this->sendResponse($problem_new, "Problem stored");
     }
 
     /**
@@ -73,9 +80,16 @@ class StudyController extends AppBaseController
      * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Study $study)
+    public function update(Request $request, $id)
     {
-        //
+        $obj = $request->all();
+        $problem = Study::find($id);
+        $problem->encounter_id = $obj['encounter_id'];
+        $problem->type = $obj['type'];
+        $problem->observation = $obj['observation'];
+        $problem->save();
+        $problem_new = Study::with('encounter', 'encounter.department','encounter.provider')->where('id', '=', $problem->id)->first();
+        return $this->sendResponse($problem_new, "Problem edited");
     }
 
     /**
@@ -84,8 +98,10 @@ class StudyController extends AppBaseController
      * @param  \App\Models\Study  $study
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Study $study)
+    public function destroy($id)
     {
-        //
+        $problem = Study::find($id);        
+        $problem->delete();
+        return $this->sendResponse($problem, "Problem deleted");
     }
 }

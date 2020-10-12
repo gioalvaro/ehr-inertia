@@ -19,14 +19,11 @@
                 <v-icon>mdi-account-box-multiple-outline</v-icon>
             </v-tab>
 
-            <v-tab href="#tab-3">
-                Studies
-                <v-icon>mdi-clipboard-pulse-outline</v-icon>
-            </v-tab>
+            
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-            <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
+            <v-tab-item v-for="i in 2" :key="i" :value="'tab-' + i">
                 <v-card v-if="i === 1" flat>
                     <v-card-text>
                         <laboratories />
@@ -37,11 +34,7 @@
                         <imaging />
                     </v-card-text>
                 </v-card> 
-                <v-card v-if="i === 3" flat>
-                    <v-card-text>
-                        <studies />
-                    </v-card-text>
-                </v-card>                
+                  
             </v-tab-item>
         </v-tabs-items>
     </v-card>

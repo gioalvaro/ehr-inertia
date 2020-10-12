@@ -37,7 +37,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 2,
@@ -58,7 +59,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 3,
@@ -79,7 +81,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 4,
@@ -100,7 +103,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 5,
@@ -121,7 +125,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 6,
@@ -142,7 +147,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 7,
@@ -163,7 +169,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 8,
@@ -184,14 +191,16 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'id' => 9,
             'patient_id' => 1,
             'department_id' => 7,
             'provider_id' => 9,
-            'test' => true
+            'test' => true,
+            'open' => false
 
         ]);
         DB::table('encounters')->insert([
@@ -216,7 +225,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'patient_id' => 3,
@@ -240,7 +250,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'patient_id' => 4,
@@ -260,7 +271,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true
+            'test' => true,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'patient_id' => 5,
@@ -280,7 +292,8 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true         
+            'test' => true,
+            'open' => false        
         ]);
     }
 }

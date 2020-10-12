@@ -35,7 +35,7 @@ export default {
     watch: {},
     computed: {
         laboratories() {
-            this.$store.getters["laboratory/laboratories"];
+            return this.$store.getters["laboratory/laboratories"];
         }
     },
     data() {

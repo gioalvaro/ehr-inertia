@@ -29,64 +29,64 @@
                 <v-tab>
                     Others
                 </v-tab>
-                <v-tab>
-                    <v-btn @click="guardarLabs">
+                
+                    <v-btn color="primary" @click="guardarLabs">
                         Save & Send
                     </v-btn>
-                </v-tab>
+                
 
                 <v-tab-item>
                     <labs-type-item
                         :items="hematologic"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnHematologic"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="blood_plasma_serum"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnBlood"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="lipids"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnLipids"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="genetics"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnGenetics"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="endo"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnEndo"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="urine"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnUrine"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="cerebrospinal_fluid"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnCere"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="infectious_disease"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnInfe"
                     />
                 </v-tab-item>
                 <v-tab-item>
                     <labs-type-item
                         :items="others"
-                        @returnSelection="returnSelected"
+                        @returnSelection="returnOthers"
                     />
                 </v-tab-item>
             </v-tabs>
@@ -105,7 +105,16 @@ export default {
         this.fetchLabTypes();
     },
     data() {
-        return {            
+        return {   
+            selectedOthers:[],
+            selectedEndo:[],
+            selectedLipids:[],
+            selectedGenetics:[],
+            selectedUrine:[],
+            selectedInfe:[],
+            selectedCere:[],
+            selectedBloods:[],
+            selectedHematologic:[],         
             selected: []
         };
     },
@@ -143,13 +152,50 @@ export default {
     },
     methods: {
         guardarLabs(){
+            this.selected.push(...this.selectedOthers);
+            this.selected.push(...this.selectedCere);
+            this.selected.push(...this.selectedUrine);
+            this.selected.push(...this.selectedInfe);
+            this.selected.push(...this.selectedEndo);
+            this.selected.push(...this.selectedGenetics);
+            this.selected.push(...this.selectedLipids);
+            this.selected.push(...this.selectedBloods);
+            this.selected.push(...this.selectedHematologic);
             console.log(this.selected);
             var set = new Set(this.selected);       
             var send = {encounter_id: this.encounter.id, labsType: [...set] }     
             this.$store.dispatch('laboratory/post', send);
+            this.selected = [];
         },
         returnSelected(evt) {
             this.selected.push(...evt);
+        },
+        returnOthers(evt){
+            this.selectedOthers = evt;
+        },
+        returnInfe(evt){
+            this.selectedInfe = evt;
+        },
+        returnCere(evt){
+            this.selectedCere = evt;
+        },
+        returnUrine(evt){
+            this.selectedUrine = evt;
+        },
+        returnEndo(evt){
+            this.selectedEndo = evt;
+        },
+        returnGenetics(evt){
+            this.selectedGenetics = evt;
+        },
+        returnLipids(evt){
+            this.selectedLipids = evt;
+        },
+        returnBlood(evt){
+            this.selectedBloods = evt;
+        },
+        returnHematologic(evt){
+            this.selectedHematologic = evt;
         },
         async fetchLabTypes() {
             await this.$store

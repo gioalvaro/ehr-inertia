@@ -14,7 +14,7 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-icon v-if="item.patient.lastname === 'Coronel'" @click="viewItem(item)" large>mdi-eye</v-icon>
+                <v-icon v-if="item.open === true" @click="viewItem(item)" large>mdi-eye</v-icon>
             </template>
             <template v-slot:item.check="{ item }">
                 <v-checkbox

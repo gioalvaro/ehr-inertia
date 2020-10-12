@@ -53,8 +53,8 @@ class MedicationController extends AppBaseController
             'units' => $obj['units'],
             'route' => $obj['route'],
             'verified' => $obj['verified'],
-            'start_date' => new Carbon(new DateTime($obj['start_date']))//,
-            //'end_date' => new Carbon(new DateTime($obj['end_date']))
+            'start_date' => new Carbon(new DateTime($obj['start_date'])),
+            'end_date' => new Carbon(new DateTime($obj['end_date']))
         ]);
         $this->sendSuccess('Medication save Successfuly');
     }

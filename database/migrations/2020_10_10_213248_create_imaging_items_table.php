@@ -17,7 +17,7 @@ class CreateImagingItemsTable extends Migration
             $table->id();
             $table->text('observation')->nullable();
             $table->text('image_url')->nullable();
-            $table->foreignId('imaging_id')->constrained('imagings');
+            $table->foreignId('imaging_id')->constrained('imagings')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

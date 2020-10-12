@@ -36,7 +36,8 @@ class Encounter extends Model
         'patient_id',
         'provider_id',
         'department_id',
-        'test'
+        'test',
+        'open'
     ];
 
     /**
@@ -59,7 +60,8 @@ class Encounter extends Model
         'ga' => 'integer',
         'lmp' => 'integer',
         'edd' => 'integer',
-        'gptal' => 'integer'
+        'gptal' => 'integer',
+        'open' => 'boolean'
     ];
 
     protected $dates = [

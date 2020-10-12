@@ -107,7 +107,8 @@ class CreateNewUser implements CreatesNewUsers
             'height' => 70,
             'weight' => 200,
             'osat' => 98,
-            'test' => false
+            'test' => false,
+            'open' => true
         ]);
         DB::table('encounters')->insert([
             'provider_id' => $provider->id,
@@ -131,7 +132,8 @@ class CreateNewUser implements CreatesNewUsers
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => false
+            'test' => false,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'provider_id' => $provider->id,
@@ -155,7 +157,8 @@ class CreateNewUser implements CreatesNewUsers
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => false
+            'test' => false,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'provider_id' => $provider->id,
@@ -179,7 +182,8 @@ class CreateNewUser implements CreatesNewUsers
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => false
+            'test' => false,
+            'open' => false
         ]);
         DB::table('encounters')->insert([
             'provider_id' => $provider->id,
@@ -203,7 +207,8 @@ class CreateNewUser implements CreatesNewUsers
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => false
+            'test' => false,
+            'open' => false
         ]);
     }
 }

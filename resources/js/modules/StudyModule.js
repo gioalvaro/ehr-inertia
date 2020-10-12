@@ -12,8 +12,11 @@ export default {
         ALL(state, items) {
             return (state.studies = items);
         },
-        FETCH(state, item) {
+        ADD(state, item) {
             state.studies.push(item);
+            return (state.study = item);
+        },
+        FETCH(state, item) {            
             return (state.study = item);
         },
         DELETE(state, id) {
@@ -29,44 +32,42 @@ export default {
             state.studies.splice(index, 1);
             state.studies.unshift(item);
         },
-        SET(state, item){
-            state.study = item;
-        }
     },
     actions: {
         async all({commit}) {
             await axios
                 .get(`/studies`)
                 .then(res => {
-                    console.log("get studies ", res.data.data);
+                    console.log("get study ", res.data.data);
                     commit("ALL", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get studies: " + err);
+                    console.error("Error en get study: " + err);
                 });
         },
         async show({commit}, id) {
             await axios
                 .get(`/studies/${id}`)
                 .then(res => {
-                    console.log("get studies ", res.data.data);
+                    console.log("get study ", res.data.data);
                     commit("FETCH", res.data.data);
                 })
                 .catch(err => {
-                    console.error("Error en get studies: " + err);
+                    console.error("Error en get study: " + err);
                 });
         },
         async post({commit}, item) {
             console.log("inicio de post");
+            console.log(item);
             axios
                 .post(`/studies`, item)
                 .then((res) => {
                     if (res.data.success)
-                        console.log("post studies ", res.data);
-                        commit("FETCH", item);
+                        console.log("post study ", res.data);
+                        commit("ADD", res.data.data);
                 })
                 .catch(error =>
-                    console.error(`Error con la insertada de studies: ${error}`)
+                    console.error(`Error con la insertada de study: ${error}`)
                 );
         },
         async delete({commit}, id) {
@@ -77,7 +78,7 @@ export default {
                     if (res.data.success) commit("DELETE", id);
                 })
                 .catch(err => {
-                    console.error("Error al borrar la studies: " + err);
+                    console.error("Error al borrar la study: " + err);
                 });
         },
         async update({commit}, item) {
@@ -88,9 +89,9 @@ export default {
                     if (res.data.success) commit("EDIT", item);
                 })
                 .catch(err => {
-                    console.error("Error al modificar studies" + err);
+                    console.error("Error al modificar study" + err);
                 });
-            console.log("Sale de la actualizacion de studies");
+            console.log("Sale de la actualizacion de study");
         },
     },
     getters: {
@@ -99,6 +100,6 @@ export default {
         },
         study(state) {
             return state.study;
-        },
+        }
     }
 };

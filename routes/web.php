@@ -55,9 +55,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 // Route::middleware(['auth:sanctum','verified'])->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::middleware(['auth:sanctum','verified'])->get('/user', function (Request $request) {
-    return Inertia\Inertia::render('Welcome');
-})->name('welcome');
+// Route::middleware(['auth:sanctum','verified'])->get('/user', function (Request $request) {
+//     return Inertia\Inertia::render('Welcome');
+// })->name('welcome');
 
 Route::middleware(['auth:sanctum','verified'])->get('/medical-record/{medicalRecord_id}', function (Request $request) {
     return Inertia\Inertia::render('MedicalRecord');
@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Imaging
     Route::resource('imagings', App\Http\Controllers\ImagingController::class);
 
+    Route::get('/userPDF', function(Request $request){return $request->user();});
 
     //Patient 
     Route::get('/patients', [PatientController::class, 'index'])->name("patients.index");

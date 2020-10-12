@@ -39,6 +39,7 @@ class CreateEncountersTable extends Migration
             $table->foreignId('department_id')->nullable()->constrained('departments');
             $table->foreignId('provider_id')->nullable()->constrained('providers');
             $table->boolean("test");
+            $table->boolean("open");
             $table->softDeletes();
             $table->timestamps();
         });

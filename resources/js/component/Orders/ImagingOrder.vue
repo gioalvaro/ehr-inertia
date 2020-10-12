@@ -2,29 +2,29 @@
     <div>
         <v-row>
             <v-col>
-                <v-checkbox
-                    v-model="ct"
-                    label="CT"
-                ></v-checkbox>
-                <v-checkbox
-                    v-model="visual"
-                    label="Visual Acuity"
-                ></v-checkbox>
-                <v-checkbox
-                    v-model="orthostatic"
-                    label="Orthostatic Test"
-                ></v-checkbox>
+                <v-select
+                    v-model="select"
+                    :items="items"
+                    item-text="text"
+                    item-value="value"
+                    label="Analysis"
+                    outlined
+                >
+                </v-select>
             </v-col>
             <v-col>
-                <v-textarea v-model="texto">
-
+                <v-textarea
+                    placeholder="Please specify the details"
+                    label="Order"
+                    v-model="summary"
+                >
                 </v-textarea>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-btn @click="save">
-                    Save
+                <v-btn block color="primary" @click="save">
+                    Save & Send
                 </v-btn>
             </v-col>
         </v-row>
@@ -32,32 +32,40 @@
 </template>
 
 <script>
-    export default {
-        name:'ImagingOrder',
-        data() {
-            return {
-                ct:false,
-                visual:false,
-                orthostatic:false,
-                texto:"CLINICAL INFORMATION: RIGHT UPPER QUADRANT PAIN. \nEXAMINATION: ABDOMEN ULTRASOUND, LIMITED\nFINDINGS: LIVER IS NORMAL IN APPEARANCE WITHOUT BILIARY DUCTAL DILITATION OR FOCAL MASS.\nGALLBLADDER IS DISTENDED WITH WALL THICKENING, A GALLSTONE AND BILIARY SLUDGE ARE PRESENT,\nAND PERICHOLECYSTIC FLUID IS PRESENT. PANCREAS APPEARS NORMAL. THE COMMON DUCT MEASURES 3 MM IN DIAMETER.",
-                select: { state: 'Radiology', value: 1 },
-                items: [
-                    { state: 'Radiology', value: 1 },
-                    { state: 'MRI', value: 2 },
-                    { state: 'CT', value: 3 },
-                    { state: 'Ultrasound', value: 4 },
-                    { state: 'Endoscopy', value: 5 },
-                ],
-            }
+export default {
+    name: "ImagingOrder",
+    data() {
+        return {
+            summary: "",
+            select: "1",
+            items: [
+                { text: "Radiology", value: "1" },
+                { text: "MRI", value: "2" },
+                { text: "CT Scan", value: "3" },
+                { text: "Endoscopy", value: "4" },
+                { text: "Ultrasound", value: "5" }
+            ]
+        };
+    },
+    computed: {
+        provider() {
+            return this.$store.getters["provider/provider"];
         },
-        methods: {
-            save() {
-                
-            }
-        },
+        encounter() {
+            return this.$store.getters["encounter/encounter"];
+        }
+    },
+    methods: {
+        async save() {
+            var obj = {
+                summary: this.summary,
+                type: this.select,
+                encounter_id: this.encounter.id
+            };
+            await this.$store.dispatch("imaging/post", obj);
+        }
     }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

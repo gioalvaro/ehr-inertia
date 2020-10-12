@@ -121,7 +121,7 @@
                                                         v-model="
                                                             editedItem.end_date
                                                         "
-                                                        label="Start Date"
+                                                        label="End Date"
                                                         prepend-icon="mdi-calendar"
                                                         readonly
                                                         v-bind="attrs"
