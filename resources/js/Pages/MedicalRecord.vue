@@ -535,10 +535,10 @@ export default {
 
             columnas = [
                 {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Name', dataKey: 'description',}
-                {title: 'Current Value', dataKey: 'current_value',}
-                {title: 'Min', dataKey: 'min',}
-                {title: 'Max', dataKey: 'max',}
+                {title: 'Name', dataKey: 'description'},
+                {title: 'Current Value', dataKey: 'current_value'},
+                {title: 'Min', dataKey: 'min'},
+                {title: 'Max', dataKey: 'max'}
             ]
 
             doc.autoTable(columnas, laboratories, {
