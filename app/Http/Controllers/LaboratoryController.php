@@ -333,8 +333,7 @@ class LaboratoryController extends AppBaseController
                     
                 }
             }
-            else{
-                dd();
+            else{                
                 $laboratory = Laboratory::create([
                     'encounter_id' => $encounter_id,
                     'laboratory_type_id' => $valor->id,
