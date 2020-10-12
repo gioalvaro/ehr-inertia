@@ -56,13 +56,21 @@ export default {
         }
     },
     methods: {
+        async fetchImaging() {
+            await this.$store.dispatch("imaging/all").then(res => {
+                if (this.imagings.length > 0) {
+                    this.select = this.imagings[0].type;
+                    console.log(this.select);
+                }
+            });
+        },
         async save() {
             var obj = {
                 summary: this.summary,
                 type: this.select,
                 encounter_id: this.encounter.id
             };
-            await this.$store.dispatch("imaging/post", obj);
+            await this.$store.dispatch("imaging/post", obj).then(res => {this.fetchImaging();});
         }
     }
 };

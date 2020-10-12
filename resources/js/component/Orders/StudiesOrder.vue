@@ -43,9 +43,12 @@
             }
         },
         methods: {
+             async fetchStudies(){
+                await this.$store.dispatch('study/all');
+            },
             async save() {
                 let obj = {ecg: this.ecg, visual:this.visual, orthostatic: this.orthostatic, texto: this.texto}
-                await this.$store.dispatch("study/post", obj);
+                await this.$store.dispatch("study/post", obj).then(res => {this.fetchStudies();});
             }
         },
     }

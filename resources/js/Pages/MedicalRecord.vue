@@ -493,7 +493,7 @@ export default {
                 styles: {overflow: 'linebreak', fontSize: 7},
                 startY: finalY + 40
             })
-            //doc.addPage();
+            doc.addPage();
 
 
 
@@ -535,7 +535,10 @@ export default {
 
             columnas = [
                 {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Name', dataKey: 'description'}
+                {title: 'Name', dataKey: 'description',}
+                {title: 'Current Value', dataKey: 'current_value',}
+                {title: 'Min', dataKey: 'min',}
+                {title: 'Max', dataKey: 'max',}
             ]
 
             doc.autoTable(columnas, laboratories, {

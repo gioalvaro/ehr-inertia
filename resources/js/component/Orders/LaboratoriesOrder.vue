@@ -151,6 +151,9 @@ export default {
         }
     },
     methods: {
+        async fetchLabs() {
+            await this.$store.dispatch("laboratory/all");
+        },
         guardarLabs(){
             this.selected.push(...this.selectedOthers);
             this.selected.push(...this.selectedCere);
@@ -164,8 +167,9 @@ export default {
             console.log(this.selected);
             var set = new Set(this.selected);       
             var send = {encounter_id: this.encounter.id, labsType: [...set] }     
-            this.$store.dispatch('laboratory/post', send);
+            this.$store.dispatch('laboratory/post', send).then(res => {this.fetchLabs();});
             this.selected = [];
+            
         },
         returnSelected(evt) {
             this.selected.push(...evt);
