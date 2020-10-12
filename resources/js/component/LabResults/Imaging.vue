@@ -148,6 +148,9 @@ export default {
             this.selectedImaging = _.find(this.imagings, row => {
                 return row.type === this.select;
             });
+            if (this.imagings.length > 1 && this.selectedImaging){
+                this.selectedImaging.imaging_items[1] = this.imagings[1].imaging_items[0];
+            }
             if (this.selectedImaging) {
                 this.length = this.selectedImaging.imaging_items.length;
             } else {
