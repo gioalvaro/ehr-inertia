@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use DateTime;
 
 class ImagingSeeder extends Seeder
 {
@@ -18,7 +20,8 @@ class ImagingSeeder extends Seeder
         DB::table('imagings')->insert([
             'id' => 1,
             'encounter_id' => 1,
-            'type' => 5,
+            'type' => 'Ultrasound',
+            'created_at' => new Carbon(new DateTime('2019-10-08 10:15')),
             'summary' => 'Order Abdominal Ultrasound'
         ]);
         DB::table('imaging_items')->insert([

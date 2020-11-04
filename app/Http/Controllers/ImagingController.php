@@ -57,7 +57,7 @@ class ImagingController extends AppBaseController
         $user = $request->user();
         $provider = $user->provider()->first();        
                 
-        if($obj['type'] == 5){
+        if(strcmp($obj['type'], 'Ultrasound') == 0){
             $item = new ImagingItem();
             $item->imaging_id = $problem->id;
             $item->image_url = '/storage/imaging-dx/Imaging_2.jpg';

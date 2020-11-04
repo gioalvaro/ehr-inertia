@@ -15,7 +15,7 @@ class CreateImagingsTable extends Migration
     {
         Schema::create('imagings', function (Blueprint $table) {
             $table->id();            
-            $table->enum('type', [1, 2, 3, 4, 5]);
+            $table->enum('type', ['MRI', 'CT Scan', 'Ultrasound', 'Endoscopy', 'Radiology']);
             $table->text('summary')->nullable();            
             $table->foreignId('encounter_id')->constrained('encounters');
             $table->softDeletes();

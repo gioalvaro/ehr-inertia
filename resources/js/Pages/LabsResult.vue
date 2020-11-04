@@ -42,7 +42,7 @@
 
 <script>
 import Laboratories from "../component/LabResults/Laboratories"
-import Imaging from "../component/LabResults/Imaging"
+import Imaging from "../Pages/Imaging"
 import Studies from "../component/LabResults/Studies"
 
 export default {

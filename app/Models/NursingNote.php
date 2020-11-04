@@ -39,7 +39,7 @@ class NursingNote extends Model
      */
     public function nursing_type()
     {
-        return $this->belongsTo('App\Models\PhysicianType');
+        return $this->belongsTo('App\Models\NursingType');
     }    
     /**
      * Get the post that owns the comment.

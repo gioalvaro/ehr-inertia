@@ -39,11 +39,11 @@ export default {
             summary: "",
             select: "1",
             items: [
-                { text: "Radiology", value: "1" },
-                { text: "MRI", value: "2" },
-                { text: "CT Scan", value: "3" },
-                { text: "Endoscopy", value: "4" },
-                { text: "Ultrasound", value: "5" }
+                { text: "Radiology", value: "Radiology" },
+                { text: "MRI", value: "MRI" },
+                { text: "CT Scan", value: "CT Scan" },
+                { text: "Endoscopy", value: "Endoscopy" },
+                { text: "Ultrasound", value: "Ultrasound" }
             ]
         };
     },
@@ -70,6 +70,7 @@ export default {
                 type: this.select,
                 encounter_id: this.encounter.id
             };
+            this.summary = "";
             await this.$store.dispatch("imaging/post", obj).then(res => {this.fetchImaging();});
         }
     }
