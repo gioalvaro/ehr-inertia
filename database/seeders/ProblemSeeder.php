@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
+
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use DateTime;
