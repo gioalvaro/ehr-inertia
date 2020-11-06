@@ -24,7 +24,7 @@
         <v-row>
             <v-col>
                 <v-btn block color="primary" @click="save">
-                    Save & Send
+                    Send Imaging Request
                 </v-btn>
             </v-col>
         </v-row>

@@ -8,7 +8,7 @@
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>Problems Table</v-toolbar-title>
+                    <v-toolbar-title>Problems List</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
@@ -20,7 +20,7 @@
                                 v-bind="attrs"
                                 v-on="on"
                             >
-                                New Problem
+                                Add New Problem
                             </v-btn>
                         </template>
                         <v-card>
@@ -88,15 +88,11 @@
                         </v-card>
                     </v-dialog>
                 </v-toolbar>
-            </template>
-            <template v-slot:item.actions="{ item }">
-                <v-icon class="mr-2" @click="editItem(item)">
-                    mdi-pencil
-                </v-icon>
-                <v-icon @click="deleteItem(item)">
-                    mdi-delete
-                </v-icon>
-            </template>
+            </template>   
+            <template v-slot:item.actions="{ item }">                
+                <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="editItem(item)" large>mdi-pencil</v-icon>
+                <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="deleteItem(item)" large>mdi-delete</v-icon>
+            </template>         
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchOrCreateProblem">
                     Reset
@@ -113,6 +109,12 @@ export default {
         dialog: false,
         dialogDelete: false,
         headers: [
+            {
+                text: "Date and Time",
+                align: "start",
+                sortable: false,
+                value: "encounter.created_at"
+            },
             {
                 text: "Code",
                 align: "start",
@@ -141,6 +143,9 @@ export default {
     }),
 
     computed: {
+        provider() {
+            return this.$store.getters['provider/provider']
+        },
         encounter(){
             return this.$store.getters['encounter/encounter']
         },
