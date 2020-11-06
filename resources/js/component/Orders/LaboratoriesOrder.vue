@@ -1,95 +1,117 @@
 <template>
     <div>
         <v-card>
-            <v-tabs vertical>
-                <v-tab>
-                    Hematologic
-                </v-tab>
-                <v-tab>
-                    Blood Plasma Serum
-                </v-tab>
-                <v-tab>
-                    Lipids
-                </v-tab>
-                <v-tab>
-                    Genetics
-                </v-tab>
-                <v-tab>
-                    Endo
-                </v-tab>
-                <v-tab>
-                    Urine
-                </v-tab>
-                <v-tab>
-                    Cerebrospinal Fluid
-                </v-tab>
-                <v-tab>
-                    Infectious Disease
-                </v-tab>
-                <v-tab>
-                    Others
-                </v-tab>
-                
-                    <v-btn color="primary" @click="guardarLabs">
-                        Save & Send
-                    </v-btn>
-                
+            <v-card-title>
+                <v-row class="justify-end">
+                    
+                    <v-badge class="" bordered overlap color="green" :content="amount">
+                        <v-btn color="primary" @click="guardarLabs">
+                            Send Labs Request
+                        </v-btn>
+                    </v-badge>
+                    
+                </v-row>
+            </v-card-title>
+            <v-snackbar v-model="snackbar" :multi-line="multiLine">
+                {{ text }}
 
-                <v-tab-item>
-                    <labs-type-item
-                        :items="hematologic"
-                        @returnSelection="returnHematologic"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="blood_plasma_serum"
-                        @returnSelection="returnBlood"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="lipids"
-                        @returnSelection="returnLipids"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="genetics"
-                        @returnSelection="returnGenetics"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="endo"
-                        @returnSelection="returnEndo"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="urine"
-                        @returnSelection="returnUrine"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="cerebrospinal_fluid"
-                        @returnSelection="returnCere"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="infectious_disease"
-                        @returnSelection="returnInfe"
-                    />
-                </v-tab-item>
-                <v-tab-item>
-                    <labs-type-item
-                        :items="others"
-                        @returnSelection="returnOthers"
-                    />
-                </v-tab-item>
-            </v-tabs>
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                        color="red"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                    >
+                        Close
+                    </v-btn>
+                </template>
+            </v-snackbar>
+            <v-card-text>
+                <v-tabs vertical>
+                    <v-tab>
+                        Hematologic
+                    </v-tab>
+                    <v-tab>
+                        Blood Plasma Serum
+                    </v-tab>
+                    <v-tab>
+                        Lipids
+                    </v-tab>
+                    <v-tab>
+                        Genetics
+                    </v-tab>
+                    <v-tab>
+                        Endo
+                    </v-tab>
+                    <v-tab>
+                        Urine
+                    </v-tab>
+                    <v-tab>
+                        Cerebrospinal Fluid
+                    </v-tab>
+                    <v-tab>
+                        Infectious Disease
+                    </v-tab>
+                    <v-tab>
+                        Others
+                    </v-tab>
+
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="hematologic"
+                            @returnSelection="returnHematologic"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="blood_plasma_serum"
+                            @returnSelection="returnBlood"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="lipids"
+                            @returnSelection="returnLipids"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="genetics"
+                            @returnSelection="returnGenetics"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="endo"
+                            @returnSelection="returnEndo"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="urine"
+                            @returnSelection="returnUrine"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="cerebrospinal_fluid"
+                            @returnSelection="returnCere"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="infectious_disease"
+                            @returnSelection="returnInfe"
+                        />
+                    </v-tab-item>
+                    <v-tab-item>
+                        <labs-type-item
+                            :items="others"
+                            @returnSelection="returnOthers"
+                        />
+                    </v-tab-item>
+                </v-tabs>
+            </v-card-text>
         </v-card>
     </div>
 </template>
@@ -103,18 +125,23 @@ export default {
     },
     created() {
         this.fetchLabTypes();
+        this.fetchLabs();
     },
     data() {
-        return {   
-            selectedOthers:[],
-            selectedEndo:[],
-            selectedLipids:[],
-            selectedGenetics:[],
-            selectedUrine:[],
-            selectedInfe:[],
-            selectedCere:[],
-            selectedBloods:[],
-            selectedHematologic:[],         
+        return {
+            multiLine: true,
+            snackbar: false,
+            text: `The Labs Order has been sent.`,
+            amount: 0,
+            selectedOthers: [],
+            selectedEndo: [],
+            selectedLipids: [],
+            selectedGenetics: [],
+            selectedUrine: [],
+            selectedInfe: [],
+            selectedCere: [],
+            selectedBloods: [],
+            selectedHematologic: [],
             selected: []
         };
     },
@@ -150,11 +177,52 @@ export default {
             return this.$store.getters["laboratoryType/others"];
         }
     },
+    watch: {
+        selectedLipids() {
+            this.calculateAmount();
+        },
+        selectedGenetics() {
+            this.calculateAmount();
+        },
+        selectedUrine() {
+            this.calculateAmount();
+        },
+        selectedInfe() {
+            this.calculateAmount();
+        },
+        selectedCere() {
+            this.calculateAmount();
+        },
+        selectedBloods() {
+            this.calculateAmount();
+        },
+        selectedHematologic() {
+            this.calculateAmount();
+        },
+        selectedOthers() {
+            this.calculateAmount();
+        },
+        selectedEndo() {
+            this.calculateAmount();
+        }
+    },
     methods: {
+        calculateAmount() {
+            this.amount =
+                this.selectedEndo.length +
+                this.selectedOthers.length +
+                this.selectedLipids.length +
+                this.selectedGenetics.length +
+                this.selectedUrine.length +
+                this.selectedInfe.length +
+                this.selectedCere.length +
+                this.selectedBloods.length +
+                this.selectedHematologic.length;
+        },
         async fetchLabs() {
             await this.$store.dispatch("laboratory/all");
         },
-        guardarLabs(){
+        guardarLabs() {
             this.selected.push(...this.selectedOthers);
             this.selected.push(...this.selectedCere);
             this.selected.push(...this.selectedUrine);
@@ -165,40 +233,42 @@ export default {
             this.selected.push(...this.selectedBloods);
             this.selected.push(...this.selectedHematologic);
             console.log(this.selected);
-            var set = new Set(this.selected);       
-            var send = {encounter_id: this.encounter.id, labsType: [...set] }     
-            this.$store.dispatch('laboratory/post', send).then(res => {this.fetchLabs();});
+            var set = new Set(this.selected);
+            var send = { encounter_id: this.encounter.id, labsType: [...set] };
+            this.$store.dispatch("laboratory/post", send).then(res => {
+                this.fetchLabs();
+            });
+            this.snackbar = true;
             this.selected = [];
-            
         },
         returnSelected(evt) {
             this.selected.push(...evt);
         },
-        returnOthers(evt){
+        returnOthers(evt) {
             this.selectedOthers = evt;
         },
-        returnInfe(evt){
+        returnInfe(evt) {
             this.selectedInfe = evt;
         },
-        returnCere(evt){
+        returnCere(evt) {
             this.selectedCere = evt;
         },
-        returnUrine(evt){
+        returnUrine(evt) {
             this.selectedUrine = evt;
         },
-        returnEndo(evt){
+        returnEndo(evt) {
             this.selectedEndo = evt;
         },
-        returnGenetics(evt){
+        returnGenetics(evt) {
             this.selectedGenetics = evt;
         },
-        returnLipids(evt){
+        returnLipids(evt) {
             this.selectedLipids = evt;
         },
-        returnBlood(evt){
+        returnBlood(evt) {
             this.selectedBloods = evt;
         },
-        returnHematologic(evt){
+        returnHematologic(evt) {
             this.selectedHematologic = evt;
         },
         async fetchLabTypes() {
@@ -215,4 +285,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-tab {
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+}
+</style>

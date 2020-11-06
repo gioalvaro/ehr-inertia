@@ -7,13 +7,7 @@
                 >
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
-                <v-btn block color="primary" elevation="9" large @click="back"
-                    >Back without Saving</v-btn
-                >
-            </v-col>
-        </v-row>
+        
         <v-row>
             <v-col>
                 <v-textarea

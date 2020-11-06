@@ -7,8 +7,8 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-btn color="primary" @click="save">
-                    Save & Send
+                <v-btn color="primary" block @click="save">
+                    Send Consult Request
                 </v-btn>
             </v-col>
         </v-row>
