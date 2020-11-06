@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+use DateTime;
 use DB;
 
 class ProblemSeeder extends Seeder
@@ -368,11 +371,13 @@ class ProblemSeeder extends Seeder
         DB::table('problems')->insert([
             'id' => 1,
             'encounter_id' => 1,
+            'created_at' => new Carbon(new DateTime('2019-10-08 10:15')),
             'problem_type_id' => 2
         ]);
         DB::table('problems')->insert([
             'id' => 2,
             'encounter_id' => 1,
+            'created_at' => new Carbon(new DateTime('2019-10-08 10:15')),
             'problem_type_id' => 70
         ]);
 

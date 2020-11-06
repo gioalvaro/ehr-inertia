@@ -113,7 +113,7 @@ export default {
                 text: "Date and Time",
                 align: "start",
                 sortable: false,
-                value: "encounter.created_at"
+                value: "created_at"
             },
             {
                 text: "Code",
