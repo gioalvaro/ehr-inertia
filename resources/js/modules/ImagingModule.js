@@ -31,9 +31,9 @@ export default {
         },
     },
     actions: {
-        async all({commit}) {
+        async all({commit}, encounter_id) {
             await axios
-                .get(`/imagings`)
+                .get(`/imagings`,{params:{encounter_id:encounter_id}})
                 .then(res => {
                     console.log("get imagings ", res.data.data);
                     commit("ALL", res.data.data);

@@ -31,9 +31,9 @@ export default {
         },
     },
     actions: {
-        async all({commit}) {
+        async all({commit}, encounter_id) {
             await axios
-                .get(`/medications`)
+                .get(`/medications`,{params:{encounter_id:encounter_id}})
                 .then(res => {
                     console.log("get medications ", res.data.data);
                     commit("ALL", res.data.data);
@@ -61,7 +61,7 @@ export default {
                 .then((res) => {
                     if (res.data.success)
                         console.log("post medications ", res.data);
-                        commit("FETCH", item);
+                        
                 })
                 .catch(error =>
                     console.error(`Error con la insertada de medications: ${error}`)
