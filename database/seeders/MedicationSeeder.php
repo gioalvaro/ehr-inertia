@@ -50,5 +50,27 @@ class MedicationSeeder extends Seeder
             'start_date' => new Carbon(new DateTime('2019-10-08')),
             'end_date' => new Carbon(new DateTime('2019-10-08'))
         ]);
+        DB::table('medications')->insert([
+            'id' => 4,
+            'medication_type_id' => 8,
+            'encounter_id' => 10,
+            'dose' => '0',
+            'units' => '',
+            'route' => 'oral',
+            'frequency' => '1 tablet/day',
+            'start_date' => new Carbon(new DateTime('2020-09-02')),
+            'end_date' => new Carbon(new DateTime('2020-09-02'))
+        ]);
+        DB::table('medications')->insert([
+            'id' => 5,
+            'medication_type_id' => 9,
+            'encounter_id' => 10,
+            'dose' => '0',
+            'units' => '',
+            'route' => 'oral',
+            'frequency' => '1 tablet/day',
+            'start_date' => new Carbon(new DateTime('2020-09-02')),
+            'end_date' => new Carbon(new DateTime('2020-09-02'))
+        ]);
     }
 }

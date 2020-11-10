@@ -171,7 +171,7 @@ export default {
 
     methods: {        
         async fetchOrCreateStudy(){
-            await this.$store.dispatch("study/all")
+            await this.$store.dispatch("study/all", this.encounter.id)
         },        
         editItem(item) {
             this.editedIndex = this.studies.indexOf(item);

@@ -18,8 +18,9 @@ class LaboratoryController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Laboratory::with('laboratory_type','encounter.provider')->whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        $encounter_id = $request->all()['encounter_id'];
+        $laboratory = Laboratory::with('laboratory_type','encounter.provider')->whereHas('encounter', function (Builder $query) use ($encounter_id) {
+            $query->where('test', '=', true)->orWhere('id','=',$encounter_id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Laboratory retrieve successfully');
     }

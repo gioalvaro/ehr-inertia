@@ -11,6 +11,16 @@
                     <v-toolbar-title>Medications</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
+                    <v-checkbox
+                        class="mt-5"
+                        v-model="verified"
+                        color="success"
+                        :false-value="0"
+                        :true-value="1"
+                        :label="`Medication Verification`"
+                    ></v-checkbox>
+                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -62,14 +72,14 @@
                                                 label="Frequency"
                                             ></v-text-field>
                                         </v-col>
-                                        
+
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field
                                                 v-model="editedItem.route"
                                                 label="Route"
                                             ></v-text-field>
                                         </v-col>
-                                        
+
                                         <v-col cols="12" sm="6" md="4">
                                             <v-menu
                                                 v-model="menu2"
@@ -134,6 +144,17 @@
                                                 ></v-date-picker>
                                             </v-menu>
                                         </v-col>
+                                        <v-col>
+                                            <v-checkbox
+                                                v-model="
+                                                    editedItem.discontinued
+                                                "
+                                                false-value="0"
+                                                true-value="1"
+                                                label="Discontinued"
+                                                color="success"
+                                            ></v-checkbox>
+                                        </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -179,13 +200,6 @@
                     </v-dialog>
                 </v-toolbar>
             </template>
-            <template v-slot:item.verified="{ item }">
-                <v-checkbox
-                    v-model="item.verified"
-                    color="success"
-                    disabled
-                ></v-checkbox>
-            </template>
             <template v-slot:item.actions="{ item }">
                 <div v-if="item.encounter.provider_id === provider.id">
                     <v-icon class="mr-2" @click="editItem(item)">
@@ -195,6 +209,11 @@
                         mdi-delete
                     </v-icon>
                 </div>
+                <div v-else>
+                    <v-icon class="mr-2" @click="dis(item)">
+                        mdi-archive-arrow-down
+                    </v-icon>
+                </div>
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchMedication">
@@ -202,6 +221,38 @@
                 </v-btn>
             </template>
         </v-data-table>
+        <v-row>
+            <v-col>
+                <v-data-table
+                    :headers="headers"
+                    :items="medications_discontinued"
+                    sort-by="calories"
+                    class="elevation-1"
+                >
+                    <template v-slot:top>
+                        <v-toolbar flat>
+                            <v-toolbar-title
+                                >Discontinued Medications</v-toolbar-title
+                            >
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                    </template>
+                    <template v-slot:item.actions="{ item }">
+                        <div>
+                            <v-icon class="mr-2" @click="undo(item)">
+                                mdi-restart
+                            </v-icon>
+                        </div>
+                    </template>
+                    <template v-slot:no-data>
+                        <v-btn color="primary" @click="fetchMedication">
+                            Reset
+                        </v-btn>
+                    </template>
+                </v-data-table>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
@@ -209,6 +260,7 @@
 export default {
     name: "Medications",
     data: () => ({
+        verified: false,
         dialog: false,
         menu2: false,
         dialogDelete: false,
@@ -220,12 +272,12 @@ export default {
                 value: "medication_type.description"
             },
             { text: "Dose", value: "dose" },
-            { text: "Frequency", value: "frequency" },            
+            { text: "Frequency", value: "frequency" },
             { text: "Route", value: "route" },
             { text: "Provider", value: "encounter.provider.name" },
             { text: "Department", value: "encounter.department.description" },
             { text: "Start Date", value: "start_date" },
-            { text: "End Date", value: "end_date" },            
+            { text: "End Date", value: "end_date" },
             { text: "Actions", value: "actions", sortable: false }
         ],
         desserts: [],
@@ -241,7 +293,8 @@ export default {
             end_date: new Date().toISOString().substr(0, 10),
             date2: new Date().toISOString().substr(0, 10),
             date1: new Date().toISOString().substr(0, 10),
-            verified: false
+            discontinued: false,
+            encounter_id: 0
         },
         defaultItem: {
             name: "",
@@ -254,7 +307,8 @@ export default {
             end_date: new Date().toISOString().substr(0, 10),
             date2: new Date().toISOString().substr(0, 10),
             date1: new Date().toISOString().substr(0, 10),
-            verified: false
+            discontinued: false,
+            encounter_id: 0
         }
     }),
 
@@ -268,8 +322,37 @@ export default {
         medication_types() {
             return this.$store.getters["medicationType/medication_types"];
         },
+        medications_discontinued() {
+            return _.filter(
+                this.$store.getters["medication/medications"],
+                row => {
+                    if (row.medication_verifications.length > 0) {
+                        return (
+                            row.medication_verifications[0].discontinued ===
+                                1 ||
+                            row.medication_verifications[0].discontinued === "1"
+                        );
+                    } else {
+                        return false;
+                    }
+                }
+            );
+        },
         medications() {
-            return this.$store.getters["medication/medications"];
+            return _.filter(
+                this.$store.getters["medication/medications"],
+                row => {
+                    if (row.medication_verifications.length > 0) {
+                        return (
+                            row.medication_verifications[0].discontinued ===
+                                0 ||
+                            row.medication_verifications[0].discontinued === "0"
+                        );
+                    } else {
+                        return false;
+                    }
+                }
+            );
         },
         provider() {
             return this.$store.getters["provider/provider"];
@@ -287,6 +370,10 @@ export default {
         },
         dialogDelete(val) {
             val || this.closeDelete();
+        },
+        verified(val, old) {
+            this.editedItem = { verified: val };
+            this.save();
         }
     },
 
@@ -296,15 +383,34 @@ export default {
     },
 
     methods: {
+        undo(item) {
+            this.editedIndex = this.medications_discontinued.indexOf(item);
+            console.info('undo')
+            console.info(this.medications_discontinued.indexOf(item))
+            console.info(item)
+            this.editedItem = Object.assign({}, item);
+            this.editedItem.discontinued = 0;
+            this.save();
+        },
+        dis(item){
+            this.editedIndex = this.medications.indexOf(item);
+            console.info('dis')
+            console.info(this.medications.indexOf(item))
+            console.info(item)
+            this.editedItem = Object.assign({}, item);
+            this.editedItem.discontinued = 1;
+            this.save();
+        },
         async fetchMedType() {
             await this.$store.dispatch("medicationType/all");
         },
         async fetchMedication() {
-            await this.$store.dispatch("medication/all");
+            await this.$store.dispatch("medication/all",this.encounter.id);
         },
         editItem(item) {
             this.editedIndex = this.medications.indexOf(item);
             this.editedItem = Object.assign({}, item);
+            this.editedItem.discontinued = 0;
             this.dialog = true;
         },
         deleteItem(item) {
@@ -337,16 +443,18 @@ export default {
             });
         },
         async save() {
+            console.info('entra al save')
+            console.info(this.editedIndex)
+            this.editedItem.encounter_id = this.encounter.id;
             if (this.editedIndex > -1) {
                 //Object.assign(this.medications[this.editedIndex], this.editedItem);
                 await this.$store.dispatch(
                     "medication/update",
                     this.editedItem
-                );
+                ).then((res) => {this.fetchMedication();});
             } else {
                 //this.medications.push(this.editedItem);
-                this.editedItem.encounter_id = this.encounter.id;
-                await this.$store.dispatch("medication/post", this.editedItem);
+                await this.$store.dispatch("medication/post", this.editedItem).then((res) => {this.fetchMedication();});
             }
             this.fetchMedication();
             this.close();

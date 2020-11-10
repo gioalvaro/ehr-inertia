@@ -220,7 +220,7 @@ export default {
                 this.selectedHematologic.length;
         },
         async fetchLabs() {
-            await this.$store.dispatch("laboratory/all");
+            await this.$store.dispatch("laboratory/all", this.encounter.id);
         },
         guardarLabs() {
             this.selected.push(...this.selectedOthers);

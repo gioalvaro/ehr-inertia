@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         async fetchImaging() {
-            await this.$store.dispatch("imaging/all").then(res => {
+            await this.$store.dispatch("imaging/all",this.encounter.id).then(res => {
                 if (this.imagings.length > 0) {
                     this.select = this.imagings[0].type;
                     console.log(this.select);

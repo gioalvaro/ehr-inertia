@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Medication;
+use App\Models\MedicationVerification;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
@@ -19,8 +20,13 @@ class MedicationController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $medications = Medication::with('medication_type')->with('encounter.provider','encounter.department')->whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        $encounter_id = $request->all()['encounter_id'];
+        $medications = Medication::with('medication_type')
+        ->with(['medication_verifications' => function($query) use ($encounter_id){
+            $query->where('encounter_id','=',$encounter_id);
+        }])->with('encounter.provider', 'encounter.department')
+        ->whereHas('encounter', function (Builder $query) use ($encounter_id) {
+                $query->where('test', '=', true)->orWhere('id', '=', $encounter_id);
         })->get();
         return $this->sendResponse($medications->toArray(), 'Medications retrieve successfully');
     }
@@ -43,20 +49,37 @@ class MedicationController extends AppBaseController
      */
     public function store(Request $request)
     {
-        $obj = $request->all();
-        $medication = Medication::create([
-            'encounter_id' => $obj['encounter_id'],
-            'medication_type_id' => $obj['medication_type']['id'],
-            'name' => $obj['name'],
-            'dose' => $obj['dose'],
-            'frequency' => $obj['frequency'],
-            'units' => $obj['units'],
-            'route' => $obj['route'],
-            'verified' => $obj['verified'],
-            'start_date' => new Carbon(new DateTime($obj['start_date'])),
-            'end_date' => new Carbon(new DateTime($obj['end_date']))
-        ]);
-        $this->sendSuccess('Medication save Successfuly');
+        
+        if (array_key_exists('verified', $request->all())) {            
+            $encounter_id = $request->all()['encounter_id'];
+            $medication_verifications = MedicationVerification::where('encounter_id','=',$encounter_id)->get();
+            foreach($medication_verifications as $row){
+                $row->update([
+                    'verified' => intval($request->all()['verified'])
+                ]);
+            }
+
+        } 
+        else {
+            $obj = $request->all();
+            $medication = Medication::create([
+                'encounter_id' => $obj['encounter_id'],
+                'medication_type_id' => $obj['medication_type']['id'],
+                'name' => $obj['name'],
+                'dose' => $obj['dose'],
+                'frequency' => $obj['frequency'],
+                'units' => $obj['units'],
+                'route' => $obj['route'],
+                'start_date' => new Carbon(new DateTime($obj['start_date'])),
+                'end_date' => new Carbon(new DateTime($obj['end_date']))
+            ]);            
+            $medication_verification = MedicationVerification::create([
+                'encounter_id' => $obj['encounter_id'],
+                'medication_id' => $medication['id'],
+                'discontinued' => intval($obj['discontinued'])
+            ]);
+        }        
+        return $this->sendSuccess('Medication save Successfuly');
     }
 
     /**
@@ -78,7 +101,7 @@ class MedicationController extends AppBaseController
      */
     public function edit(Medication $medication)
     {
-        dd($obj);
+        
     }
 
     /**
@@ -89,17 +112,31 @@ class MedicationController extends AppBaseController
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Medication $medication)
-    {        
-        $medication = Medication::find($request->all()['id']);        
-        $medication->name = $request->all()['name'];
-        $medication->dose = $request->all()['dose'];
-        $medication->frequency = $request->all()['frequency'];
-        $medication->route = $request->all()['route'];
-        $medication->units = $request->all()['units'];
-        $medication->start_date = new Carbon(new DateTime($request->all()['start_date']));
-        $medication->end_date = new Carbon(new DateTime($request->all()['end_date']));
-        $medication->verified = $request->all()['verified'];
-        $medication->save();
+    {
+
+        if (array_key_exists('verified', $request->all())) {
+            $encounter_id = $request->all()['encounter_id'];
+            $medication_verifications = MedicationVerification::where('encounter_id','=',$encounter_id)->get();
+            foreach($medication_verifications as $row){
+                $row->update([
+                    'verified' => intval($request->all()['verified'])
+                ]);
+            }
+        } else {
+            $medication = Medication::find($request->all()['id']);
+            $medication->name = $request->all()['name'];
+            $medication->dose = $request->all()['dose'];
+            $medication->frequency = $request->all()['frequency'];
+            $medication->route = $request->all()['route'];
+            $medication->units = $request->all()['units'];
+            $medication->start_date = new Carbon(new DateTime($request->all()['start_date']));
+            $medication->end_date = new Carbon(new DateTime($request->all()['end_date']));            
+            $medication->save();
+            $medication_verification = MedicationVerification::where('medication_id', '=', $request->all()['id'])
+                ->where('encounter_id', '=', $request->all()['encounter_id'])->first();            
+            $medication_verification['discontinued'] = intval($request->all()['discontinued']);
+            $medication_verification->save();
+        }
         return $this->sendSuccess('Medication update Successfuly');
     }
 
@@ -110,8 +147,9 @@ class MedicationController extends AppBaseController
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {        
-        $medication = Medication::find($id);                        
+    {
+        $medication = Medication::find($id);
+        $medication_verification = MedicationVerification::where('medication_id', '=', $medication['id'])->delete();
         $medication->delete();
         return $this->sendSuccess('Medication delete Successfuly');
     }

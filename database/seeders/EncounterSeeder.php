@@ -37,7 +37,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -59,7 +59,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -81,7 +81,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -103,7 +103,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -125,7 +125,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -147,7 +147,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -169,7 +169,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -191,7 +191,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -199,14 +199,93 @@ class EncounterSeeder extends Seeder
             'patient_id' => 1,
             'department_id' => 7,
             'provider_id' => 9,
-            'test' => true,
+            'test' => false,
             'open' => false
 
         ]);
         DB::table('encounters')->insert([
+            'id' => 10,
             'patient_id' => 2,
-            // 'provider_id' => Provider::factory()->create()['id'],
-            // 'department_id' => Department::inRandomOrder()->first()['id'],
+            'provider_id' => 10,
+            'department_id' => 8,
+            'reason' => 'Difficulty in breast feeding',
+            'scheduled_time' => $faker->dateTime(),
+            'arrival_time' => $faker->dateTime(),
+            'check' => false,
+            'temperature' => 36,
+            'temperature_type' => 'oral',
+            'bmi' => $faker->randomNumber(2),
+            'allergies' => 'None',
+            'allergies_check' => false,
+            'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
+            'ga' => $faker->randomNumber(2),
+            'edd' => $faker->randomNumber(2),
+            'gptal' => $faker->randomNumber(2),
+            'lmp' => $faker->randomNumber(2),
+            'bp' => '120/60',
+            'hr' => 100,
+            'rr' => 25,
+            'osat' => 98,
+            'test' => true,
+            'open' => false
+        ]);
+        DB::table('encounters')->insert([
+            'id' => 11,
+            'patient_id' => 2,
+            'provider_id' => 11,
+            'department_id' => 8,
+            'reason' => 'Difficulty in breast feeding',
+            'scheduled_time' => $faker->dateTime(),
+            'arrival_time' => $faker->dateTime(),
+            'check' => false,
+            'temperature' => 36,
+            'temperature_type' => 'oral',
+            'bmi' => $faker->randomNumber(2),
+            'allergies' => 'None',
+            'allergies_check' => false,
+            'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
+            'ga' => $faker->randomNumber(2),
+            'edd' => $faker->randomNumber(2),
+            'gptal' => $faker->randomNumber(2),
+            'lmp' => $faker->randomNumber(2),
+            'bp' => '120/60',
+            'hr' => 100,
+            'rr' => 25,
+            'osat' => 98,
+            'test' => true,
+            'open' => false
+        ]);
+        DB::table('encounters')->insert([
+            'id' => 12,
+            'patient_id' => 2,
+            'provider_id' => 12,
+            'department_id' => 8,
+            'reason' => 'Difficulty in breast feeding',
+            'scheduled_time' => $faker->dateTime(),
+            'arrival_time' => $faker->dateTime(),
+            'check' => false,
+            'temperature' => 36,
+            'temperature_type' => 'oral',
+            'bmi' => $faker->randomNumber(2),
+            'allergies' => 'None',
+            'allergies_check' => false,
+            'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
+            'ga' => $faker->randomNumber(2),
+            'edd' => $faker->randomNumber(2),
+            'gptal' => $faker->randomNumber(2),
+            'lmp' => $faker->randomNumber(2),
+            'bp' => '120/60',
+            'hr' => 100,
+            'rr' => 25,
+            'osat' => 98,
+            'test' => true,
+            'open' => false
+        ]);
+        DB::table('encounters')->insert([
+            'id' => 13,
+            'patient_id' => 2,
+            'provider_id' => 5,
+            'department_id' => 9,
             'reason' => 'Difficulty in breast feeding',
             'scheduled_time' => $faker->dateTime(),
             'arrival_time' => $faker->dateTime(),

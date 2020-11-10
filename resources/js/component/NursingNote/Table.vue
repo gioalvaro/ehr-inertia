@@ -37,14 +37,14 @@ export default {
     },
     name:'Table',
     created() {
-         this.fetchNote();
+        this.fetchNote();
         this.initialize();
         //this.items = this.nursing_notes
     },
     methods: {
         async fetchNote() {
             await this.$store
-                .dispatch('nursingNote/all');
+                .dispatch('nursingNote/all',this.encounter.id);
          },
         viewItem(item) {
             this.$emit("viewNote", item.id);
@@ -123,6 +123,9 @@ export default {
         },
         provider() {
             return this.$store.getters['provider/provider']
+        },
+        encounter() {
+            return this.$store.getters['encounter/encounter']
         },
         formTitle() {
             return this.editedIndex === -1 ? "New Nursing Note" : "Edit Nursing Note";

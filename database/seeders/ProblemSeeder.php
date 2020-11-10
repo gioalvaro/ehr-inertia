@@ -379,7 +379,7 @@ class ProblemSeeder extends Seeder
             'encounter_id' => 1,
             'created_at' => new Carbon(new DateTime('2019-10-08 10:15')),
             'problem_type_id' => 70
-        ]);
+        ]);        
 
 
     }

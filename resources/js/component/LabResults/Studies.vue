@@ -20,12 +20,15 @@
         },
         methods: {
             async fetchStudies(){
-                await this.$store.dispatch('study/all');
+                await this.$store.dispatch('study/all',this.encounter.id);
             }            
         },
         computed: {
             studies() {
                 return this.$store.getters['study/studies'];
+            },
+            encounter() {
+                return this.$store.getters['encounter/encounter'];
             }
         },
     }

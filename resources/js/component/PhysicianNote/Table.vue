@@ -45,7 +45,7 @@ export default {
     methods: {
         async fetchNote() {
             await this.$store
-                .dispatch('physicianNote/all');
+                .dispatch('physicianNote/all',this.encounter.id);
          },
         viewItem(item) {
             this.$emit("viewNote", item.id);
@@ -129,6 +129,9 @@ export default {
         },
         provider() {
             return this.$store.getters['provider/provider']
+        },
+        encounter() {
+            return this.$store.getters['encounter/encounter']
         },
     },
     

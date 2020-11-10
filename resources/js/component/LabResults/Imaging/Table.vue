@@ -98,7 +98,7 @@ export default {
                 this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
         },
         async fetchImaging() {
-            await this.$store.dispatch("imaging/all").then(res => {
+            await this.$store.dispatch("imaging/all", this.encounter.id).then(res => {
                 if (this.imagings.length > 0) {
                     this.select = this.imagings[0].type;
                     console.log(this.select);
@@ -116,6 +116,9 @@ export default {
     computed: {
         imagings() {
             return this.$store.getters["imaging/imagings"];
+        },
+        encounter() {
+                return this.$store.getters['encounter/encounter'];
         }
     }
 };

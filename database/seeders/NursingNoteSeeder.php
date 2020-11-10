@@ -58,5 +58,41 @@ class NursingNoteSeeder extends Seeder
             'nursing_type_id' => 1,
             'note' => 'Patient presents with recurrent abdominal pain.  Pain started 2-3 days ago.  Patient reports he feels sick and is belching a lot.  Current pain is 8/10.'
         ]);
+        DB::table('nursing_notes')->insert([
+            'id' => 7,
+            'created_at' => new Carbon(new DateTime('2020-09-24 12:15')),
+            'encounter_id' => 11,
+            'nursing_type_id' => 6,
+            'note' => 'Ms. Susan Peters 30 year old, G2P1, 38 weeks was admitted with painful contractions since morning. She reported good fetal movement and denied rupture of membranes, or vaginal bleeding.
+            Vitals: BP 110/70, Pulse 95, RR: 16, Temperature: 98.5'
+        ]);
+        DB::table('nursing_notes')->insert([
+            'id' => 8,
+            'created_at' => new Carbon(new DateTime('2020-10-08 08:00')),
+            'encounter_id' => 12,
+            'nursing_type_id' => 7,
+            'note' => 'Patient did not show up. Physician informed'
+        ]);
+        DB::table('nursing_notes')->insert([
+            'id' => 9,
+            'created_at' => new Carbon(new DateTime('2020-11-10 08:00')),
+            'encounter_id' => 13,
+            'nursing_type_id' => 8,
+            'note' => 'Vital Signs: BP90/70, pulse 92/min. RR: 12. Temp:  98.2.
+
+            Patient came to the clinic complaining of difficulty in breast feeding since her second child was born seven weeks ago. She had no difficulty breastfeeding her first child.
+            
+            She feels dizziness and tiredness.
+            
+            
+            
+            Medications: Iron Tablets, Prenatal Vitamins
+            
+            SK, RN, 2020-11-10
+            
+            
+            
+            '
+        ]);
     }
 }

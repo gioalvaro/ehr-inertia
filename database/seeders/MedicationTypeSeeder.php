@@ -49,7 +49,17 @@ class MedicationTypeSeeder extends Seeder
             'id' => 7,
             'description' => 'NS',
             'code' => 7
-        ]);        
+        ]);       
+        DB::table('medication_types')->insert([
+            'id' => 8,
+            'description' => 'Iron Tablets',
+            'code' => 8
+        ]); 
+        DB::table('medication_types')->insert([
+            'id' => 9,
+            'description' => 'Pre Natal Vitamins',
+            'code' => 9
+        ]);  
     }
     
 }

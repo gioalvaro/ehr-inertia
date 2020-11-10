@@ -21,7 +21,8 @@ class MedicationVerification extends Model
         'id',
         'encounter_id',
         'medication_id',
-        'verified'
+        'verified',
+        'discontinued'
     ];
 
     /**

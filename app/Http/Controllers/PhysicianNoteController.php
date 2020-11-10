@@ -18,8 +18,9 @@ class PhysicianNoteController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $physician_note = PhysicianNote::whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        $encounter_id = $request->all()['encounter_id'];
+        $physician_note = PhysicianNote::whereHas('encounter', function (Builder $query) use ($encounter_id) {
+            $query->where('test', '=', true)->orWhere('id','=',$encounter_id);
         })->with('physician_type')->with('encounter.department','encounter.provider')->get();
         return $this->sendResponse($physician_note->toArray(), 'Physician Notes retrieve successfully');
     }

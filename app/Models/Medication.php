@@ -53,7 +53,7 @@ class Medication extends Model
     /**
      * @return HasMany
      **/
-    public function medication_verications()
+    public function medication_verifications()
     {
         return $this->hasMany(\App\Models\MedicationVerification::class, 'medication_id');
     }

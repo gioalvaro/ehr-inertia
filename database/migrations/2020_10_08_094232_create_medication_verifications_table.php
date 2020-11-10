@@ -18,6 +18,7 @@ class CreateMedicationVerificationsTable extends Migration
             $table->foreignId('encounter_id')->constrained('encounters');
             $table->foreignId('medication_id')->constrained('medications');
             $table->boolean('verified')->nullable();
+            $table->boolean('discontinued')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

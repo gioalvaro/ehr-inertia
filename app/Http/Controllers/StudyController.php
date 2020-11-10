@@ -17,8 +17,9 @@ class StudyController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Study::with('encounter', 'encounter.department','encounter.provider')->whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        $encounter_id = $request->all()['encounter_id'];
+        $laboratory = Study::with('encounter', 'encounter.department','encounter.provider')->whereHas('encounter', function (Builder $query) use ($encounter_id) {
+            $query->where('test', '=', true)->orWhere('id','=',$encounter_id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Study retrieve successfully');
     }

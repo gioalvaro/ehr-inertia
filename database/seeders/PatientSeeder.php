@@ -38,7 +38,7 @@ class PatientSeeder extends Seeder
             'day_of_birth' => new Carbon(new DateTime('1990-02-03')),
             'age' => 30,
             'sex' => 'female',           
-            'photo_url' => '/storage/patient-photos/Patient_2.png'
+            'photo_url' => '/storage/patient-photos/Patient_2.jpg'
         ]);
         DB::table('patients')->insert([
             'id' => 3,

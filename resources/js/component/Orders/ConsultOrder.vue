@@ -42,7 +42,7 @@ export default {
             });
         },
         async fetchConsult() {
-            await this.$store.dispatch("consult/all").then(res => {
+            await this.$store.dispatch("consult/all", this.encounter.id).then(res => {
                 if (this.consult.length > 0){
                     this.texto = this.consult[0].observation;
                 }

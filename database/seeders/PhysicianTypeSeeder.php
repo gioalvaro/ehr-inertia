@@ -55,5 +55,10 @@ class PhysicianTypeSeeder extends Seeder
             'description' => 'Urologist Appointment',
             'code' => 8
         ]);
+        DB::table('physician_types')->insert([
+            'id' => 9,
+            'description' => 'Delivery Notes',
+            'code' => 9
+        ]);
     }
 }

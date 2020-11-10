@@ -40,5 +40,20 @@ class NursingTypeSeeder extends Seeder
             'description' => 'Follow up note',
             'code' => 5
         ]);
+        DB::table('nursing_types')->insert([
+            'id' => 6,
+            'description' => 'L&D',
+            'code' => 6
+        ]);
+        DB::table('nursing_types')->insert([
+            'id' => 7,
+            'description' => 'Post Natal Clinic',
+            'code' => 7
+        ]);
+        DB::table('nursing_types')->insert([
+            'id' => 8,
+            'description' => 'Family Practice',
+            'code' => 8
+        ]);
     }
 }

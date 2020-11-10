@@ -79,6 +79,28 @@ class ProviderSeeder extends Seeder
             'firstname' => '',
             'title' => ''
         ]);
+        DB::table('providers')->insert([
+            'id' => 10,
+            'lastname' => 'Macri',
+            'firstname' => 'Mary',
+            'title' => 'Dr.',
+            'user_id' => $user_id['id']
+        ]);
+        DB::table('providers')->insert([
+            'id' => 11,
+            'lastname' => 'Awada',
+            'firstname' => 'Michelle',
+            'title' => 'Mrs.',
+            'user_id' => $user_id['id']
+        ]);
+        DB::table('providers')->insert([
+            'id' => 12,
+            'lastname' => 'Chang',
+            'firstname' => 'Mei',
+            'title' => 'Mrs.',
+            'user_id' => $user_id['id']
+        ]);
+        
 
     }
 }

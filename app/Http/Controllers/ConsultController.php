@@ -17,8 +17,9 @@ class ConsultController extends AppBaseController
     {
         $user = $request->user();
         $provider = $user->provider()->first();
-        $laboratory = Consult::whereHas('encounter', function (Builder $query) use ($provider) {
-            $query->where('test', '=', true)->orWhere('provider_id','=',$provider->id);
+        $encounter_id = $request->all()['encounter_id'];
+        $laboratory = Consult::whereHas('encounter', function (Builder $query) use ($encounter_id) {
+            $query->where('test', '=', true)->orWhere('id','=',$encounter_id);
         })->get();
         return $this->sendResponse($laboratory->toArray(), 'Consults retrieve successfully');
     }

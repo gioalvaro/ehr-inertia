@@ -29,13 +29,16 @@ export default {
     },
     methods: {
         async fetchLabs() {
-            await this.$store.dispatch("laboratory/all");
+            await this.$store.dispatch("laboratory/all", this.encounter.id);
         }
     },
     watch: {},
     computed: {
         laboratories() {
             return this.$store.getters["laboratory/laboratories"];
+        },
+        encounter() {
+            return this.$store.getters['encounter/encounter'];
         }
     },
     data() {

@@ -63,5 +63,81 @@ class PhysicianNoteSeeder extends Seeder
                 -return precautions discussed
         '
         ]);
+        DB::table('physician_notes')->insert([
+            'id' => 3,
+            'created_at' => new Carbon(new DateTime('2020-09-02 12:15')),
+            'encounter_id' => 10,
+            'physician_type_id' => 9,
+            'note' => 'Ms. Susan Peters 30 year old, G2P1, 38 weeks was admitted with painful contractions since morning. She reported good fetal movement and denied rupture of membranes, or vaginal bleeding.
+
+            LMP: 12/10/19
+            
+            EDD: 9/15/20
+            
+            HPI: Her prenatal care was uneventful, she was on prenatal multivitamin tablets. Her labs including HIV, GBS, GDM, CBC, and Rubella were all documented as normal. 
+            
+            Obstetric History: She has one son 2 years old delivered by normal spontaneous vaginal delivery (NSVD), 7lb 15oz, uncomplicated pregnancy and delivery, she breastfed him till the age of one year.
+            
+            Gynecological History: She had her period at the age of 12, cycles are usually regular, and has not used any kind of contraception 
+            
+            Past Medical and Past Surgical History: negative
+            
+            Medications: Prenatal Vitamins
+            
+            Allergies: No known drug Allergies
+            
+            Family History: Grandparents, Parents and siblings, all well
+            
+            Social History: married 5 years ago, monogamous with her husband.
+            
+            Habits: No Tobacco, drug or recreational use.
+            
+            Physical Exam: (Focused): She looked well on admission not pale, no leg edema, no vaginal bleeding in obvious pain.
+            
+            Vitals were normal, Heart; lungs were normal.
+            
+            Abdomen: Gravid uterus non tender, fundal height 38 weeks, fetus in vertex presentation.
+            
+            Sterile vaginal exam (SVE) = 4cm dilated /80% effaced /Vertex presentation/
+            
+            –1 station.
+            
+            By Ultrasound: A single viable fetus was seen of 38 weeks gestation, which corresponds well with her previous ultrasounds.  Normal amniotic fluid, placenta fundal, vertex presentation. 
+            
+            By EFM (Electronic fetal monitoring): baseline fetal heart rate was 140, accelerations seen and no decelerations, regular contractions were seen. 
+            
+            
+            
+            At 11:00 am, she was admitted to the L&D was given IVF and kept on continued EFM to anticipate NSVD. 
+            
+            All pertinent labs were sent out.
+            
+            The first and second stage of labor progressed uneventfully. (Notes available in her chart).
+            
+            
+            
+            At 6:00 pm she delivered by NSVD a live male 8lb 13oz, Apgar score 9/9 with no obvious abnormality. The baby was delivered without difficulty, the cord was clamped and cut.  There was a delay in separation of the placenta of around 30 minutes, there was severe post-partum hemorrhage (PPH). She was diagnosed with retained placenta. Part of the placenta was densely adherent at one edge and would not deliver. The patient continued to bleed and the uterus became soft.
+            
+            She was unconscious, Pulse 110/minute, and her blood pressure was 60/40mm/Hg.
+            
+            Oxytocin was given together with bimanual compression. With an expected blood loss above 1500cc and active bleeding, she was given aggressive fluid resuscitation with crystalloids and packed RBC’s while she was moved to the operating theatre.
+            
+            In the OR, she was given General anesthesia, a D&C was done followed by bimanual compression. The bleeding stopped. She was taken to recovery room in stable condition.
+            
+            
+            
+            She was kept under observation, all blood work up was sent, and she received a total of 3 units of Packed RBC. 
+            
+            
+            
+            3 days later she was discharged in a stable condition. Vital signs were normal. She was given Iron Tablets in addition to her pre natal vitamin, and was given a 2 weeks follow up appointment.
+            
+            MM, MD, 9/24/20
+            
+            
+            
+            
+        '
+        ]);
     }
 }

@@ -176,7 +176,7 @@ export default {
 
     methods: {        
         async fetchOrCreateProblem(){
-            await this.$store.dispatch("problem/all")
+            await this.$store.dispatch("problem/all", this.encounter.id)
         },
         async fetchProblemTypes(){
             await this.$store.dispatch("problemType/all")

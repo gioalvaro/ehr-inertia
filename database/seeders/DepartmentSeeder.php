@@ -49,6 +49,16 @@ class DepartmentSeeder extends Seeder
             'id' => 7,
             'description' => 'Not Aplicable',
             'code' => 7
+        ]); 
+        DB::table('departments')->insert([
+            'id' => 8,
+            'description' => 'OBGYN',
+            'code' => 8
+        ]);   
+        DB::table('departments')->insert([
+            'id' => 9,
+            'description' => 'Family Practice',
+            'code' => 9
         ]);       
     }
 }

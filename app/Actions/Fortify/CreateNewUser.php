@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Support\Facades\Log;
 
 
 class CreateNewUser implements CreatesNewUsers
@@ -39,7 +40,8 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 $provider = $this->createProvider($user);
-                $this->createEncounters($provider);
+                $encounter = $this->createEncounters($provider);
+                $this->createMedications($encounter);
                 $this->createTeam($user);
             });
         });
@@ -81,13 +83,13 @@ class CreateNewUser implements CreatesNewUsers
      * Create a personal encounter for the user.
      *
      * @param  \App\Models\Provider $provider
-     * @return void
+     * @return \App\Models\Encounter $encounter
      */
     protected function createEncounters(Provider $provider)
     {
         
         $faker = \Faker\Factory::create();
-        DB::table('encounters')->insert([
+        DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
             'patient_id' => 1,
             'department_id' => 1,
@@ -108,15 +110,15 @@ class CreateNewUser implements CreatesNewUsers
             'weight' => 200,
             'osat' => 98,
             'test' => false,
-            'open' => true
+            'open' => false
         ]);
-        DB::table('encounters')->insert([
+        $encounter = DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
             'patient_id' => 2,         
             'department_id' => 1,   
             'reason' => 'Difficulty in breast feeding',
-            'scheduled_time' => new Carbon(new DateTime('2020-10-06 9:30')),
-            'arrival_time' => new Carbon(new DateTime('2020-10-06 9:25')),
+            'scheduled_time' => new Carbon(new DateTime('2020-11-10 9:30')),
+            'arrival_time' => new Carbon(new DateTime('2020-11-10 9:25')),
             'check' => false,
             'temperature' => 36,
             'temperature_type' => 'oral',
@@ -133,9 +135,9 @@ class CreateNewUser implements CreatesNewUsers
             'rr' => 25,
             'osat' => 98,
             'test' => false,
-            'open' => false
+            'open' => true
         ]);
-        DB::table('encounters')->insert([
+        DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
             'patient_id' => 3,            
             'department_id' => 1,
@@ -160,7 +162,7 @@ class CreateNewUser implements CreatesNewUsers
             'test' => false,
             'open' => false
         ]);
-        DB::table('encounters')->insert([
+        DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
             'patient_id' => 4,            
             'department_id' => 1,
@@ -185,7 +187,7 @@ class CreateNewUser implements CreatesNewUsers
             'test' => false,
             'open' => false
         ]);
-        DB::table('encounters')->insert([
+        DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
             'patient_id' => 5,            
             'department_id' => 1,
@@ -210,5 +212,50 @@ class CreateNewUser implements CreatesNewUsers
             'test' => false,
             'open' => false
         ]);
+        
+        return $encounter;
+        
+
+    }
+
+    /**
+     * Create a medication verification to false.
+     * 
+     * @param \App\Models\Encounter $encounter
+     * @return void
+     */
+    protected function createMedications($encounter)
+    {
+        /*DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 1,
+            'discontinued' => false,
+            'verified' => false
+        ]);
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 2,
+            'discontinued' => false,
+            'verified' => false
+        ]);
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 3,
+            'discontinued' => false,
+            'verified' => false
+        ]);*/
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 4,
+            'discontinued' => false,
+            'verified' => false
+        ]);
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 5,
+            'discontinued' => false,
+            'verified' => false
+        ]);
+
     }
 }

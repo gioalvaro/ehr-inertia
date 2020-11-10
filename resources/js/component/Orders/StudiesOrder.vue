@@ -42,9 +42,14 @@
                 texto: ""
             }
         },
+        computed: {
+            encounter() {
+                return this.$store.getters["encounter/encounter"];
+            },
+        },
         methods: {
-             async fetchStudies(){
-                await this.$store.dispatch('study/all');
+            async fetchStudies(){
+                await this.$store.dispatch('study/all', this.encounter.id);
             },
             async save() {
                 let obj = {ecg: this.ecg, visual:this.visual, orthostatic: this.orthostatic, texto: this.texto}

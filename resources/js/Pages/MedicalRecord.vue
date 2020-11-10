@@ -736,4 +736,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-input--is-disabled{
+    color: black !important;
+    font-weight: 800 !important;
+}
+</style>
