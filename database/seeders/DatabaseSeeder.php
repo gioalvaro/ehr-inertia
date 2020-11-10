@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             NursingNoteSeeder::class,
             MedicationSeeder::class,
             ImagingSeeder::class,
-            ProblemSeeder::class
+            ProblemSeeder::class,
+            LaboratorySeeder::class
         ]);
     }
 }

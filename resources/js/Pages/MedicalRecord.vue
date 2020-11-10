@@ -500,6 +500,8 @@ export default {
             let medications = _.cloneDeep(this.medications)            
             medications = _.filter(medications, row => {return row.created_at !== null})
             medications = _.map(medications, row => {row.description = row.medication_type.description;
+            row.verified = row.medication_verifications[0].verified;
+            row.discontinued = row.medication_verifications[0].discontinued;
             return row;})
             var finalY = 75
             texto = 'Medications'
@@ -512,7 +514,9 @@ export default {
                 {title: 'Medication Name', dataKey: 'description'},
                 {title: 'Dose', dataKey: 'dose'},
                 {title: 'Frequency', dataKey: 'frequency'},
-                {title: 'Route', dataKey: 'route'}
+                {title: 'Route', dataKey: 'route'},
+                {title: 'Discontinued', dataKey: 'discontinued'},
+                {title: 'Verified', dataKey: 'verified'},
             ]
             
             doc.autoTable(columnas, medications, {
@@ -522,7 +526,7 @@ export default {
 
 
             let laboratories = _.cloneDeep(this.laboratories)
-            
+            laboratories = _.filter(laboratories, row => {return row.encounter_id === this.encounter.id})
             laboratories = _.map(laboratories, row => {row.description = row.laboratory_type.description;
                                                         return row;
             });
@@ -661,22 +665,36 @@ export default {
                 styles: {overflow: 'linebreak', fontSize: 7},
                 startY: finalY + 40
             })
+            /**
+             * Cheacks
+             */
+                        
+            var finalY = doc.previousAutoTable.finalY
+            texto = this.form.allergies_check ? 'Allergies Checked' : 'Allergies Not Checked'
+            xOffset =
+                doc.internal.pageSize.width / 2 -
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
+            doc.text(texto, xOffset, finalY + 20)
+
+           
 
             
 
             addHeaders(doc)
             addFooters(doc)
-            doc.save('x0258414.pdf')            
+            doc.save('x0258414.pdf')    
+            
+
         },
         setEncounter() {
             this.$store.dispatch("encounter/select", this.form);
-            this.$store.dispatch("physicianNote/all");
-            this.$store.dispatch("medication/all");
-            this.$store.dispatch("consult/all");
-            this.$store.dispatch("laboratory/all");
-            this.$store.dispatch("imaging/all");
-            this.$store.dispatch("problem/all");
-            this.$store.dispatch("study/all");
+            this.$store.dispatch("physicianNote/all", this.encounter.id);
+            this.$store.dispatch("medication/all", this.encounter.id);
+            this.$store.dispatch("consult/all", this.encounter.id);
+            this.$store.dispatch("laboratory/all", this.encounter.id);
+            this.$store.dispatch("imaging/all", this.encounter.id);
+            this.$store.dispatch("problem/all", this.encounter.id);
+            this.$store.dispatch("study/all", this.encounter.id);
         },
         lookPatient() {
             let index = this.encounters.findIndex(item => item.id === this.id);

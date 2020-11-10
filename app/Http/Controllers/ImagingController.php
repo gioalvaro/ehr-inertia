@@ -57,7 +57,7 @@ class ImagingController extends AppBaseController
         $problem_new = Imaging::with('encounter', 'encounter.department','encounter.provider')->where('id', '=', $problem->id)->first();
         $user = $request->user();
         $provider = $user->provider()->first();        
-                
+        /*      
         if(strcmp($obj['type'], 'Ultrasound') == 0){
             $item = new ImagingItem();
             $item->imaging_id = $problem->id;
@@ -71,6 +71,13 @@ class ImagingController extends AppBaseController
             $item2->observation = 'Gallbladder wall showing thickening, a large gallstone, and abundant heterogeneous sludge and air within the gallbladder, represented by a bright echogenic stripe with “dirty shadowing” beneath, consistent with emphysematous cholecystitis.  
             Clinical correlation advised.';
             $item2->save();
+        }*/
+        if(strcmp($obj['type'], 'MRI') == 0){
+            $item = new ImagingItem();
+            $item->imaging_id = $problem->id;
+            $item->image_url = '/storage/imaging-dx/Imaging_4.jpg';
+            $item->observation = 'Coronal and sagittal postcontrast T1-weighted spin-echo images show an enlarged pituitary with rim enhancement and no internal enhancement (arrows). Findings are suggestive of pituitary infarct,';
+            $item->save();            
         }
         return $this->sendResponse($problem_new, "Problem stored");
     }
