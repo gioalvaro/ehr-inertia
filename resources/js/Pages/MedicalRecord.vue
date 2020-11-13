@@ -179,7 +179,7 @@
                                             <v-row
                                                 v-if="
                                                     form.patient.sex ===
-                                                        'female'
+                                                        'femalef'
                                                 "
                                             >
                                                 <v-col cols="3" md="3">
@@ -700,8 +700,8 @@ export default {
             let index = this.encounters.findIndex(item => item.id === this.id);
             let encounter = this.encounters[index];
             encounter.osat = encounter.osat + "%";
-            encounter.rr = encounter.rr + " breaths/minutes";
-            encounter.hr = encounter.hr + " beats/minutes";
+            encounter.rr = encounter.rr + " /minutes";
+            encounter.hr = encounter.hr + " /minutes";
             encounter.bp = encounter.bp + " mmHg, R arm seated";
             encounter.bmi = encounter.bmi + " kg/m2";
             encounter.weight = encounter.weight + " lbs";

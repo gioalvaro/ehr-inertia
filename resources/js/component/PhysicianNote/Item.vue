@@ -23,8 +23,7 @@
                     label="Subjective - Objective - A - P"
                     v-model="texto"
                     :value="texto"
-                    height="1100"
-                    :disabled="type === 2"
+                    height="1100"                    
                 ></v-textarea>
             </v-col>
         </v-row>

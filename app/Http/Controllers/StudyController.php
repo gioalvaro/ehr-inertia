@@ -43,10 +43,23 @@ class StudyController extends AppBaseController
     public function store(Request $request)
     {
         $obj = $request->all();
+        $user = $request->user();
         $problem = new Study();
-        $problem->encounter_id = $obj['encounter_id'];
+        $provider = $user->provider()->first();
+        $problem->encounter_id = $obj['encounter']['id'];
         $problem->type = $obj['type'];
         $problem->observation = $obj['observation'];
+        if($obj['type'] == 'orthostatic' && $obj['encounter']['patient_id'] == 2){
+            $problem->result = 'Orthostatic vital signs:
+
+            Sitting: BP90/70, pulse 92/min; Lying/Supine BP 100/60; Three minutes after standing BP 70/52 , HR 110
+        
+            SK, RN ';
+        }
+        else{
+            $problem->result = '';
+        }
+        
         $problem->save();
         $problem_new = Study::with('encounter', 'encounter.department','encounter.provider')->where('id', '=', $problem->id)->first();
         return $this->sendResponse($problem_new, "Problem stored");

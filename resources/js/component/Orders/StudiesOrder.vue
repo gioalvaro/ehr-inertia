@@ -8,7 +8,7 @@
                 ></v-checkbox>
                 <v-checkbox
                     v-model="visual"
-                    :label="`Visual Acuity`"
+                    :label="`Visual Field`"
                 ></v-checkbox>
                 <v-checkbox
                     v-model="orthostatic"
@@ -46,13 +46,16 @@
             encounter() {
                 return this.$store.getters["encounter/encounter"];
             },
+            patient() {
+                return this.$store.getters["patient/patient"];
+            },
         },
         methods: {
             async fetchStudies(){
                 await this.$store.dispatch('study/all', this.encounter.id);
             },
             async save() {
-                let obj = {ecg: this.ecg, visual:this.visual, orthostatic: this.orthostatic, texto: this.texto}
+                let obj = {ecg: this.ecg, visual:this.visual, orthostatic: this.orthostatic, texto: this.texto, patient: this.patient.id}
                 await this.$store.dispatch("study/post", obj).then(res => {this.fetchStudies();});
             }
         },

@@ -139,7 +139,7 @@ export default {
         },
         study_type:[
             {text: "12 leads ECG", value:'ecg'}, 
-            {text: "Visual Acuite", value: 'visual'},
+            {text: "Visual Field", value: 'visual'},
             {text: "Orthostatic Test" , value: 'orthostatic'}
         ]
     }),
@@ -212,7 +212,7 @@ export default {
                 //Object.assign(this.problems[this.editedIndex], this.editedItem)
                 await this.$store.dispatch('study/update',this.editedItem)
             } else {                
-                this.editedItem.encounter_id = this.encounter.id;
+                this.editedItem.encounter = this.encounter;
                 //this.problems.push(this.editedItem)                
                 await this.$store.dispatch('study/post',this.editedItem)
             }

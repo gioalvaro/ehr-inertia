@@ -16,6 +16,7 @@ class CreateStudiesTable extends Migration
         Schema::create('studies', function (Blueprint $table) {
             $table->id();
             $table->text('observation')->nullable();
+            $table->text('result')->nullable();
             $table->enum('type', ['ecg', 'visual', 'orthostatic']);
             $table->foreignId('encounter_id')->constrained('encounters');
             $table->softDeletes();

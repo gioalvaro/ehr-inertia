@@ -540,7 +540,7 @@ class LaboratoryTypeSeeder extends Seeder
             'id' => 66,
             'code' => 66,
             'laboratory_group_id' => 5,
-            'description' => 'Prolactine',
+            'description' => 'Prolactin',
             'verification' => true
         ]);
         DB::table('laboratory_types')->insert([
