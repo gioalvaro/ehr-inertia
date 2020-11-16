@@ -17,7 +17,7 @@
                         color="success"
                         :false-value="0"
                         :true-value="1"
-                        :label="`Medication Verification`"
+                        :label="`Medication Consolidation`"
                     ></v-checkbox>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
@@ -217,7 +217,7 @@
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchMedication">
-                    Reset
+                    Refresh
                 </v-btn>
             </template>
         </v-data-table>
@@ -247,7 +247,7 @@
                     </template>
                     <template v-slot:no-data>
                         <v-btn color="primary" @click="fetchMedication">
-                            Reset
+                            Refresh
                         </v-btn>
                     </template>
                 </v-data-table>

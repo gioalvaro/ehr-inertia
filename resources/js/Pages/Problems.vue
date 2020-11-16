@@ -95,7 +95,7 @@
             </template>         
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchOrCreateProblem">
-                    Reset
+                    Refresh
                 </v-btn>
             </template>
         </v-data-table>

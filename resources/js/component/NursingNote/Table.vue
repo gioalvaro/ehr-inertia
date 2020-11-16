@@ -19,8 +19,8 @@
                 <v-icon v-if="item.encounter.provider_id === provider.id" class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="deleteItem(item)" large>mdi-delete</v-icon>
             </template>
             <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">
-                    Reset
+                <v-btn color="primary" @click="fetchNote">
+                    Refresh
                 </v-btn>
             </template>
         </v-data-table>
@@ -38,7 +38,7 @@ export default {
     name:'Table',
     created() {
         this.fetchNote();
-        this.initialize();
+        //this.initialize();
         //this.items = this.nursing_notes
     },
     methods: {

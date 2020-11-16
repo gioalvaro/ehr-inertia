@@ -20,8 +20,8 @@
                         <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
                     </template>
                     <template v-slot:no-data>
-                        <v-btn color="primary" @click="initialize">
-                            Reset
+                        <v-btn color="primary" @click="fetchImaging">
+                            Refresh
                         </v-btn>
                     </template>
                 </v-data-table>

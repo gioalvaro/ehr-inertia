@@ -104,7 +104,7 @@
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchOrCreateStudy">
-                    Reset
+                    Refresh
                 </v-btn>
             </template>
         </v-data-table>
@@ -120,6 +120,7 @@ export default {
         headers: [            
             { text: "Type", value: "type" },
             { text: "Observation", value: "observation" },
+            { text: "Result", value: "result" },
             { text: "Provider", value: "encounter.provider.name" },
             { text: "Department", value: "encounter.department.description" },
             { text: "Actions", value: "actions" }
@@ -128,12 +129,14 @@ export default {
         editedItem: {
             id:0,
             type:"",
+            result:'',
             encounter_id: 0,
             observation: ""
         },
         defaultItem: {
             id:0,
             type:"",
+            result:'',
             encounter_id: 0,
             observation:""
         },

@@ -363,14 +363,14 @@ import Medication from "./Medication";
 import Consult from "./Consult";
 import Problems from "./Problems";
 import Studies from "./Studies";
-import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 export default {
     name: "MedicalRecord",
     created() {
         console.log(this.id);
-        this.user()
-        console.log(this.userData)
+        this.user();
+        console.log(this.userData);
         this.form = this.lookPatient();
         this.setEncounter();
     },
@@ -394,7 +394,7 @@ export default {
     data: () => ({
         baseURL: window.location.hostname,
         tab: null,
-        userData:{},
+        userData: {},
         form: {
             id: 1,
             mrn: 1,
@@ -411,172 +411,228 @@ export default {
         }
     }),
     methods: {
-        print(){
+        print() {
             const addFooters = doc => {
-                const pageCount = doc.internal.getNumberOfPages()
+                const pageCount = doc.internal.getNumberOfPages();
 
-                doc.setFont('helvetica', 'italic')
-                doc.setFontSize(8)
+                doc.setFont("helvetica", "italic");
+                doc.setFontSize(8);
                 for (var i = 1; i <= pageCount; i++) {
-                    doc.setPage(i)
-                    doc.text('EMR', 50, 811)
-                    doc.text(this.user, 520, 811)
+                    doc.setPage(i);
+                    doc.text("EMR", 50, 811);
+                    doc.text(this.user, 520, 811);
                     doc.text(
-                        'Page ' + String(i) + ' of ' + String(pageCount),
+                        "Page " + String(i) + " of " + String(pageCount),
                         doc.internal.pageSize.width / 2,
                         811,
                         {
-                            align: 'center'
+                            align: "center"
                         }
-                    )
+                    );
                 }
-            }
+            };
             const addHeaders = doc => {
-                const pageCount = doc.internal.getNumberOfPages()
-                doc.setFont('helvetica', 'italic')
-                doc.setFontSize(8)
+                const pageCount = doc.internal.getNumberOfPages();
+                doc.setFont("helvetica", "italic");
+                doc.setFontSize(8);
                 for (var i = 1; i <= pageCount; i++) {
-                    doc.setPage(i)
-                    doc.text(moment().locale('en').format('MM/DD/YYYY, h:mm:ss a'), doc.internal.pageSize.width * 0.75, 20)
+                    doc.setPage(i);
+                    doc.text(
+                        moment()
+                            .locale("en")
+                            .format("MM/DD/YYYY, h:mm:ss a"),
+                        doc.internal.pageSize.width * 0.75,
+                        20
+                    );
                 }
-            }
-            var vm = this
-            var doc = new jsPDF('p', 'pt')
+            };
+            var vm = this;
+            var doc = new jsPDF("p", "pt");
             // Informacion del Agente
-            var img = new Image()
-            img.src = 'storage/logo/CNU_Logo_English.png'
-            doc.addImage(img, 'JPEG', 50, 60, 130, 44)
+            var img = new Image();
+            img.src = "storage/logo/CNU_Logo_English.png";
+            doc.addImage(img, "JPEG", 50, 60, 130, 44);
             //img.src = 'images/logo_ministerio.jpg'
             //doc.addImage(img, 'JPEG', doc.internal.pageSize.width * 0.70, 60, 130, 24)
-            doc.setFont('times')
-            var texto = 'Report'
+            doc.setFont("times");
+            var texto = "Report";
             var xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, 120)
-            texto = 'Alumni Information'
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, 120);
+            texto = "Alumni Information";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, 150)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, 150);
 
-            let users = []
-            let user = _.cloneDeep(this.userData)
-            console.log("usekldfj")
-            console.log(user)
+            let users = [];
+            let user = _.cloneDeep(this.userData);
+            console.log("usekldfj");
+            console.log(user);
 
-            users.push(user)
+            users.push(user);
 
             let columnas = [
-                {title: 'Username', dataKey: 'username'},
-                {title: 'Full Name', dataKey: 'name'}
-            ]
+                { title: "Username", dataKey: "username" },
+                { title: "Full Name", dataKey: "name" }
+            ];
             doc.autoTable(columnas, users, {
                 startY: 150 + 25
-            })
+            });
 
-            let physician_notes = _.cloneDeep(this.physician_notes)
-            physician_notes = _.filter(physician_notes, row => {return row.encounter_id === this.encounter.id})
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Physician Notes'
+            let physician_notes = _.cloneDeep(this.physician_notes);
+            physician_notes = _.filter(physician_notes, row => {
+                return row.encounter_id === this.encounter.id;
+            });
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Physician Notes";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Note', dataKey: 'note'}
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Note", dataKey: "note" }
+            ];
 
             doc.autoTable(columnas, physician_notes, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 40
-            })
+            });
             doc.addPage();
 
-
-
-            let medications = _.cloneDeep(this.medications)            
-            medications = _.filter(medications, row => {return row.created_at !== null})
-            medications = _.map(medications, row => {row.description = row.medication_type.description;
-            row.verified = row.medication_verifications[0].verified;
-            row.discontinued = row.medication_verifications[0].discontinued;
-            return row;})
-            var finalY = 75
-            texto = 'Medications'
-            xOffset =
-                doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 30)
-            columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Medication Name', dataKey: 'description'},
-                {title: 'Dose', dataKey: 'dose'},
-                {title: 'Frequency', dataKey: 'frequency'},
-                {title: 'Route', dataKey: 'route'},
-                {title: 'Discontinued', dataKey: 'discontinued'},
-                {title: 'Verified', dataKey: 'verified'},
-            ]
-            
-            doc.autoTable(columnas, medications, {
-                styles: {overflow: 'linebreak', fontSize: 7},
-                startY: finalY + 50
-            })
-
-
-            let laboratories = _.cloneDeep(this.laboratories)
-            laboratories = _.filter(laboratories, row => {return row.encounter_id === this.encounter.id})
-            laboratories = _.map(laboratories, row => {row.description = row.laboratory_type.description;
-                                                        return row;
+            let medications = _.cloneDeep(this.medications);
+            medications = _.filter(medications, row => {
+                return row.created_at !== null;
             });
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Laboratories'
+            medications = _.map(medications, row => {
+                row.description = row.medication_type.description;
+                row.verified = row.medication_verifications[0].verified;
+                row.discontinued = row.medication_verifications[0].discontinued;
+                return row;
+            });
+            medications = _.filter(medications, row => {
+                return row.discontinued === 0;
+            });
+            var finalY = 75;
+            texto = "Medications";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 30)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 30);
+            columnas = [
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Medication Name", dataKey: "description" },
+                { title: "Dose", dataKey: "dose" },
+                { title: "Frequency", dataKey: "frequency" },
+                { title: "Route", dataKey: "route" }
+            ];
+
+            doc.autoTable(columnas, medications, {
+                styles: { overflow: "linebreak", fontSize: 7 },
+                startY: finalY + 50
+            });
+
+            let medications = _.cloneDeep(this.medications);
+            medications = _.filter(medications, row => {
+                return row.created_at !== null;
+            });
+            medications = _.map(medications, row => {
+                row.description = row.medication_type.description;
+                row.verified = row.medication_verifications[0].verified;
+                row.discontinued = row.medication_verifications[0].discontinued;
+                return row;
+            });
+            let checkMedication = medications.reduce((acc,next) => ({verified: acc.verified * next.verified}));
+            let aux = checkMedication.verified;
+            medications = _.filter(medications, row => {
+                return row.discontinued === 1;
+            });
+
+            var finalY = 75;
+            texto = "Medications Discontinued";
+            xOffset =
+                doc.internal.pageSize.width / 2 -
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 30);
+            columnas = [
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Medication Name", dataKey: "description" },
+                { title: "Dose", dataKey: "dose" },
+                { title: "Frequency", dataKey: "frequency" },
+                { title: "Route", dataKey: "route" }
+            ];
+
+            doc.autoTable(columnas, medications, {
+                styles: { overflow: "linebreak", fontSize: 7 },
+                startY: finalY + 50
+            });
+
+            let laboratories = _.cloneDeep(this.laboratories);
+            laboratories = _.filter(laboratories, row => {
+                return row.encounter_id === this.encounter.id;
+            });
+            laboratories = _.map(laboratories, row => {
+                row.description = row.laboratory_type.description;
+                return row;
+            });
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Laboratories";
+            xOffset =
+                doc.internal.pageSize.width / 2 -
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 30);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Name', dataKey: 'description'},
-                {title: 'Current Value', dataKey: 'current_value'},
-                {title: 'Min', dataKey: 'min'},
-                {title: 'Max', dataKey: 'max'}
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Name", dataKey: "description" },
+                { title: "Current Value", dataKey: "current_value" },
+                { title: "Min", dataKey: "min" },
+                { title: "Max", dataKey: "max" }
+            ];
 
             doc.autoTable(columnas, laboratories, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 50
-            })
+            });
 
+            let studies = _.cloneDeep(this.studies);
 
-            let studies = _.cloneDeep(this.studies)
-            
             console.log("despues del foreach");
             console.log(studies);
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Studies'
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Studies";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Observation', dataKey: 'observation'},
-                {title: 'Type', dataKey: 'type'},
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Observation", dataKey: "observation" },
+                { title: "Type", dataKey: "type" }
+            ];
 
             doc.autoTable(columnas, studies, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 40
-            })
+            });
 
-            let imagings = _.cloneDeep(this.imagings)
-            imagings = _.filter(imagings, row => {return row.created_at !== null})
-            imagings = _.forEach(imagings, row =>{
-                switch(row.type){
+            let imagings = _.cloneDeep(this.imagings);
+            imagings = _.filter(imagings, row => {
+                return row.created_at !== null;
+            });
+            imagings = _.forEach(imagings, row => {
+                switch (row.type) {
                     case "1":
                         row.type = "Radx";
                         break;
@@ -593,98 +649,108 @@ export default {
                         row.type = "Ultrasound";
                         break;
                 }
-            })
+            });
             console.log("despues del foreach");
             console.log(imagings);
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Imagings'
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Imagings";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Summary', dataKey: 'summary'},
-                {title: 'Type', dataKey: 'type'},
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Summary", dataKey: "summary" },
+                { title: "Type", dataKey: "type" }
+            ];
 
             doc.autoTable(columnas, imagings, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 40
-            })
-
+            });
 
             /**
              * Consultas
              */
-            let consults = _.cloneDeep(this.consults)
-            
+            let consults = _.cloneDeep(this.consults);
+
             console.log("despues del foreach");
             console.log(consults);
-            
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Consults'
+
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Consults";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Observation', dataKey: 'observation'}
-                
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Observation", dataKey: "observation" }
+            ];
 
             doc.autoTable(columnas, consults, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 40
-            })
+            });
             /**
              * Problemas
              */
-            let problems = _.cloneDeep(this.problems)
-            problems = _.filter(problems, row => {return row.created_at !== null;})
-            problems = _.map(problems, row => {row.description = row.problem_type.description;
-                                                        return row;
-            });            
-            var finalY = doc.previousAutoTable.finalY
-            texto = 'Problems'
+            let problems = _.cloneDeep(this.problems);
+            problems = _.filter(problems, row => {
+                return row.created_at !== null;
+            });
+            problems = _.map(problems, row => {
+                row.description = row.problem_type.description;
+                return row;
+            });
+            var finalY = doc.previousAutoTable.finalY;
+            texto = "Problems";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
 
             columnas = [
-                {title: 'Date and Time Created', dataKey: 'created_at'},
-                {title: 'Description', dataKey: 'description'}
-                
-            ]
+                { title: "Date and Time Created", dataKey: "created_at" },
+                { title: "Description", dataKey: "description" }
+            ];
 
             doc.autoTable(columnas, problems, {
-                styles: {overflow: 'linebreak', fontSize: 7},
+                styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 40
-            })
+            });
             /**
              * Cheacks
              */
-                        
-            var finalY = doc.previousAutoTable.finalY
-            texto = this.form.allergies_check ? 'Allergies Checked' : 'Allergies Not Checked'
+
+            var finalY = doc.previousAutoTable.finalY;
+            texto = this.form.allergies_check
+                ? "Allergies Checked"
+                : "Allergies Not Checked";
             xOffset =
                 doc.internal.pageSize.width / 2 -
-                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) / 2
-            doc.text(texto, xOffset, finalY + 20)
-
-           
-
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 20);
             
+            var finalY = doc.previousAutoTable.finalY;
+            texto = aux === 1
+                ? "Medication Consolidated"
+                : "Allergies Not Consolidated";
+            xOffset =
+                doc.internal.pageSize.width / 2 -
+                (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /
+                    2;
+            doc.text(texto, xOffset, finalY + 80);
 
-            addHeaders(doc)
-            addFooters(doc)
-            doc.save('x0258414.pdf')    
-            
-
+            addHeaders(doc);
+            addFooters(doc);
+            doc.save("x0258414.pdf");
         },
         setEncounter() {
             this.$store.dispatch("encounter/select", this.form);
@@ -719,7 +785,9 @@ export default {
             this.$emit("viewMedicalRecord");
         },
         async user() {
-            await axios.get('userPDF').then(res => {this.userData = res.data});
+            await axios.get("userPDF").then(res => {
+                this.userData = res.data;
+            });
         }
     },
     computed: {
@@ -755,7 +823,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-input--is-disabled{
+.v-input--is-disabled {
     color: black !important;
     font-weight: 800 !important;
 }

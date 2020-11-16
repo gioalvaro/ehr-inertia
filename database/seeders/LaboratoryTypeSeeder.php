@@ -329,28 +329,28 @@ class LaboratoryTypeSeeder extends Seeder
             'code' => 35,
             'laboratory_group_id' => 2,
             'description' => 'Albumin',            
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 36,
             'code' => 36,
             'laboratory_group_id' => 2,
             'description' => 'Creatinine kinase',
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 37,
             'code' => 37,
             'laboratory_group_id' => 2,
             'description' => 'CK-MB',
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 38,
             'code' => 38,
             'laboratory_group_id' => 2,
             'description' => 'Troponine',
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 39,
@@ -399,7 +399,7 @@ class LaboratoryTypeSeeder extends Seeder
             'code' => 45,
             'laboratory_group_id' => 2,
             'description' => 'Beta-hCG, Quantitative',            
-            'verification' => false
+            'verification' => true
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 46,
@@ -492,7 +492,7 @@ class LaboratoryTypeSeeder extends Seeder
             'code' => 59,
             'laboratory_group_id' => 5,
             'description' => 'Estriol',
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 60,
@@ -562,7 +562,7 @@ class LaboratoryTypeSeeder extends Seeder
             'code' => 69,
             'laboratory_group_id' => 5,
             'description' => 'Alpha-fetoprotein',            
-            'verification' => true
+            'verification' => false
         ]);
         DB::table('laboratory_types')->insert([
             'id' => 70,
@@ -865,6 +865,84 @@ class LaboratoryTypeSeeder extends Seeder
             'description' => 'ACTH',
             'verification' => true
         ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 128,
+            'code' => 128,
+            'laboratory_group_id' => 1,
+            'description' => 'Red Blood Cells Count',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 129,
+            'code' => 129,
+            'laboratory_group_id' => 1,
+            'description' => 'Hgb',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 130,
+            'code' => 130,
+            'laboratory_group_id' => 1,
+            'description' => 'Mean Corpuscular Volume',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 131,
+            'code' => 131,
+            'laboratory_group_id' => 1,
+            'description' => 'Red Cells Distribution Width',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 132,
+            'code' => 132,
+            'laboratory_group_id' => 1,
+            'description' => 'RBC nucleated',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 133,
+            'code' => 133,
+            'laboratory_group_id' => 1,
+            'description' => 'Leukocyte Count',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 134,
+            'code' => 134,
+            'laboratory_group_id' => 1,
+            'description' => 'Segmented Neutrophils',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 135,
+            'code' => 135,
+            'laboratory_group_id' => 1,
+            'description' => 'Eosinophils',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 136,
+            'code' => 136,
+            'laboratory_group_id' => 1,
+            'description' => 'Basophils',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 137,
+            'code' => 137,
+            'laboratory_group_id' => 1,
+            'description' => 'Lymphocytes',
+            'verification' => true
+        ]);
+        DB::table('laboratory_types')->insert([
+            'id' => 138,
+            'code' => 138,
+            'laboratory_group_id' => 1,
+            'description' => 'Monocytes',
+            'verification' => true
+        ]);
+
 
 
     }

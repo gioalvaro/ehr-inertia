@@ -14,7 +14,7 @@
             </template>
             <template v-slot:no-data>
                 <v-btn color="primary" @click="fetchLabs">
-                    Reset
+                    Refresh
                 </v-btn>
             </template>
         </v-data-table>
@@ -55,7 +55,8 @@ export default {
                 { text: "Ordered by", value: "encounter.provider.name" },
                 { text: "Current Value", value: "current_value" },
                 { text: "Minimum", value: "min", sortable: false },
-                { text: "Maximun", value: "max", sortable: false }
+                { text: "Maximun", value: "max", sortable: false },
+                { text: "Units", value: "units", sortable: false }
             ]
         };
     }

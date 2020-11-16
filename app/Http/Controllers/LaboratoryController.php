@@ -51,46 +51,86 @@ class LaboratoryController extends AppBaseController
             
             if($valor['verification'] == 1){                
                 switch ($valor->id) {
-                    case 35:
+                    case 17:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
                             'laboratory_type_id' => $valor->id,
-                            'current_value' => "4.2",                            
+                            'current_value' => "130",                            
+                            'min' => "136",
+                            'max' => "145",
+                            'units' => "mmol/L"
+                        ]);
+                    break;
+                    case 18:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "4.5",                            
                             'min' => "3.5",
-                            'max' => "5.5",
-                            'units' => "g/dL"
+                            'max' => "5.0",
+                            'units' => "mmol/L"
                         ]);
                     break;
-                    case 36:
+                    case 19:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
                             'laboratory_type_id' => $valor->id,
-                            'current_value' => "33",                            
+                            'current_value' => "90",                            
+                            'min' => "95",
+                            'max' => "105",
+                            'units' => "mmol/L"
+                        ]);
+                    break;
+                    case 20:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "22",                            
                             'min' => "22",
-                            'max' => "198",
-                            'units' => "U/L"
+                            'max' => "28",
+                            'units' => "mmol/L"
                         ]);
                     break;
-                    case 37:
+                    case 21:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
                             'laboratory_type_id' => $valor->id,
-                            'current_value' => "18",                            
-                            'min' => "5",
-                            'max' => "25",
-                            'units' => "IU/L"
+                            'current_value' => "25",                            
+                            'min' => "7",
+                            'max' => "18",
+                            'units' => "mmol/L"
                         ]);
                     break;
-                    case 38:
+                    case 22:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
                             'laboratory_type_id' => $valor->id,
-                            'current_value' => "0.05",                            
-                            'min' => "0.04",
-                            'max' => "0.39",
-                            'units' => "mg/mL"
+                            'current_value' => "0.8",                            
+                            'min' => "0.6",
+                            'max' => "1.2",
+                            'units' => "mg/dL"
                         ]);
                     break;
+                    case 23:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "55",                            
+                            'min' => "70",
+                            'max' => "110",
+                            'units' => "mg/dL"
+                        ]);
+                    break; 
+                    case 45:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "1",                            
+                            'min' => "",
+                            'max' => "3",
+                            'units' => "nIU/mL"
+                        ]);
+                    break;                    
                     case 59:
                         $laboratory = Laboratory::create([
                             'encounter_id' => $encounter_id,
@@ -200,7 +240,157 @@ class LaboratoryController extends AppBaseController
                             'max' => "76",
                             'units' => "pg/mL"
                         ]);
+                    break; 
+                    case 118:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "10",
+                            'min' => "4.5",
+                            'max' => "11",
+                            'units' => "10^3/mm3"
+                        ]);
+                    break; 
+                    case 121:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "250",
+                            'min' => "150",
+                            'max' => "400",
+                            'units' => "10^9/L"
+                        ]);
+                    break;
+                    case 122:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "2",
+                            'min' => "3",
+                            'max' => "5",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 125:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "34",
+                            'min' => "36",
+                            'max' => "53",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 128:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "4.5",
+                            'min' => "3.5",
+                            'max' => "6",
+                            'units' => "10^6/mm3"
+                        ]);
+                    break;
+                    case 129:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "12.7",
+                            'min' => "13.5",
+                            'max' => "17.5",
+                            'units' => "g/dL"
+                        ]);
                     break;                    
+                    case 130:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "90",
+                            'min' => "80",
+                            'max' => "100",
+                            'units' => "um3"
+                        ]);
+                    break;
+                    case 131:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "12",
+                            'min' => "11.5",
+                            'max' => "14.5",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 132:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "Not Present",
+                            'min' => "Not Present",
+                            'max' => "",
+                            'units' => ""
+                        ]);
+                    break;
+                    case 133:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "10",
+                            'min' => "4.5",
+                            'max' => "11",
+                            'units' => "10^9/mm3"
+                        ]);
+                    break;
+                    case 134:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "55",
+                            'min' => "54",
+                            'max' => "62",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 135:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "1.5",
+                            'min' => "1",
+                            'max' => "3",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 136:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "0.6",
+                            'min' => "0",
+                            'max' => "0.75",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 137:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "30",
+                            'min' => "25",
+                            'max' => "33",
+                            'units' => "%"
+                        ]);
+                    break;
+                    case 138:
+                        $laboratory = Laboratory::create([
+                            'encounter_id' => $encounter_id,
+                            'laboratory_type_id' => $valor->id,
+                            'current_value' => "4",
+                            'min' => "3",
+                            'max' => "7",
+                            'units' => "%"
+                        ]);
+                    break;
                     
                 }
             }
