@@ -42,7 +42,7 @@ class Patient extends Model
         'lastname' => 'string',
         'sex' => 'string',
         'age' => 'integer',
-        'day_of_birth' => 'date:Y-m-d'
+        'day_of_birth' => 'date:m-d-Y'
     ];
 
     protected $dates = [

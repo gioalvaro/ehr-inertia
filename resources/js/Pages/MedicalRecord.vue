@@ -516,9 +516,11 @@ export default {
                 row.discontinued = row.medication_verifications[0].discontinued;
                 return row;
             });
+            console.info(medications)
             medications = _.filter(medications, row => {
                 return row.discontinued === 0;
             });
+
             var finalY = 75;
             texto = "Medications";
             xOffset =
@@ -539,23 +541,29 @@ export default {
                 startY: finalY + 50
             });
 
-            let medications = _.cloneDeep(this.medications);
-            medications = _.filter(medications, row => {
+            let medications_dis = _.cloneDeep(this.medications);
+            medications_dis = _.filter(medications_dis, row => {
                 return row.created_at !== null;
             });
-            medications = _.map(medications, row => {
+            medications_dis = _.map(medications_dis, row => {
                 row.description = row.medication_type.description;
                 row.verified = row.medication_verifications[0].verified;
                 row.discontinued = row.medication_verifications[0].discontinued;
                 return row;
             });
-            let checkMedication = medications.reduce((acc,next) => ({verified: acc.verified * next.verified}));
-            let aux = checkMedication.verified;
-            medications = _.filter(medications, row => {
+            var aux = "";
+            if (medications_dis.length > 0){
+                console.log(this.medications.length)
+                var checkMedication = medications_dis.reduce((acc,next) => ({verified: acc.verified * next.verified}));
+                aux = checkMedication.verified;
+            }
+            
+            
+            medications_dis = _.filter(medications_dis, row => {
                 return row.discontinued === 1;
             });
 
-            var finalY = 75;
+            var finalY = doc.previousAutoTable.finalY;
             texto = "Medications Discontinued";
             xOffset =
                 doc.internal.pageSize.width / 2 -
@@ -570,7 +578,7 @@ export default {
                 { title: "Route", dataKey: "route" }
             ];
 
-            doc.autoTable(columnas, medications, {
+            doc.autoTable(columnas, medications_dis, {
                 styles: { overflow: "linebreak", fontSize: 7 },
                 startY: finalY + 50
             });
@@ -741,7 +749,7 @@ export default {
             var finalY = doc.previousAutoTable.finalY;
             texto = aux === 1
                 ? "Medication Consolidated"
-                : "Allergies Not Consolidated";
+                : "Medication Not Consolidated";
             xOffset =
                 doc.internal.pageSize.width / 2 -
                 (doc.getStringUnitWidth(texto) * doc.internal.getFontSize()) /

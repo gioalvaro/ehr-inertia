@@ -6,6 +6,7 @@ use App\Models\Laboratory;
 use App\Models\LaboratoryType;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Log;
 
 class LaboratoryController extends AppBaseController
 {
@@ -47,8 +48,7 @@ class LaboratoryController extends AppBaseController
         $labsTypeIds = $request->all()['labsType'];
         $encounter_id = $request->all()['encounter_id'];        
         $laboratories_types = LaboratoryType::whereIn('id',$labsTypeIds)->get();
-        foreach($laboratories_types as $row=>$valor){
-            
+        foreach($laboratories_types as $row=>$valor){    
             if($valor['verification'] == 1){                
                 switch ($valor->id) {
                     case 17:
@@ -60,6 +60,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "145",
                             'units' => "mmol/L"
                         ]);
+                        Log::info(17);
                     break;
                     case 18:
                         $laboratory = Laboratory::create([
@@ -70,6 +71,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "5.0",
                             'units' => "mmol/L"
                         ]);
+                        Log::info(18);
                     break;
                     case 19:
                         $laboratory = Laboratory::create([
@@ -80,6 +82,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "105",
                             'units' => "mmol/L"
                         ]);
+                        Log::info(19);
                     break;
                     case 20:
                         $laboratory = Laboratory::create([
@@ -90,6 +93,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "28",
                             'units' => "mmol/L"
                         ]);
+                        Log::info(20);
                     break;
                     case 21:
                         $laboratory = Laboratory::create([
@@ -110,6 +114,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "1.2",
                             'units' => "mg/dL"
                         ]);
+                        Log::info(22);
                     break;
                     case 23:
                         $laboratory = Laboratory::create([
@@ -120,6 +125,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "110",
                             'units' => "mg/dL"
                         ]);
+                        Log::info(23);
                     break; 
                     case 45:
                         $laboratory = Laboratory::create([
@@ -130,6 +136,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "3",
                             'units' => "nIU/mL"
                         ]);
+                        Log::info(45);
                     break;                    
                     case 59:
                         $laboratory = Laboratory::create([
@@ -140,6 +147,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "350",
                             'units' => "ng/mL"
                         ]);
+                        Log::info(59);
                     break;
                     case 60:
                         $laboratory = Laboratory::create([
@@ -150,6 +158,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "25",
                             'units' => "u IU/mL"
                         ]);
+                        Log::info(60);
                     break;
                     case 61:
                         $laboratory = Laboratory::create([
@@ -160,6 +169,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "7.8",
                             'units' => "IU/L"
                         ]);
+                        Log::info(61);
                     break;
                     case 62:
                         $laboratory = Laboratory::create([
@@ -170,6 +180,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "5.0",
                             'units' => "ml U/L"
                         ]);
+                        Log::info(62);
                     break;                   
                     case 64:
                         $laboratory = Laboratory::create([
@@ -180,6 +191,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "12",
                             'units' => "ug/dL"
                         ]);
+                        Log::info(64);
                     break;
                     case 65:
                         $laboratory = Laboratory::create([
@@ -190,6 +202,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "-",
                             'units' => "ng/mL"
                         ]);
+                        Log::info(65);
                     break;
                     case 66:
                         $laboratory = Laboratory::create([
@@ -200,6 +213,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "40",
                             'units' => "ng/mL"
                         ]);
+                        Log::info(66);
                     break;
                     case 67:
                         $laboratory = Laboratory::create([
@@ -210,6 +224,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "20",
                             'units' => "ug/dL"
                         ]);
+                        Log::info(67);
                     break;
                     case 68:
                         $laboratory = Laboratory::create([
@@ -220,6 +235,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "250",
                             'units' => "mg/dL"
                         ]);
+                        Log::info(68);
                     break;
                     case 69:
                         $laboratory = Laboratory::create([
@@ -230,6 +246,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "-",
                             'units' => "ng/mL"
                         ]);
+                        Log::info(69);
                     break;
                     case 113:
                         $laboratory = Laboratory::create([
@@ -240,6 +257,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "76",
                             'units' => "pg/mL"
                         ]);
+                        Log::info(113);
                     break; 
                     case 118:
                         $laboratory = Laboratory::create([
@@ -250,6 +268,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "11",
                             'units' => "10^3/mm3"
                         ]);
+                        Log::info(118);
                     break; 
                     case 121:
                         $laboratory = Laboratory::create([
@@ -260,6 +279,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "400",
                             'units' => "10^9/L"
                         ]);
+                        Log::info(122);
                     break;
                     case 122:
                         $laboratory = Laboratory::create([
@@ -280,6 +300,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "53",
                             'units' => "%"
                         ]);
+                        Log::info(125);
                     break;
                     case 128:
                         $laboratory = Laboratory::create([
@@ -290,6 +311,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "6",
                             'units' => "10^6/mm3"
                         ]);
+                        Log::info(128);
                     break;
                     case 129:
                         $laboratory = Laboratory::create([
@@ -300,6 +322,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "17.5",
                             'units' => "g/dL"
                         ]);
+                        Log::info(129);
                     break;                    
                     case 130:
                         $laboratory = Laboratory::create([
@@ -310,6 +333,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "100",
                             'units' => "um3"
                         ]);
+                        Log::info(130);
                     break;
                     case 131:
                         $laboratory = Laboratory::create([
@@ -320,6 +344,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "14.5",
                             'units' => "%"
                         ]);
+                        Log::info(131);
                     break;
                     case 132:
                         $laboratory = Laboratory::create([
@@ -330,6 +355,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "",
                             'units' => ""
                         ]);
+                        Log::info(132);
                     break;
                     case 133:
                         $laboratory = Laboratory::create([
@@ -340,6 +366,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "11",
                             'units' => "10^9/mm3"
                         ]);
+                        Log::info(133);
                     break;
                     case 134:
                         $laboratory = Laboratory::create([
@@ -350,6 +377,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "62",
                             'units' => "%"
                         ]);
+                        Log::info(134);
                     break;
                     case 135:
                         $laboratory = Laboratory::create([
@@ -360,6 +388,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "3",
                             'units' => "%"
                         ]);
+                        Log::info(135);
                     break;
                     case 136:
                         $laboratory = Laboratory::create([
@@ -370,6 +399,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "0.75",
                             'units' => "%"
                         ]);
+                        Log::info(136);
                     break;
                     case 137:
                         $laboratory = Laboratory::create([
@@ -380,6 +410,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "33",
                             'units' => "%"
                         ]);
+                        Log::info(137);
                     break;
                     case 138:
                         $laboratory = Laboratory::create([
@@ -390,6 +421,7 @@ class LaboratoryController extends AppBaseController
                             'max' => "7",
                             'units' => "%"
                         ]);
+                        Log::info(138);
                     break;
                     
                 }

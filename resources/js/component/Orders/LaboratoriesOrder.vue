@@ -59,6 +59,7 @@
                     <v-tab-item>
                         <labs-type-item
                             :items="hematologic"
+                            name="hematologic"
                             @returnSelection="returnHematologic"
                         />
                     </v-tab-item>
@@ -222,7 +223,7 @@ export default {
         async fetchLabs() {
             await this.$store.dispatch("laboratory/all", this.encounter.id);
         },
-        guardarLabs() {
+        async guardarLabs() {
             this.selected.push(...this.selectedOthers);
             this.selected.push(...this.selectedCere);
             this.selected.push(...this.selectedUrine);
@@ -235,9 +236,7 @@ export default {
             console.log(this.selected);
             var set = new Set(this.selected);
             var send = { encounter_id: this.encounter.id, labsType: [...set] };
-            this.$store.dispatch("laboratory/post", send).then(res => {
-                this.fetchLabs();
-            });
+            await this.$store.dispatch("laboratory/post", send)
             this.snackbar = true;
             this.selected = [];
         },

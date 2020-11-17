@@ -53,7 +53,7 @@ export default {
                     console.error("Error en get laboratories: " + err);
                 });
         },
-        async post({commit}, item) {
+        async post({commit, dispatch}, item) {
             console.log("inicio de post");
             console.log(item);
             axios
@@ -61,7 +61,8 @@ export default {
                 .then((res) => {
                     if (res.data.success)
                         console.log("post laboratories ", res.data);
-                        commit("FETCH", item);
+                        dispatch('all',item.encounter_id)
+                        
                 })
                 .catch(error =>
                     console.error(`Error con la insertada de laboratories: ${error}`)
