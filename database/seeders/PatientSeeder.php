@@ -27,7 +27,7 @@ class PatientSeeder extends Seeder
             'firstname' => 'Jose',
             'day_of_birth' => new Carbon(new DateTime('1969-02-03')),
             'age' => 51,
-            'sex' => 'male',            
+            'sex' => 'male',
             'photo_url' => '/storage/patient-photos/Patient_1.jpg'
         ]);
         DB::table('patients')->insert([
@@ -37,7 +37,7 @@ class PatientSeeder extends Seeder
             'firstname' => 'Susan',
             'day_of_birth' => new Carbon(new DateTime('1990-02-03')),
             'age' => 30,
-            'sex' => 'female',           
+            'sex' => 'female',
             'photo_url' => '/storage/patient-photos/Patient_2.jpg'
         ]);
         DB::table('patients')->insert([
@@ -47,17 +47,17 @@ class PatientSeeder extends Seeder
             'firstname' => 'Paula',
             'day_of_birth' => new Carbon(new DateTime('1989-02-03')),
             'age' => 31,
-            'sex' => 'female',            
+            'sex' => 'female',
             'photo_url' => '/storage/patient-photos/Patient_3.png'
         ]);
         DB::table('patients')->insert([
             'id' => 4,
             'mrn' => 67837,
-            'lastname' => 'Kelly',            
+            'lastname' => 'Kelly',
             'firstname' => 'Santiago',
             'day_of_birth' => new Carbon(new DateTime('1942-02-03')),
             'age' => 78,
-            'sex' => 'male',            
+            'sex' => 'male',
             'photo_url' => '/storage/patient-photos/Patient_4.png'
         ]);
         DB::table('patients')->insert([
@@ -65,10 +65,10 @@ class PatientSeeder extends Seeder
             'mrn' => 67838,
             'lastname' => 'Ramon',
             'firstname' => 'Molina',
-            'day_of_birth' => new Carbon(new DateTime('1941-02-03')),
+            'day_of_birth' => new Carbon(new DateTime('1942-01-01')),
             'age' => 79,
-            'sex' => 'male',            
-            'photo_url' => '/storage/patient-photos/Patient_5.png'
+            'sex' => 'male',
+            'photo_url' => '/storage/patient-photos/Patient_5.jpg'
         ]);
     }
 }

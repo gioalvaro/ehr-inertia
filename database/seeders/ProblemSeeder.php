@@ -179,7 +179,7 @@ class ProblemSeeder extends Seeder
             'description' => 'Type 1 diabetes mellitus'
         ]);
         DB::table('problem_types')->insert([
-            'id' =>33,
+            'id' => 33,
             'code' => 33,
             'description' => 'Type 2 diabetes mellitus'
         ]);
@@ -368,6 +368,21 @@ class ProblemSeeder extends Seeder
             'code' => 70,
             'description' => 'Overweight'
         ]);
+        DB::table('problem_types')->insert([
+            'id' => 71,
+            'code' => 71,
+            'description' => 'Benign Prostate Hypertrophy'
+        ]);
+        DB::table('problem_types')->insert([
+            'id' => 72,
+            'code' => 72,
+            'description' => 'Hypertension'
+        ]);
+        DB::table('problem_types')->insert([
+            'id' => 73,
+            'code' => 73,
+            'description' => 'High Cholesterol'
+        ]);
         DB::table('problems')->insert([
             'id' => 1,
             'encounter_id' => 1,
@@ -379,8 +394,24 @@ class ProblemSeeder extends Seeder
             'encounter_id' => 1,
             'created_at' => new Carbon(new DateTime('2019-10-08 10:15')),
             'problem_type_id' => 70
-        ]);        
-
-
+        ]);
+        DB::table('problems')->insert([
+            'id' => 3,
+            'encounter_id' => 18,
+            'created_at' => new Carbon(new DateTime('2020-07-18 10:15')),
+            'problem_type_id' => 73
+        ]);
+        DB::table('problems')->insert([
+            'id' => 4,
+            'encounter_id' => 18,
+            'created_at' => new Carbon(new DateTime('2020-07-18 10:15')),
+            'problem_type_id' => 72
+        ]);
+        DB::table('problems')->insert([
+            'id' => 5,
+            'encounter_id' => 18,
+            'created_at' => new Carbon(new DateTime('2020-07-18 10:15')),
+            'problem_type_id' => 71
+        ]);
     }
 }

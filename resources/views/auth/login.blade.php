@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <img class="logo_login" src="http://www.cnsu.edu/images/CNU_Logo_English.png" width="300" />            
+            <img class="logo_login" src="/storage/logo\CNU_Logo_English.png" width="300" />            
         </x-slot>
         <x-slot name="header">
             Electronic Medical Record

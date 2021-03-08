@@ -43,7 +43,8 @@ export default {
                 { text: "MRI", value: "MRI" },
                 { text: "CT Scan", value: "CT Scan" },
                 { text: "Endoscopy", value: "Endoscopy" },
-                { text: "Ultrasound", value: "Ultrasound" }
+                { text: "Ultrasound", value: "Ultrasound" },
+                { text: "EKG", value: "EKG" }
             ]
         };
     },
@@ -57,12 +58,14 @@ export default {
     },
     methods: {
         async fetchImaging() {
-            await this.$store.dispatch("imaging/all",this.encounter.id).then(res => {
-                if (this.imagings.length > 0) {
-                    this.select = this.imagings[0].type;
-                    console.log(this.select);
-                }
-            });
+            await this.$store
+                .dispatch("imaging/all", this.encounter.id)
+                .then(res => {
+                    if (this.imagings.length > 0) {
+                        this.select = this.imagings[0].type;
+                        console.log(this.select);
+                    }
+                });
         },
         async save() {
             var obj = {
@@ -71,7 +74,9 @@ export default {
                 encounter_id: this.encounter.id
             };
             this.summary = "";
-            await this.$store.dispatch("imaging/post", obj).then(res => {this.fetchImaging();});
+            await this.$store.dispatch("imaging/post", obj).then(res => {
+                this.fetchImaging();
+            });
         }
     }
 };

@@ -94,5 +94,39 @@ class NursingNoteSeeder extends Seeder
             
             '
         ]);
+        DB::table('nursing_notes')->insert([
+            'id' => 10,
+            'created_at' => new Carbon(new DateTime('2020-07-18 08:00')),
+            'encounter_id' => 17,
+            'nursing_type_id' => 1,
+            'note' => 'PE: VS Ht: 5’10”, Wt: 147 lbs, Heart rate: 84/minute, RR: 12/minute, Temp. 98F, BP: 129/78 mm of Hg
+CC: Establish care
+Gen: Well appearing, well nourished, pleasant
+Skin: Warm, no diaphoresis, no rash
+Head: Atraumatic
+Eyes: Wears glasses, PERRLA bilat, sclera not injected, anicteric
+
+SK, 7/18/20
+
+            
+            
+            
+            '
+        ]);
+        DB::table('nursing_notes')->insert([
+            'id' => 11,
+            'created_at' => new Carbon(new DateTime('2021-03-02 08:00')),
+            'encounter_id' => 19,
+            'nursing_type_id' => 1,
+            'note' => 'PE: VS Ht: 5’10”, Wt: 135 lbs, Heart rate: 88/minute, RR: 12/minute, Temp. 98F, BP: 135/78 mm of Hg, O2Sat: 98%
+CC: Falling
+Gen: Pleasant, somewhat anxious
+Eyes: wears glasses, PERRLA bilat, sclera not injected, anicteric
+
+EV, 03/02/2021            
+            
+            
+            '
+        ]);
     }
 }

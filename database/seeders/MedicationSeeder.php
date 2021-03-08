@@ -72,5 +72,49 @@ class MedicationSeeder extends Seeder
             'start_date' => new Carbon(new DateTime('2020-09-02')),
             'end_date' => new Carbon(new DateTime('2020-09-02'))
         ]);
+        DB::table('medications')->insert([
+            'id' => 6,
+            'medication_type_id' => 3,
+            'encounter_id' => 18,
+            'dose' => '0.4 mg',
+            'units' => 'mg',
+            'route' => 'oral',
+            'frequency' => '1 tablet/day',
+            'start_date' => new Carbon(new DateTime('2020-07-18')),
+            'end_date' => new Carbon(new DateTime('2021-04-02'))
+        ]);
+        DB::table('medications')->insert([
+            'id' => 7,
+            'medication_type_id' => 10,
+            'encounter_id' => 18,
+            'dose' => '20 mg',
+            'units' => 'mg',
+            'route' => 'oral',
+            'frequency' => '1 tablet/day',
+            'start_date' => new Carbon(new DateTime('2020-07-18')),
+            'end_date' => new Carbon(new DateTime('2021-04-02'))
+        ]);
+        DB::table('medications')->insert([
+            'id' => 8,
+            'medication_type_id' => 11,
+            'encounter_id' => 18,
+            'dose' => '25 mg',
+            'units' => 'mg',
+            'route' => 'oral',
+            'frequency' => '1 tablet/day',
+            'start_date' => new Carbon(new DateTime('2020-07-18')),
+            'end_date' => new Carbon(new DateTime('2021-04-02'))
+        ]);
+        DB::table('medications')->insert([
+            'id' => 9,
+            'medication_type_id' => 12,
+            'encounter_id' => 18,
+            'dose' => '0.5 mL IM',
+            'units' => 'mL',
+            'route' => 'IM',
+            'frequency' => '1 per year',
+            'start_date' => new Carbon(new DateTime('2020-07-18')),
+            'end_date' => new Carbon(new DateTime('2021-04-02'))
+        ]);
     }
 }

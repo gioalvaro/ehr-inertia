@@ -139,5 +139,103 @@ class PhysicianNoteSeeder extends Seeder
             
         '
         ]);
+        DB::table('physician_notes')->insert([
+            'id' => 4,
+            'created_at' => new Carbon(new DateTime('2020-07-18 12:15')),
+            'encounter_id' => 18,
+            'physician_type_id' => 9,
+            'note' => '
+            Vital Signs from that date: VS Ht: 5’10”, Wt: 147 lbs, Heart rate: 84, RR: 12, Temp. 98F, BP: 129/78
+
+            CC: new patient
+
+            HPI: Ramon Molina is a 79 y/o male who presents to clinic today to establish care as a new patient.  He moved here from San Diego, CA, last month, to be closer to family. Spouse died last year and both sons live in the San Francisco Bay area.  He did have a primary care doctor in San Diego and saw the doctor there annually. Previously, got annual flu shots.  Last colonoscopy was 2 yrs ago and was normal (per patient). Patient reports was diagnosed with high blood pressure and high cholesterol 5 years ago.  Pt is on HCTZ and atorvastatin, but is close to running out and would like refills of these meds.  Patient is also on tamulosin for enlarged prostate and needs refill of that as well.  He takes all medications regularly and as directed, but thinks the tamulosin isn’t working as well any more.  For the last month, it’s been increasingly difficult to urinate. He is still able to urinate, but he has difficulty initiating the stream of urine.  The urine stream seems weaker than it was 3 months ago.  No pain or burning with urination.  No blood in urine.  Otherwise, patient is in good health and feels well.  No headaches, chest pain, abdominal pain.  No numbness/tingling/weakness.  No recent fevers. Patient reports that he misses his spouse, but feels is adjusting well. Enjoys being closer to family here.  Doesn’t really like to cook that much – food generally tastes kind of bland. Enjoys walking the dog.  Denies feeling hopeless. No suicidal ideation.
+            
+            Allergies: Penicillin – rash; no environmental or food allergies
+
+            Medications: hydrocholorthiazide
+            Atorvastatin
+            tamulosin
+
+            PMHx: chickenpox – age 5 y/o
+            appendicitis – age 10 y/o
+            hypertension – diagnosed 2014
+            hypercholesterolemia – diagnosed 2014
+            benign prostatic hypertrophy – diagnosed 2018
+
+            PSurgHx: appendectomy – age 10 y/o
+
+            Fam Hx: Mother – died of stroke age 88 y/o
+            Father – died of heart failure age 82 y/o
+            Spouse – died 2018 from stroke age 78 y/o
+            Has twin sons - age 55 y/o – both in good health
+
+            Soc Hx: 
+            Tobacco: 1 pk/yr history (smoked a little as a teenager for 2 yr, none since then)
+            Alcohol: has 1-2 beers when sons visit – approximately 1-2 beers a month
+            Drugs: none
+
+            Patient has a dog but otherwise lives alone, spouse died last year (they were married for 50 yrs).  He is a retired postal employee (retired 15 years ago).  
+
+            ROS: 
+            Gen: denies fever, chills, night sweats
+            Skin: no rash
+            Head: no headache
+            Eyes: no eye pain, no double vision. He is near sighed and wears glasses. He has no blurry vision when he is wearing his glasses.
+            Ears: no vertigo or hearing loss, no ear pain
+            Nose/Sinus: no rhinorrhea, no sneezing or nasal itching
+            Mouth/Throat/Neck: no gum bleeding, no pain or difficulty with swallowing, no lumps or masses in the neck
+            Respiratory: no cough, no wheeze, no shortness of breath
+            Heart: no palpitations, no chest pain
+            GI: no nausea/vomiting/diarrhea, no abdominal pain, no melena
+            GU: difficulty initiating urine stream, no dysuria or hematuria, no penile discharge
+            Vascular: no lower extremity edema, no claudication
+            Musculoskeletal: no joint pain or stiffness
+            Neuro: sensation intact throughout bilat upper and lower extremities, no seizures, no vertigo or dizziness
+            Heme: no bleeding, no ecchymosis or hematomas
+            Endocrine: no change in heat/cold intolerance, no polyuria or polydipsia
+            Psych: no episodes of mania, no SI, no anxiety
+
+            PE: VS Ht: 5’10”, Wt: 147 lbs, Heart rate: 84/minute, RR: 12/minute, Temp. 98F, BP: 129/78 mm of Hg
+            Gen: well appearing, well nourished pleasant 
+            Skin: warm, no diaphoresis, no rash
+            Head: atraumatic
+            Eyes: wears glasses, PERRLA bilat, sclera not injected, anicteric
+            Ears: atraumatic, TMs pearly and intact with no erythema
+            Mouth/throat: no dentures, no gum erythema
+            Neck: no goiter
+            Heart: regular rate and rhythm, no murmurs
+            Lungs: clear to auscultation bilat
+            Abdomen: soft, nontender, not distended
+            GU: no scrotal masses, no hernia
+            Musculoskeletal: no muscle atrophy, no joint swelling or erythema
+            Neuro: CN II-XII intact
+
+            Rectal exam: mild prostatic hypertrophy, no tenderness, no hemorrhoid, brown stool, guiac neg
+
+            Assessment:
+            1.	Establish Care - Mr. Molina is here to establish care after recently moving to the area.  He has previously been diagnosed with high cholesterol, HTN, and BPH and requests med refills. Other than needing med refills, he has no current complaints.
+            2.	Hypercholesterolemia – well controlled on medication, per patient
+            3.	Hypertension – appears well controlled on current medication 
+            4.	Benign prostatic hypertrophy – has increasing BPH symptoms, no dysuria, fever or pain on rectal exam/palpation of prostate to suggest UTI or prostatitis
+
+            Plan: 
+            1.	Request medical records from previous medical doctor
+            Check baseline labs: CBC, Chem 7, cholesterol, PSA
+            2.	Continue atorvastatin 20 mg once daily – refill ordered
+            Check labs today
+            Discussed dietary changes with him
+            3.	Continue HCTZ 25 mg daily – refill ordered
+            Advised patient to check his BP at home and keep a log of his BP measurements
+            4.	Continue tamsulosin 0.4 mg daily.  Discussed the possibility of increasing the medication to 0.8mg daily, but he doesn’t want to increase his medications at this time.  I requested that he let us know if his symptoms worsen. Refill ordered.
+
+            MM (7/18/20)
+
+            
+            
+            
+            
+        '
+        ]);
     }
 }

@@ -34,32 +34,46 @@ class MedicationTypeSeeder extends Seeder
             'id' => 4,
             'description' => 'Nivolumab',
             'code' => 4
-        ]); 
+        ]);
         DB::table('medication_types')->insert([
             'id' => 5,
             'description' => 'Dilaudid',
             'code' => 5
-        ]); 
+        ]);
         DB::table('medication_types')->insert([
             'id' => 6,
             'description' => 'Zofran',
             'code' => 6
-        ]); 
+        ]);
         DB::table('medication_types')->insert([
             'id' => 7,
             'description' => 'NS',
             'code' => 7
-        ]);       
+        ]);
         DB::table('medication_types')->insert([
             'id' => 8,
             'description' => 'Iron Tablets',
             'code' => 8
-        ]); 
+        ]);
         DB::table('medication_types')->insert([
             'id' => 9,
             'description' => 'Pre Natal Vitamins',
             'code' => 9
-        ]);  
+        ]);
+        DB::table('medication_types')->insert([
+            'id' => 10,
+            'description' => 'Atorvastin',
+            'code' => 10
+        ]);
+        DB::table('medication_types')->insert([
+            'id' => 11,
+            'description' => 'Hydrochlorthiazide',
+            'code' => 11
+        ]);
+        DB::table('medication_types')->insert([
+            'id' => 12,
+            'description' => 'Afluria',
+            'code' => 12
+        ]);
     }
-    
 }

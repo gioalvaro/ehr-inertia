@@ -48,7 +48,7 @@ class ProviderSeeder extends Seeder
         DB::table('providers')->insert([
             'id' => 5,
             'lastname' => 'Kim',
-            'firstname' => 'Lele',
+            'firstname' => 'Sue',
             'title' => 'Mrs.',
             'user_id' => $user_id['id']
         ]);
@@ -100,7 +100,12 @@ class ProviderSeeder extends Seeder
             'title' => 'Mrs.',
             'user_id' => $user_id['id']
         ]);
-        
-
+        DB::table('providers')->insert([
+            'id' => 13,
+            'lastname' => 'Vidal',
+            'firstname' => 'Eugene',
+            'title' => 'Mrs.',
+            'user_id' => $user_id['id']
+        ]);
     }
 }

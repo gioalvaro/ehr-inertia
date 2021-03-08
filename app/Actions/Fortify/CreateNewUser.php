@@ -57,7 +57,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => explode(' ', $user->name, 2)[0] . "'s Team",
             'personal_team' => true,
         ]));
     }
@@ -76,7 +76,7 @@ class CreateNewUser implements CreatesNewUsers
             'firstname' => explode(' ', $user->name, 2)[0],
             'title' => 'Dr.',
         ]));
-        return Provider::where('user_id','=',$user->id)->first();
+        return Provider::where('user_id', '=', $user->id)->first();
     }
 
     /**
@@ -87,7 +87,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createEncounters(Provider $provider)
     {
-        
+
         $faker = \Faker\Factory::create();
         DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
@@ -112,10 +112,10 @@ class CreateNewUser implements CreatesNewUsers
             'test' => false,
             'open' => false
         ]);
-        $encounter = DB::table('encounters')->insertGetId([
+        DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
-            'patient_id' => 2,         
-            'department_id' => 1,   
+            'patient_id' => 2,
+            'department_id' => 1,
             'reason' => 'Difficulty in breast feeding',
             'scheduled_time' => new Carbon(new DateTime('2020-11-10 9:30')),
             'arrival_time' => new Carbon(new DateTime('2020-11-10 9:25')),
@@ -135,11 +135,11 @@ class CreateNewUser implements CreatesNewUsers
             'rr' => 12,
             'osat' => 98,
             'test' => false,
-            'open' => true
+            'open' => false
         ]);
         DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
-            'patient_id' => 3,            
+            'patient_id' => 3,
             'department_id' => 1,
             'reason' => 'Missing Period',
             'scheduled_time' => new Carbon(new DateTime('2020-10-06 10:00')),
@@ -164,7 +164,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
         DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
-            'patient_id' => 4,            
+            'patient_id' => 4,
             'department_id' => 1,
             'reason' => 'Falling',
             'scheduled_time' => new Carbon(new DateTime('2020-10-06 10:30')),
@@ -187,35 +187,29 @@ class CreateNewUser implements CreatesNewUsers
             'test' => false,
             'open' => false
         ]);
-        DB::table('encounters')->insertGetId([
+        $encounter = DB::table('encounters')->insertGetId([
             'provider_id' => $provider->id,
-            'patient_id' => 5,            
+            'patient_id' => 5,
             'department_id' => 1,
             'reason' => 'Falling',
-            'scheduled_time' => new Carbon(new DateTime('2020-10-06 11:00')),
-            'arrival_time' => new Carbon(new DateTime('2020-10-06 10:50')),
+            'scheduled_time' => new Carbon(new DateTime('2020-03-02 11:00')),
+            'arrival_time' => new Carbon(new DateTime('2020-03-02 10:50')),
             'check' => false,
             'temperature' => 36,
             'temperature_type' => 'oral',
-            'bmi' => $faker->randomNumber(2),
+            'bmi' => 18.5,
             'allergies' => 'None',
             'allergies_check' => false,
-            'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
-            'ga' => $faker->randomNumber(2),
-            'edd' => $faker->randomNumber(2),
-            'gptal' => $faker->randomNumber(2),
-            'lmp' => $faker->randomNumber(2),
-            'bp' => '120/60',
-            'hr' => 100,
-            'rr' => 25,
+            'current_vitals' => 'BP: 135/75; HR: 88; RR: 12; O2sat: 98%(RA)',
+            'bp' => '135/78',
+            'hr' => 88,
+            'rr' => 12,
             'osat' => 98,
             'test' => false,
-            'open' => false
+            'open' => true
         ]);
-        
-        return $encounter;
-        
 
+        return $encounter;
     }
 
     /**
@@ -243,7 +237,7 @@ class CreateNewUser implements CreatesNewUsers
             'medication_id' => 3,
             'discontinued' => false,
             'verified' => false
-        ]);*/
+        ]);
         DB::table('medication_verifications')->insert([
             'encounter_id' => $encounter,
             'medication_id' => 4,
@@ -255,7 +249,24 @@ class CreateNewUser implements CreatesNewUsers
             'medication_id' => 5,
             'discontinued' => false,
             'verified' => false
+        ]);*/
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 6,
+            'discontinued' => false,
+            'verified' => false
         ]);
-
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 7,
+            'discontinued' => false,
+            'verified' => false
+        ]);
+        DB::table('medication_verifications')->insert([
+            'encounter_id' => $encounter,
+            'medication_id' => 8,
+            'discontinued' => false,
+            'verified' => false
+        ]);
     }
 }

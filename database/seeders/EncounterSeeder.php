@@ -16,7 +16,7 @@ class EncounterSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         $faker = \Faker\Factory::create();
         DB::table('encounters')->insert([
             'id' => 1,
@@ -226,7 +226,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -252,7 +252,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -278,7 +278,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -304,7 +304,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -329,7 +329,7 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
@@ -350,13 +350,14 @@ class EncounterSeeder extends Seeder
             'hr' => 100,
             'rr' => 25,
             'osat' => 98,
-            'test' => true,
+            'test' => false,
             'open' => false
         ]);
         DB::table('encounters')->insert([
+            'id' => 17,
             'patient_id' => 5,
-            // 'provider_id' => Provider::factory()->create()['id'],
-            // 'department_id' => Department::inRandomOrder()->first()['id'],
+            'provider_id' => 5,
+            'department_id' => 1,
             'reason' => 'Falling',
             'scheduled_time' => $faker->dateTime(),
             'arrival_time' => $faker->dateTime(),
@@ -366,13 +367,57 @@ class EncounterSeeder extends Seeder
             'bmi' => $faker->randomNumber(2),
             'allergies' => 'None',
             'allergies_check' => false,
-            'current_vitals' => 'BP: 120/60; HR: 100; RR: 25; O2sat: 98%(RA)',
-            'bp' => '120/60',
-            'hr' => 100,
-            'rr' => 25,
+            'current_vitals' => 'BP: 135/75; HR: 88; RR: 12; O2sat: 98%(RA)',
+            'bp' => '135/78',
+            'hr' => 88,
+            'rr' => 12,
             'osat' => 98,
             'test' => true,
-            'open' => false        
+            'open' => false
+        ]);
+        DB::table('encounters')->insert([
+            'id' => 18,
+            'patient_id' => 5,
+            'provider_id' => 10,
+            'department_id' => 1,
+            'reason' => 'Falling',
+            'scheduled_time' => $faker->dateTime(),
+            'arrival_time' => $faker->dateTime(),
+            'check' => false,
+            'temperature' => 36,
+            'temperature_type' => 'oral',
+            'bmi' => $faker->randomNumber(2),
+            'allergies' => 'None',
+            'allergies_check' => false,
+            'current_vitals' => 'BP: 135/75; HR: 88; RR: 12; O2sat: 98%(RA)',
+            'bp' => '135/78',
+            'hr' => 88,
+            'rr' => 12,
+            'osat' => 98,
+            'test' => true,
+            'open' => false
+        ]);
+        DB::table('encounters')->insert([
+            'id' => 19,
+            'patient_id' => 5,
+            'provider_id' => 13,
+            'department_id' => 1,
+            'reason' => 'Falling',
+            'scheduled_time' => $faker->dateTime(),
+            'arrival_time' => $faker->dateTime(),
+            'check' => false,
+            'temperature' => 36,
+            'temperature_type' => 'oral',
+            'bmi' => $faker->randomNumber(2),
+            'allergies' => 'None',
+            'allergies_check' => false,
+            'current_vitals' => 'BP: 135/75; HR: 88; RR: 12; O2sat: 98%(RA)',
+            'bp' => '135/78',
+            'hr' => 88,
+            'rr' => 12,
+            'osat' => 98,
+            'test' => true,
+            'open' => false
         ]);
     }
 }

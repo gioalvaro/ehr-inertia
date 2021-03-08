@@ -32,23 +32,25 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12">
-                                                        ´
+                                            ´
                                             <v-select
                                                 v-model="editedItem.type"
-                                                :items="study_type"                                                
+                                                :items="study_type"
                                                 label="Study List"
                                                 item-text="text"
-                                                item-value="value"                                                    
+                                                item-value="value"
                                                 outlined
                                             ></v-select>
-                                        </v-col>                                        
+                                        </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col cols="12">
-                                                        ´
-                                            <v-textarea v-model="editedItem.observation">
+                                            ´
+                                            <v-textarea
+                                                v-model="editedItem.observation"
+                                            >
                                             </v-textarea>
-                                        </v-col>                                        
+                                        </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -117,7 +119,7 @@ export default {
     data: () => ({
         dialog: false,
         dialogDelete: false,
-        headers: [            
+        headers: [
             { text: "Type", value: "type" },
             { text: "Observation", value: "observation" },
             { text: "Result", value: "result" },
@@ -127,33 +129,32 @@ export default {
         ],
         editedIndex: -1,
         editedItem: {
-            id:0,
-            type:"",
-            result:'',
+            id: 0,
+            type: "",
+            result: "",
             encounter_id: 0,
             observation: ""
         },
         defaultItem: {
-            id:0,
-            type:"",
-            result:'',
+            id: 0,
+            type: "",
+            result: "",
             encounter_id: 0,
-            observation:""
+            observation: ""
         },
-        study_type:[
-            {text: "12 leads ECG", value:'ecg'}, 
-            {text: "Visual Field", value: 'visual'},
-            {text: "Orthostatic Test" , value: 'orthostatic'}
+        study_type: [
+            { text: "Visual Field", value: "visual" },
+            { text: "Orthostatic Test", value: "orthostatic" }
         ]
     }),
 
     computed: {
-        encounter(){
-            return this.$store.getters['encounter/encounter']
+        encounter() {
+            return this.$store.getters["encounter/encounter"];
         },
-        studies(){
-            return this.$store.getters['study/studies']
-        },       
+        studies() {
+            return this.$store.getters["study/studies"];
+        },
         formTitle() {
             return this.editedIndex === -1 ? "New Study" : "Edit Study";
         }
@@ -168,17 +169,17 @@ export default {
         }
     },
 
-    created() {        
+    created() {
         this.fetchOrCreateStudy();
     },
 
-    methods: {        
-        async fetchOrCreateStudy(){
-            await this.$store.dispatch("study/all", this.encounter.id)
-        },        
+    methods: {
+        async fetchOrCreateStudy() {
+            await this.$store.dispatch("study/all", this.encounter.id);
+        },
         editItem(item) {
             this.editedIndex = this.studies.indexOf(item);
-            this.editedItem = Object.assign({}, item);            
+            this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
@@ -188,9 +189,9 @@ export default {
             this.dialogDelete = true;
         },
 
-        async deleteItemConfirm() {            
+        async deleteItemConfirm() {
             //this.problems.splice(this.editedIndex, 1);
-            await this.$store.dispatch('study/delete',this.editedItem.id)
+            await this.$store.dispatch("study/delete", this.editedItem.id);
             this.closeDelete();
         },
 
@@ -213,11 +214,11 @@ export default {
         async save() {
             if (this.editedIndex > -1) {
                 //Object.assign(this.problems[this.editedIndex], this.editedItem)
-                await this.$store.dispatch('study/update',this.editedItem)
-            } else {                
+                await this.$store.dispatch("study/update", this.editedItem);
+            } else {
                 this.editedItem.encounter = this.encounter;
-                //this.problems.push(this.editedItem)                
-                await this.$store.dispatch('study/post',this.editedItem)
+                //this.problems.push(this.editedItem)
+                await this.$store.dispatch("study/post", this.editedItem);
             }
             this.close();
         }

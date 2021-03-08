@@ -1,8 +1,9 @@
 <template>
-    <div>       
+    <div>
         <v-row>
             <v-col>
                 <v-data-table
+                    v-if="isReady"
                     :headers="headers"
                     :items="imagings"
                     sort-by="id"
@@ -13,11 +14,15 @@
                             <v-toolbar-title>Imagings</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
-                            
                         </v-toolbar>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                        <v-icon class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110" @click="viewItem(item)" large>mdi-eye</v-icon>
+                        <v-icon
+                            class="transition duration-500 ease-in-out text-black hover:text-purple-500 transform hover:-translate-y-1 hover:scale-110"
+                            @click="viewItem(item)"
+                            large
+                            >mdi-eye</v-icon
+                        >
                     </template>
                     <template v-slot:no-data>
                         <v-btn color="primary" @click="fetchImaging">
@@ -34,10 +39,12 @@
 export default {
     name: "Imaging",
     created() {
+        this.isReady = false;
         this.fetchImaging();
     },
     data() {
         return {
+            isReady: false,
             length: 0,
             onboarding: 0,
             texto:
@@ -48,7 +55,8 @@ export default {
                 { text: "MRI", value: "2" },
                 { text: "CT", value: "3" },
                 { text: "Endoscopy", value: "4" },
-                { text: "Ultrasound", value: "5" }
+                { text: "Ultrasound", value: "5" },
+                { text: "EKG", value: "6" }
             ],
             selectedImaging: {},
             dialog: false,
@@ -73,18 +81,16 @@ export default {
             editedItem: {
                 created_at: "",
                 summary: "",
-                imaging_items:[],                
+                imaging_items: []
             },
             defaultItem: {
                 created_at: "",
                 summary: "",
-                imaging_items:[],                
+                imaging_items: []
             }
         };
     },
-    watch: {
-        
-    },
+    watch: {},
     methods: {
         viewItem(item) {
             this.$emit("viewNote", item.id);
@@ -98,12 +104,16 @@ export default {
                 this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
         },
         async fetchImaging() {
-            await this.$store.dispatch("imaging/all", this.encounter.id).then(res => {
-                if (this.imagings.length > 0) {
-                    this.select = this.imagings[0].type;
-                    console.log(this.select);
-                }
-            });
+            try {
+                const res = await this.$store.dispatch(
+                    "imaging/all",
+                    this.encounter.id
+                );
+                this.isReady = true;
+            } catch (ex) {
+                console.error("error fetching imagings");
+                console.error(ex);
+            }
         },
         close() {
             this.dialog = false;
@@ -111,14 +121,14 @@ export default {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.editedIndex = -1;
             });
-        },
+        }
     },
     computed: {
         imagings() {
             return this.$store.getters["imaging/imagings"];
         },
         encounter() {
-                return this.$store.getters['encounter/encounter'];
+            return this.$store.getters["encounter/encounter"];
         }
     }
 };
