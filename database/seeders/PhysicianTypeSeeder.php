@@ -60,5 +60,10 @@ class PhysicianTypeSeeder extends Seeder
             'description' => 'Delivery Notes',
             'code' => 9
         ]);
+        DB::table('physician_types')->insert([
+            'id' => 10,
+            'description' => 'Intake Note',
+            'code' => 10
+        ]);
     }
 }

@@ -29,36 +29,41 @@ class DepartmentSeeder extends Seeder
             'id' => 3,
             'description' => 'Internal Medicine',
             'code' => 3
-        ]);   
+        ]);
         DB::table('departments')->insert([
             'id' => 4,
             'description' => 'Urology',
             'code' => 4
-        ]);   
+        ]);
         DB::table('departments')->insert([
             'id' => 5,
             'description' => 'General Medicine',
             'code' => 5
-        ]); 
+        ]);
         DB::table('departments')->insert([
             'id' => 6,
             'description' => 'Surgery',
             'code' => 6
-        ]);   
+        ]);
         DB::table('departments')->insert([
             'id' => 7,
             'description' => 'Not Aplicable',
             'code' => 7
-        ]); 
+        ]);
         DB::table('departments')->insert([
             'id' => 8,
             'description' => 'OBGYN',
             'code' => 8
-        ]);   
+        ]);
         DB::table('departments')->insert([
             'id' => 9,
             'description' => 'Family Practice',
             'code' => 9
-        ]);       
+        ]);
+        DB::table('departments')->insert([
+            'id' => 10,
+            'description' => 'Family Medicine',
+            'code' => 10
+        ]);
     }
 }

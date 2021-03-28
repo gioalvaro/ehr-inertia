@@ -143,7 +143,7 @@ class PhysicianNoteSeeder extends Seeder
             'id' => 4,
             'created_at' => new Carbon(new DateTime('2020-07-18 12:15')),
             'encounter_id' => 18,
-            'physician_type_id' => 9,
+            'physician_type_id' => 10,
             'note' => '
             Vital Signs from that date: VS Ht: 5’10”, Wt: 147 lbs, Heart rate: 84, RR: 12, Temp. 98F, BP: 129/78
 
