@@ -401,7 +401,7 @@ class EncounterSeeder extends Seeder
             'id' => 19,
             'patient_id' => 5,
             'provider_id' => 13,
-            'department_id' => 1,
+            'department_id' => 10,
             'reason' => 'Falling',
             'scheduled_time' => $faker->dateTime(),
             'arrival_time' => $faker->dateTime(),
